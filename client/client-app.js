@@ -41,7 +41,7 @@ window.WIKI = null
 window.boot = boot
 window.Hammer = Hammer
 
-moment.locale(siteConfig.lang)
+moment.locale("zh_CN");
 
 store.commit('user/REFRESH_AUTH')
 

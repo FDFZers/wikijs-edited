@@ -3,12 +3,12 @@
     nav-header
     v-content
       v-toolbar(color='primary', dark)
-        .subheading Viewing history of #[strong /{{path}}]
+        .subheading 正在查看页面历史：#[strong /{{path}}]
         template(v-if='$vuetify.breakpoint.mdAndUp')
           v-spacer
-          .caption.blue--text.text--lighten-3.mr-4 Trail Length: {{total}}
-          .caption.blue--text.text--lighten-3 ID: {{pageId}}
-          v-btn.ml-4(depressed, color='blue darken-1', @click='goLive') Return to Live Version
+          .caption.blue--text.text--lighten-3.mr-4 记录条目：{{total}}
+          .caption.blue--text.text--lighten-3 ID：{{pageId}}
+          v-btn.ml-4(depressed, color='blue darken-1', @click='goLive') 返回最新页面
       v-container(fluid, grid-list-xl)
         v-layout(row, wrap)
           v-flex(xs12, md4)
@@ -18,7 +18,7 @@
               :color='$vuetify.theme.dark ? `grey darken-2` : `grey lighten-2`'
               :class='$vuetify.theme.dark ? `grey--text text--lighten-2` : `grey--text text--darken-2`'
               )
-              span Live
+              span 当前
             v-timeline(
               dense
               )
@@ -33,11 +33,11 @@
                   v-toolbar(flat, :color='trailBgColor(ph.actionType)', height='40')
                     .caption(:title='$options.filters.moment(ph.versionDate, `LLL`)') {{ ph.versionDate | moment('ll') }}
                     v-divider.mx-3(vertical)
-                    .caption(v-if='ph.actionType === `edit`') Edited by #[strong {{ ph.authorName }}]
-                    .caption(v-else-if='ph.actionType === `move`') Moved from #[strong {{ph.valueBefore}}] to #[strong {{ph.valueAfter}}] by #[strong {{ ph.authorName }}]
-                    .caption(v-else-if='ph.actionType === `initial`') Created by #[strong {{ ph.authorName }}]
-                    .caption(v-else-if='ph.actionType === `live`') Last Edited by #[strong {{ ph.authorName }}]
-                    .caption(v-else) Unknown Action by #[strong {{ ph.authorName }}]
+                    .caption(v-if='ph.actionType === `edit`') 修改 - #[strong {{ ph.authorName }}]（ID：#[strong {{ ph.authorId }}]）
+                    .caption(v-else-if='ph.actionType === `move`') 移动 #[strong {{ph.valueBefore}}] → #[strong {{ph.valueAfter}}] - #[strong {{ ph.authorName }}]（ID：#[strong {{ ph.authorId }}]）
+                    .caption(v-else-if='ph.actionType === `initial`') 创建 - #[strong {{ ph.authorName }}]（ID：#[strong {{ ph.authorId }}]）
+                    .caption(v-else-if='ph.actionType === `live`') 最近一次修改 - #[strong {{ ph.authorName }}]（ID：#[strong {{ ph.authorId }}]）
+                    .caption(v-else) 未知操作 - #[strong {{ ph.authorName }}]（ID：#[strong {{ ph.authorId }}]）
                     v-spacer
                     v-menu(offset-x, left)
                       template(v-slot:activator='{ on }')
@@ -45,22 +45,22 @@
                       v-list(dense, nav).history-promptmenu
                         v-list-item(@click='setDiffSource(ph.versionId)', :disabled='(ph.versionId >= diffTarget && diffTarget !== 0) || ph.versionId === 0')
                           v-list-item-avatar(size='24'): v-avatar A
-                          v-list-item-title Set as Differencing Source
+                          v-list-item-title 设为差异显示源
                         v-list-item(@click='setDiffTarget(ph.versionId)', :disabled='ph.versionId <= diffSource && ph.versionId !== 0')
                           v-list-item-avatar(size='24'): v-avatar B
-                          v-list-item-title Set as Differencing Target
+                          v-list-item-title 设为差异显示目标
                         v-list-item(@click='viewSource(ph.versionId)')
                           v-list-item-avatar(size='24'): v-icon mdi-code-tags
-                          v-list-item-title View Source
+                          v-list-item-title 查看源码
                         v-list-item(@click='download(ph.versionId)')
                           v-list-item-avatar(size='24'): v-icon mdi-cloud-download-outline
-                          v-list-item-title Download Version
+                          v-list-item-title 下载此版本
                         v-list-item(@click='restore(ph.versionId, ph.versionDate)', :disabled='ph.versionId === 0')
                           v-list-item-avatar(size='24'): v-icon(:disabled='ph.versionId === 0') mdi-history
-                          v-list-item-title Restore
+                          v-list-item-title 恢复至此版本
                         v-list-item(@click='branchOff(ph.versionId)')
                           v-list-item-avatar(size='24'): v-icon mdi-source-branch
-                          v-list-item-title Branch off from here
+                          v-list-item-title 复制此版本
                     v-btn.mr-2.radius-4(
                       @click='setDiffSource(ph.versionId)'
                       icon
@@ -86,7 +86,7 @@
               color='primary'
               @click='loadMore'
               )
-              .caption.white--text Load More...
+              .caption.white--text 加载更多...
 
             v-chip.ma-0(
               v-else
@@ -94,7 +94,7 @@
               small
               :color='$vuetify.theme.dark ? `grey darken-2` : `grey lighten-2`'
               :class='$vuetify.theme.dark ? `grey--text text--lighten-2` : `grey--text text--darken-2`'
-              ) End of history trail
+              ) 历史尽头
 
           v-flex(xs12, md8)
             v-card.radius-7(:class='$vuetify.breakpoint.mdAndUp ? `mt-8` : ``')
@@ -108,7 +108,7 @@
                     v-col.text-right.py-3(cols='2', v-if='$vuetify.breakpoint.mdAndUp')
                       v-btn.mr-3(:color='$vuetify.theme.dark ? `white` : `grey darken-3`', small, dark, outlined, @click='toggleViewMode')
                         v-icon(left) mdi-eye
-                        .overline View Mode
+                        .overline 切换显示模式
                 v-card.mt-3(light, v-html='diffHTML', flat)
 
     v-dialog(v-model='isRestoreConfirmDialogShown', max-width='650', persistent)

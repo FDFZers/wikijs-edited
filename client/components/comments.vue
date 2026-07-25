@@ -42,7 +42,7 @@
         )
     .d-flex.align-center.pt-3(v-if='permissions.write')
       v-icon.mr-1(color='blue-grey') mdi-language-markdown-outline
-      .caption.blue-grey--text {{$t('common:comments.markdownFormat')}}
+      .caption.blue-grey--text {{$t("common:comments.markdownFormat")}}
       v-spacer
       .caption.mr-3(v-if='isAuthenticated')
         i18next(tag='span', path='common:comments.postingAs')
@@ -53,7 +53,7 @@
         @click='postComment'
         depressed
         :aria-label='$t(`common:comments.postComment`)'
-        )
+      )
         v-icon(left) mdi-comment
         span.text-none {{$t('common:comments.postComment')}}
     v-divider.mt-3(v-if='permissions.write')
@@ -68,14 +68,14 @@
     v-timeline(
       dense
       v-else-if='comments && comments.length > 0'
-      )
+    )
       v-timeline-item.comments-post(
         color='pink darken-4'
         large
         v-for='cm of comments'
         :key='`comment-` + cm.id'
         :id='`comment-post-id-` + cm.id'
-        )
+      )
         template(v-slot:icon)
           v-avatar(color='blue-grey')
             //- v-img(src='http://i.pravatar.cc/64')
@@ -85,7 +85,11 @@
             .comments-post-actions(v-if='permissions.manage && !isBusy && commentEditId === 0')
               v-icon.mr-3(small, @click='editComment(cm)') mdi-pencil
               v-icon(small, @click='deleteCommentConfirm(cm)') mdi-delete
-            .comments-post-name.caption: strong {{cm.authorName}}
+            .comments-post-name.caption
+              strong {{cm.authorName}}
+              span （ID：
+              strong {{cm.authorId}}
+              span ）
             .comments-post-date.overline.grey--text {{cm.createdAt | moment('from') }} #[em(v-if='cm.createdAt !== cm.updatedAt') - {{$t('common:comments.modified', { reldate: $options.filters.moment(cm.updatedAt, 'from') })}}]
             .comments-post-content.mt-3(v-if='commentEditId !== cm.id', v-html='cm.render')
             .comments-post-editcontent.mt-3(v-else)
@@ -107,7 +111,7 @@
                   color='blue-grey darken-2'
                   @click='editCommentCancel'
                   outlined
-                  )
+                )
                   v-icon(left) mdi-close
                   span.text-none {{$t('common:actions.cancel')}}
                 v-btn(
@@ -115,7 +119,7 @@
                   color='blue-grey darken-2'
                   @click='updateComment'
                   depressed
-                  )
+                )
                   v-icon(left) mdi-comment
                   span.text-none {{$t('common:comments.updateComment')}}
     .pt-5.text-center.body-2.blue-grey--text(v-else-if='permissions.write') {{$t('common:comments.beFirst')}}
@@ -135,12 +139,12 @@
 
 <script>
 import gql from 'graphql-tag'
-import { get } from 'vuex-pathify'
+import {get} from 'vuex-pathify'
 import validate from 'validate.js'
 import _ from 'lodash'
 
 export default {
-  data () {
+  data() {
     return {
       newcomment: '',
       isLoading: true,
@@ -167,12 +171,12 @@ export default {
     userDisplayName: get('user/name')
   },
   methods: {
-    onIntersect (entries, observer, isIntersecting) {
+    onIntersect(entries, observer, isIntersecting) {
       if (isIntersecting) {
         this.fetch(true)
       }
     },
-    async fetch (silent = false) {
+    async fetch(silent = false) {
       this.isLoading = true
       try {
         const results = await this.$apollo.query({
@@ -182,6 +186,7 @@ export default {
                 list(locale: $locale, path: $path) {
                   id
                   render
+                  authorId
                   authorName
                   createdAt
                   updatedAt
@@ -220,7 +225,7 @@ export default {
     /**
      * Post New Comment
      */
-    async postComment () {
+    async postComment() {
       let rules = {
         comment: {
           presence: {
@@ -252,7 +257,7 @@ export default {
         comment: this.newcomment,
         name: this.guestName,
         email: this.guestEmail
-      }, rules, { format: 'flat' })
+      }, rules, {format: 'flat'})
 
       if (validationResults) {
         this.$store.commit('showNotification', {
@@ -327,7 +332,7 @@ export default {
     /**
      * Show Comment Editing Form
      */
-    async editComment (cm) {
+    async editComment(cm) {
       this.$store.commit(`loadingStart`, 'comments-edit')
       this.isBusy = true
       try {
@@ -365,14 +370,14 @@ export default {
     /**
      * Cancel Comment Edit
      */
-    editCommentCancel () {
+    editCommentCancel() {
       this.commentEditId = 0
       this.commentEditContent = null
     },
     /**
      * Update Comment with new content
      */
-    async updateComment () {
+    async updateComment() {
       this.$store.commit(`loadingStart`, 'comments-edit')
       this.isBusy = true
       try {
@@ -436,14 +441,14 @@ export default {
     /**
      * Show Delete Comment Confirmation Dialog
      */
-    deleteCommentConfirm (cm) {
+    deleteCommentConfirm(cm) {
       this.commentToDelete = cm
       this.deleteCommentDialogShown = true
     },
     /**
      * Delete Comment
      */
-    async deleteComment () {
+    async deleteComment() {
       this.$store.commit(`loadingStart`, 'comments-delete')
       this.isBusy = true
       this.deleteCommentDialogShown = false
