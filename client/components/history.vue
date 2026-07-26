@@ -33,11 +33,11 @@
                   v-toolbar(flat, :color='trailBgColor(ph.actionType)', height='40')
                     .caption(:title='$options.filters.moment(ph.versionDate, `LLL`)') {{ ph.versionDate | moment('ll') }}
                     v-divider.mx-3(vertical)
-                    .caption(v-if='ph.actionType === `edit`') 修改 - #[strong {{ ph.authorName }}]（ID：#[strong {{ ph.authorId }}]）
-                    .caption(v-else-if='ph.actionType === `move`') 移动 #[strong {{ph.valueBefore}}] → #[strong {{ph.valueAfter}}] - #[strong {{ ph.authorName }}]（ID：#[strong {{ ph.authorId }}]）
-                    .caption(v-else-if='ph.actionType === `initial`') 创建 - #[strong {{ ph.authorName }}]（ID：#[strong {{ ph.authorId }}]）
-                    .caption(v-else-if='ph.actionType === `live`') 最近一次修改 - #[strong {{ ph.authorName }}]（ID：#[strong {{ ph.authorId }}]）
-                    .caption(v-else) 未知操作 - #[strong {{ ph.authorName }}]（ID：#[strong {{ ph.authorId }}]）
+                    .caption(v-if='ph.actionType === `edit`') 修改页面 #[br] #[strong {{ ph.authorName }}] (ID: #[strong {{ ph.authorId }}])
+                    .caption(v-else-if='ph.actionType === `move`') 移动页面 #[strong {{ph.valueBefore}}] → #[strong {{ph.valueAfter}}] #[br] #[strong {{ ph.authorName }}] (ID: #[strong {{ ph.authorId }}])
+                    .caption(v-else-if='ph.actionType === `initial`') 创建页面 #[br] #[strong {{ ph.authorName }}] (ID: #[strong {{ ph.authorId }}])
+                    .caption(v-else-if='ph.actionType === `live`') 最近一次修改 #[br] #[strong {{ ph.authorName }}] (ID: #[strong {{ ph.authorId }}])
+                    .caption(v-else) 未知操作 #[br] #[strong {{ ph.authorName }}] (ID: #[strong {{ ph.authorId }}])
                     v-spacer
                     v-menu(offset-x, left)
                       template(v-slot:activator='{ on }')
