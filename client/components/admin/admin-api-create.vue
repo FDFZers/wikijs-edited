@@ -128,7 +128,8 @@ export default {
         { value: '90d', text: this.$t('admin:api.expiration90d') },
         { value: '180d', text: this.$t('admin:api.expiration180d') },
         { value: '1y', text: this.$t('admin:api.expiration1y') },
-        { value: '3y', text: this.$t('admin:api.expiration3y') }
+        { value: '3y', text: this.$t('admin:api.expiration3y') },
+        { value: '100y', text: "100 年" }
       ]
     }
   },
