@@ -668,6 +668,8 @@ module.exports = class User extends Model {
           text: `You've been invited to the wiki ${WIKI.config.title}: ${WIKI.config.host}/login`
         })
       }
+
+      return newUsr
     } else {
       throw new WIKI.Error.AuthAccountAlreadyExists()
     }

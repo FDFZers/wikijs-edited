@@ -68,10 +68,17 @@ module.exports = {
           throw new Error('You are not authorized to create a user with an assignment to an administrative group.')
         }
 
-        await WIKI.models.users.createNewUser(args)
+        const newUsr = await WIKI.models.users.createNewUser(args)
+
+        newUsr.providerName = providerInfo.displayName || 'Unknown'
+        newUsr.lastLoginAt = newUsr.lastLoginAt || usr.updatedAt
+        newUsr.password = ''
+        newUsr.providerId = ''
+        newUsr.tfaSecret = ''
 
         return {
-          responseResult: graphHelper.generateSuccess('User created successfully')
+          responseResult: graphHelper.generateSuccess('User created successfully'),
+          user: newUsr
         }
       } catch (err) {
         return graphHelper.generateError(err)
@@ -82,13 +89,14 @@ module.exports = {
         if (args.id <= 2) {
           throw new WIKI.Error.UserDeleteProtected()
         }
-        await WIKI.models.users.deleteUser(args.id, args.replaceId)
+        const newUsr = await WIKI.models.users.deleteUser(args.id, args.replaceId)
 
         WIKI.auth.revokeUserTokens({ id: args.id, kind: 'u' })
         WIKI.events.outbound.emit('addAuthRevoke', { id: args.id, kind: 'u' })
 
         return {
-          responseResult: graphHelper.generateSuccess('User deleted successfully')
+          responseResult: graphHelper.generateSuccess('User deleted successfully'),
+          user: newUsr
         }
       } catch (err) {
         if (err.message.indexOf('foreign') >= 0) {
