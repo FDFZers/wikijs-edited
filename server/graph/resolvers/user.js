@@ -70,8 +70,9 @@ module.exports = {
 
         const newUsr = await WIKI.models.users.createNewUser(args)
 
+        const providerInfo = _.get(WIKI.auth.strategies, newUsr.providerKey, {})
         newUsr.providerName = providerInfo.displayName || 'Unknown'
-        newUsr.lastLoginAt = newUsr.lastLoginAt || usr.updatedAt
+        newUsr.lastLoginAt = newUsr.lastLoginAt || newUsr.updatedAt
         newUsr.password = ''
         newUsr.providerId = ''
         newUsr.tfaSecret = ''
