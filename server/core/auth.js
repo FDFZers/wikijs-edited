@@ -186,8 +186,8 @@ module.exports = {
             email: 'api@localhost',
             name: 'API',
             pictureUrl: null,
-            timezone: 'America/New_York',
-            localeCode: 'en',
+            timezone: 'Asia/Shanghai',
+            localeCode: 'zh',
             permissions: _.get(WIKI.auth.groups, `${user.grp}.permissions`, []),
             groups: [user.grp],
             getGlobalPermissions () {
