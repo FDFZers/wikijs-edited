@@ -136,6 +136,13 @@ export default {
               disabled: false
             },
             {
+              permission: 'manage:comments-self',
+              hint: 'Can edit and delete self posted comments, as specified in the Page Rules',
+              warning: false,
+              restrictedForSystem: false,
+              disabled: false
+            },
+            {
               permission: 'manage:comments',
               hint: 'Can edit and delete existing comments, as specified in the Page Rules',
               warning: false,

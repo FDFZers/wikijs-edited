@@ -134,13 +134,20 @@ module.exports = class Comment extends Model {
       throw new WIKI.Error.CommentNotFound()
     }
     const page = await WIKI.models.pages.getPageFromDb(pageId)
+    const comment = await WIKI.models.comments.query().findById(id)
     if (page) {
-      if (!WIKI.auth.checkAccess(user, ['manage:comments'], {
+      const anyPerm = !WIKI.auth.checkAccess(user, ['manage:comments'], {
         path: page.path,
         locale: page.localeCode,
         tags: page.tags
-      })) {
-        throw new WIKI.Error.CommentManageForbidden()
+      })
+      const selfPerm = !WIKI.auth.checkAccess(user, ['manage:comments-self'], {
+        path: page.path,
+        locale: page.localeCode,
+        tags: page.tags
+      })
+      if (!anyPerm && (!selfPerm || user.id !== comment.authorId)) {
+        throw new WIKI.Error.CommentManageForbidden();
       }
     } else {
       throw new WIKI.Error.PageNotFound()
@@ -168,13 +175,20 @@ module.exports = class Comment extends Model {
       throw new WIKI.Error.CommentNotFound()
     }
     const page = await WIKI.models.pages.getPageFromDb(pageId)
+    const comment = await WIKI.models.comments.query().findById(id)
     if (page) {
-      if (!WIKI.auth.checkAccess(user, ['manage:comments'], {
+      const anyPerm = !WIKI.auth.checkAccess(user, ['manage:comments'], {
         path: page.path,
         locale: page.localeCode,
         tags: page.tags
-      })) {
-        throw new WIKI.Error.CommentManageForbidden()
+      })
+      const selfPerm = !WIKI.auth.checkAccess(user, ['manage:comments-self'], {
+        path: page.path,
+        locale: page.localeCode,
+        tags: page.tags
+      })
+      if (!anyPerm && (!selfPerm || user.id !== comment.authorId)) {
+        throw new WIKI.Error.CommentManageForbidden();
       }
     } else {
       throw new WIKI.Error.PageNotFound()

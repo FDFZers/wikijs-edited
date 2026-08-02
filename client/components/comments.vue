@@ -55,7 +55,7 @@
         :aria-label='$t(`common:comments.postComment`)'
       )
         v-icon(left) mdi-comment
-        span.text-none {{$t('common:comments.postComment')}}
+        span.text-none {{$t("common:comments.postComment")}}
     v-divider.mt-3(v-if='permissions.write')
     .pa-5.d-flex.align-center.justify-center(v-if='isLoading && !hasLoadedOnce')
       v-progress-circular(
@@ -82,7 +82,7 @@
             span.white--text.title {{cm.initials}}
         v-card.elevation-1
           v-card-text
-            .comments-post-actions(v-if='permissions.manage && !isBusy && commentEditId === 0')
+            .comments-post-actions(v-if='(permissions.manage || permissions.manage-self && cm.authorId === currentUserId) && !isBusy && commentEditId === 0')
               v-icon.mr-3(small, @click='editComment(cm)') mdi-pencil
               v-icon(small, @click='deleteCommentConfirm(cm)') mdi-delete
             .comments-post-name.caption
@@ -168,7 +168,8 @@ export default {
     pageId: get('page/id'),
     permissions: get('page/effectivePermissions@comments'),
     isAuthenticated: get('user/authenticated'),
-    userDisplayName: get('user/name')
+    userDisplayName: get('user/name'),
+    currentUserId: get('user/id')
   },
   methods: {
     onIntersect(entries, observer, isIntersecting) {
