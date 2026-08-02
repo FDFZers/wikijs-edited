@@ -226,7 +226,7 @@ export default {
         { text: 'Edit Styles', value: 'write:styles', icon: 'mdi-language-css3' },
         { text: 'Read Comments', value: 'read:comments', icon: 'mdi-comment-search-outline' },
         { text: 'Create Comments', value: 'write:comments', icon: 'mdi-comment-plus-outline' },
-        { text: 'Edit + Delete Comments (Self)', value: 'manage:comments-self', icon: 'mdi-comment-edit-outline' },
+        { text: 'Edit + Delete Comments (Self)', value: 'manage-self:comments', icon: 'mdi-comment-edit-outline' },
         { text: 'Edit + Delete Comments', value: 'manage:comments', icon: 'mdi-comment-remove-outline' }
       ],
       matches: [

@@ -47,11 +47,11 @@ type CommentMutation {
   update(
     id: Int!
     content: String!
-  ): CommentUpdateResponse @auth(requires: ["write:comments", "manage:comments-self", "manage:comments", "manage:system"])
+  ): CommentUpdateResponse @auth(requires: ["write:comments", "manage-self:comments", "manage:comments", "manage:system"])
 
   delete(
     id: Int!
-  ): DefaultResponse @auth(requires: ["manage:comments-self", "manage:comments", "manage:system"])
+  ): DefaultResponse @auth(requires: ["manage-self:comments", "manage:comments", "manage:system"])
 }
 
 # -----------------------------------------------
@@ -77,7 +77,7 @@ input CommentProviderInput {
 
 type CommentPost {
   id: Int!
-  content: String! @auth(requires: ["write:comments", "manage:comments-self", "manage:comments", "manage:system"])
+  content: String! @auth(requires: ["write:comments", "manage-self:comments", "manage:comments", "manage:system"])
   render: String!
   authorId: Int!
   authorName: String!

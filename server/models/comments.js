@@ -141,7 +141,7 @@ module.exports = class Comment extends Model {
         locale: page.localeCode,
         tags: page.tags
       })
-      const selfPerm = !WIKI.auth.checkAccess(user, ['manage:comments-self'], {
+      const selfPerm = !WIKI.auth.checkAccess(user, ['manage-self:comments'], {
         path: page.path,
         locale: page.localeCode,
         tags: page.tags
@@ -182,7 +182,7 @@ module.exports = class Comment extends Model {
         locale: page.localeCode,
         tags: page.tags
       })
-      const selfPerm = !WIKI.auth.checkAccess(user, ['manage:comments-self'], {
+      const selfPerm = !WIKI.auth.checkAccess(user, ['manage-self:comments'], {
         path: page.path,
         locale: page.localeCode,
         tags: page.tags
