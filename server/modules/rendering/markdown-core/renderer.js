@@ -1,6 +1,7 @@
 const md = require('markdown-it')
 const mdAttrs = require('markdown-it-attrs')
 const mdDecorate = require('markdown-it-decorate')
+const mdLinkAttrs = require('markdown-it-link-attributes')
 const _ = require('lodash')
 const underline = require('./underline')
 
@@ -44,6 +45,15 @@ module.exports = {
       allowedAttributes: ['id', 'class', 'target']
     })
     mkdown.use(mdDecorate)
+    mkdown.use(mdLinkAttrs, {
+      matcher(href) {
+        return /^https?:\/\//.test(href);
+      },
+      attrs: {
+        target: '_blank',
+        rel: 'noopener noreferrer'
+      }
+    })
 
     for (let child of this.children) {
       const renderer = require(`../${_.kebabCase(child.key)}/renderer.js`)

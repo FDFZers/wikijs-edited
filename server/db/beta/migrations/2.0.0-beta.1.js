@@ -198,7 +198,7 @@ exports.up = knex => {
       table.string('jobTitle').defaultTo('')
       table.string('location').defaultTo('')
       table.string('pictureUrl')
-      table.string('timezone').notNullable().defaultTo('America/New_York')
+      table.string('timezone').notNullable().defaultTo('Asia/Shanghai')
       table.boolean('isSystem').notNullable().defaultTo(false)
       table.boolean('isActive').notNullable().defaultTo(false)
       table.boolean('isVerified').notNullable().defaultTo(false)
@@ -262,7 +262,7 @@ exports.up = knex => {
     })
     .table('users', table => {
       table.string('providerKey').references('key').inTable('authentication').notNullable().defaultTo('local')
-      table.string('localeCode', 2).references('code').inTable('locales').notNullable().defaultTo('en')
+      table.string('localeCode', 2).references('code').inTable('locales').notNullable().defaultTo('zh')
       table.string('defaultEditor').references('key').inTable('editors').notNullable().defaultTo('markdown')
 
       table.unique(['providerKey', 'email'])
