@@ -82,7 +82,7 @@
             span.white--text.title {{cm.initials}}
         v-card.elevation-1
           v-card-text
-            .comments-post-actions(v-if='(permissions.manage || permissions.manage-self && cm.authorId === currentUserId) && !isBusy && commentEditId === 0')
+            .comments-post-actions(v-if='(permissions.manage || permissions["manage-self"] && cm.authorId === currentUserId) && !isBusy && commentEditId === 0')
               v-icon.mr-3(small, @click='editComment(cm)') mdi-pencil
               v-icon(small, @click='deleteCommentConfirm(cm)') mdi-delete
             .comments-post-name.caption

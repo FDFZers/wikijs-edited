@@ -22,7 +22,8 @@ const state = {
     comments: {
       read: false,
       write: false,
-      manage: false
+      manage: false,
+      "manage-self": false
     },
     history: {
       read: false

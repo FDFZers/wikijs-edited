@@ -498,7 +498,8 @@ module.exports = {
       comments: {
         read: WIKI.config.features.featurePageComments ? WIKI.auth.checkAccess(req.user, ['read:comments'], page) : false,
         write: WIKI.config.features.featurePageComments ? WIKI.auth.checkAccess(req.user, ['write:comments'], page) : false,
-        manage: WIKI.config.features.featurePageComments ? WIKI.auth.checkAccess(req.user, ['manage:comments'], page) : false
+        manage: WIKI.config.features.featurePageComments ? WIKI.auth.checkAccess(req.user, ['manage:comments'], page) : false,
+        'manage-self': WIKI.config.features.featurePageComments ? WIKI.auth.checkAccess(req.user, ['manage-self:comments'], page) : false
       },
       history: {
         read: WIKI.auth.checkAccess(req.user, ['read:history'], page)
