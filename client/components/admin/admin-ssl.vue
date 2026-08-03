@@ -27,32 +27,32 @@
                 v-list(two-line, dense)
                   v-list-item
                     v-list-item-avatar
-                      v-icon.primary.white--text mdi-handshake
+                      v-icon.indigo.white--text mdi-handshake
                     v-list-item-content
                       v-list-item-title {{ $t(`admin:ssl.provider`) }}
                       v-list-item-subtitle {{ providerTitle }}
                   template(v-if='info.sslProvider === `letsencrypt` && info.httpsPort > 0')
                     v-list-item
                       v-list-item-avatar
-                        v-icon.primary.white--text mdi-application
+                        v-icon.indigo.white--text mdi-application
                       v-list-item-content
                         v-list-item-title {{ $t(`admin:ssl.domain`) }}
                         v-list-item-subtitle {{ info.sslDomain }}
                     v-list-item
                       v-list-item-avatar
-                        v-icon.primary.white--text mdi-at
+                        v-icon.indigo.white--text mdi-at
                       v-list-item-content
                         v-list-item-title {{ $t('admin:ssl.subscriberEmail') }}
                         v-list-item-subtitle {{ info.sslSubscriberEmail }}
                     v-list-item
                       v-list-item-avatar
-                        v-icon.primary.white--text mdi-calendar-remove-outline
+                        v-icon.indigo.white--text mdi-calendar-remove-outline
                       v-list-item-content
                         v-list-item-title {{ $t('admin:ssl.expiration') }}
                         v-list-item-subtitle {{ info.sslExpirationDate | moment('calendar') }}
                     v-list-item
                       v-list-item-avatar
-                        v-icon.primary.white--text mdi-traffic-light
+                        v-icon.indigo.white--text mdi-traffic-light
                       v-list-item-content
                         v-list-item-title {{ $t(`admin:ssl.status`) }}
                         v-list-item-subtitle {{ info.sslStatus }}
@@ -63,7 +63,7 @@
                 v-list(two-line, dense)
                   v-list-item
                     v-list-item-avatar
-                      v-icon.primary.white--text mdi-lock-open-variant
+                      v-icon.blue.white--text mdi-lock-open-variant
                     v-list-item-content
                       v-list-item-title {{ $t(`admin:ssl.httpPort`) }}
                       v-list-item-subtitle {{ info.httpPort }}
@@ -78,7 +78,7 @@
                     v-divider
                     v-list-item
                       v-list-item-avatar
-                        v-icon.primary.white--text mdi-sign-direction
+                        v-icon.indigo.white--text mdi-sign-direction
                       v-list-item-content
                         v-list-item-title {{ $t(`admin:ssl.httpPortRedirect`) }}
                         v-list-item-subtitle {{ info.httpRedirection }}

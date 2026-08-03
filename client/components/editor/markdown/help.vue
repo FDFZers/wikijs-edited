@@ -6,9 +6,9 @@
           v-card.radius-7.animated.fadeInUp(light)
             v-card-text
               .d-flex
-                v-toolbar.radius-7(color='accent lighten-5', dense, flat, height='44')
-                  v-icon.mr-3(color='accent') mdi-information-variant
-                  .body-2.accent--text Markdown Reference
+                v-toolbar.radius-7(color='teal lighten-5', dense, flat, height='44')
+                  v-icon.mr-3(color='teal') mdi-information-variant
+                  .body-2.teal--text Markdown Reference
               .body-2.mt-3 Bold
               v-layout(row)
                 v-flex(xs6)
@@ -112,9 +112,9 @@
           v-card.radius-7.animated.fadeInUp.wait-p1s(light)
             v-card-text
               .d-flex
-                v-toolbar.radius-7(color='accent lighten-5', dense, flat, height='44')
-                  v-icon.mr-3(color='accent') mdi-information-variant
-                  .body-2.accent--text Markdown Reference (continued)
+                v-toolbar.radius-7(color='teal lighten-5', dense, flat, height='44')
+                  v-icon.mr-3(color='teal') mdi-information-variant
+                  .body-2.teal--text Markdown Reference (continued)
               .body-2.mt-3 Links
               v-layout(row)
                 v-flex(xs6)
@@ -220,9 +220,9 @@
         v-flex(xs12, xl4)
           v-card.radius-7.animated.fadeInUp.wait-p2s(light)
             v-card-text
-              v-toolbar.radius-7(color='accent lighten-5', dense, flat)
-                v-icon.mr-3(color='accent') mdi-keyboard
-                .body-2.accent--text Keyboard Shortcuts
+              v-toolbar.radius-7(color='teal lighten-5', dense, flat)
+                v-icon.mr-3(color='teal') mdi-keyboard
+                .body-2.teal--text Keyboard Shortcuts
               v-list.editor-markdown-help-kbd(two-line, dense)
                 v-list-item
                   v-list-item-content.body-2 Bold
@@ -260,9 +260,9 @@
 
           v-card.radius-7.animated.fadeInUp.wait-p3s.mt-3(light)
             v-card-text
-              v-toolbar.radius-7(color='accent lighten-5', dense, flat)
-                v-icon.mr-3(color='accent') mdi-mouse
-                .body-2.accent--text Multi-Selection
+              v-toolbar.radius-7(color='teal lighten-5', dense, flat)
+                v-icon.mr-3(color='teal') mdi-mouse
+                .body-2.teal--text Multi-Selection
               v-list.editor-markdown-help-kbd(two-line, dense)
                 v-list-item
                   v-list-item-content.body-2 Multiple Cursors

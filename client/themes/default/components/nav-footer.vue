@@ -56,31 +56,19 @@ export default {
 
 <style lang="scss">
   .v-footer {
-    border-radius: var(--m3-shape-lg) var(--m3-shape-lg) 0 0;
-    box-shadow: 0 -1px 0 0 var(--m3-outline-variant);
-
     a {
       text-decoration: none;
-      transition: color var(--m3-motion-short) var(--m3-easing-standard);
-
-      &:hover {
-        color: var(--m3-primary);
-      }
     }
 
     &.altbg {
-      background: linear-gradient(135deg, var(--m3-primary), var(--m3-tertiary));
+      background: mc('theme', 'primary');
 
       span {
-        color: var(--m3-on-primary);
+        color: mc('blue', '300');
       }
 
       a {
-        color: var(--m3-on-primary);
-
-        &:hover {
-          color: var(--m3-on-primary-container);
-        }
+        color: mc('blue', '200');
       }
     }
   }

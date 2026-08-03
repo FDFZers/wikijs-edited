@@ -92,8 +92,8 @@
             lg3
             xl2
             )
-            v-card.page-toc-card.mb-5.is-liftable(v-if='tocDecoded.length')
-              .overline.pa-5.pb-0(:class='$vuetify.theme.dark ? `primary--text text--lighten-2` : `primary--text`') {{$t('common:page.toc')}}
+            v-card.page-toc-card.mb-5(v-if='tocDecoded.length')
+              .overline.pa-5.pb-0(:class='$vuetify.theme.dark ? `blue--text text--lighten-2` : `primary--text`') {{$t('common:page.toc')}}
               v-list.pb-3(dense, nav, :class='$vuetify.theme.dark ? `darken-3-d3` : ``')
                 template(v-for='(tocItem, tocIdx) in tocDecoded')
                   v-list-item(@click='$vuetify.goTo(tocItem.anchor, scrollOpts)')
@@ -106,29 +106,29 @@
                       v-list-item-title.px-3.caption.grey--text(:class='$vuetify.theme.dark ? `text--lighten-1` : `text--darken-1`') {{tocSubItem.title}}
                     //- v-divider(inset, v-if='tocIdx < toc.length - 1')
 
-            v-card.page-tags-card.mb-5.is-liftable(v-if='tags.length > 0')
+            v-card.page-tags-card.mb-5(v-if='tags.length > 0')
               .pa-5
-                .overline.accent--text.pb-2(:class='$vuetify.theme.dark ? `text--lighten-3` : ``') {{$t('common:page.tags')}}
+                .overline.teal--text.pb-2(:class='$vuetify.theme.dark ? `text--lighten-3` : ``') {{$t('common:page.tags')}}
                 v-chip.mr-1.mb-1(
                   label
-                  :color='$vuetify.theme.dark ? `accent darken-1` : `accent lighten-5`'
+                  :color='$vuetify.theme.dark ? `teal darken-1` : `teal lighten-5`'
                   v-for='(tag, idx) in tags'
                   :href='`/t/` + tag.tag'
                   :key='`tag-` + tag.tag'
                   )
-                  v-icon(:color='$vuetify.theme.dark ? `accent lighten-3` : `accent`', left, small) mdi-tag
-                  span(:class='$vuetify.theme.dark ? `accent--text text--lighten-5` : `accent--text text--darken-2`') {{tag.title}}
+                  v-icon(:color='$vuetify.theme.dark ? `teal lighten-3` : `teal`', left, small) mdi-tag
+                  span(:class='$vuetify.theme.dark ? `teal--text text--lighten-5` : `teal--text text--darken-2`') {{tag.title}}
                 v-chip.mr-1.mb-1(
                   label
-                  :color='$vuetify.theme.dark ? `accent darken-1` : `accent lighten-5`'
+                  :color='$vuetify.theme.dark ? `teal darken-1` : `teal lighten-5`'
                   :href='`/t/` + tags.map(t => t.tag).join(`/`)'
                   :aria-label='$t(`common:page.tagsMatching`)'
                   )
-                  v-icon(:color='$vuetify.theme.dark ? `accent lighten-3` : `accent`', size='20') mdi-tag-multiple
+                  v-icon(:color='$vuetify.theme.dark ? `teal lighten-3` : `teal`', size='20') mdi-tag-multiple
 
-            v-card.page-comments-card.mb-5.is-liftable(v-if='commentsEnabled && commentsPerms.read')
+            v-card.page-comments-card.mb-5(v-if='commentsEnabled && commentsPerms.read')
               .pa-5
-                .overline.pb-2.secondary--text.d-flex.align-center(:class='$vuetify.theme.dark ? `text--lighten-3` : `text--darken-2`')
+                .overline.pb-2.blue-grey--text.d-flex.align-center(:class='$vuetify.theme.dark ? `text--lighten-3` : `text--darken-2`')
                   span {{$t('common:comments.sdTitle')}}
                   //- v-spacer
                   //- v-chip.text-center(
@@ -143,12 +143,12 @@
                 .d-flex
                   v-btn.text-none(
                     @click='goToComments()'
-                    :color='$vuetify.theme.dark ? `secondary` : `secondary darken-1`'
+                    :color='$vuetify.theme.dark ? `blue-grey` : `blue-grey darken-2`'
                     outlined
                     style='flex: 1 1 100%;'
                     small
                     )
-                    span.secondary--text(:class='$vuetify.theme.dark ? `text--lighten-1` : `text--darken-2`') {{$t('common:comments.viewDiscussion')}}
+                    span.blue-grey--text(:class='$vuetify.theme.dark ? `text--lighten-1` : `text--darken-2`') {{$t('common:comments.viewDiscussion')}}
                   v-tooltip(right, v-if='commentsPerms.write')
                     template(v-slot:activator='{ on }')
                       v-btn.ml-2(
@@ -156,15 +156,15 @@
                         v-on='on'
                         outlined
                         small
-                        :color='$vuetify.theme.dark ? `secondary` : `secondary darken-1`'
+                        :color='$vuetify.theme.dark ? `blue-grey` : `blue-grey darken-2`'
                         :aria-label='$t(`common:comments.newComment`)'
                         )
-                        v-icon(:color='$vuetify.theme.dark ? `secondary lighten-1` : `secondary darken-1`', dense) mdi-comment-plus
+                        v-icon(:color='$vuetify.theme.dark ? `blue-grey lighten-1` : `blue-grey darken-2`', dense) mdi-comment-plus
                     span {{$t('common:comments.newComment')}}
 
-            v-card.page-author-card.mb-5.is-liftable
+            v-card.page-author-card.mb-5
               .pa-5
-                .overline.d-flex(:class='$vuetify.theme.dark ? `text--lighten-3` : ``', style='color: var(--m3-primary);')
+                .overline.indigo--text.d-flex(:class='$vuetify.theme.dark ? `text--lighten-3` : ``')
                   span {{$t('common:page.lastEditedBy')}}
                   v-spacer
                   v-tooltip(right, v-if='isAuthenticated')
@@ -177,7 +177,7 @@
                         v-if='hasReadHistoryPermission'
                         :aria-label='$t(`common:header.history`)'
                         )
-                        v-icon(:color='`var(--m3-primary)`', dense) mdi-history
+                        v-icon(color='indigo', dense) mdi-history
                     span {{$t('common:header.history')}}
                 .page-author-card-name.body-2.grey--text(:class='$vuetify.theme.dark ? `` : `text--darken-3`') {{ authorName }} (ID: {{ authorId }})
                 .page-author-card-date.caption.grey--text.text--darken-1 {{ updatedAt | moment('calendar') }}
@@ -749,8 +749,6 @@ export default {
 
 .page-header-section {
   position: relative;
-  background-image: linear-gradient(135deg, var(--m3-primary-container), var(--m3-tertiary-container)) !important;
-  transition: background var(--m3-motion-med) var(--m3-easing-standard);
 
   > .is-page-header {
     position: relative;
@@ -761,53 +759,39 @@ export default {
     display: flex;
     justify-content: center;
     flex-direction: column;
-
-    .headline {
-      color: var(--m3-on-primary-container) !important;
-      font-weight: 500;
-      letter-spacing: .25px;
-    }
-
-    .caption {
-      color: var(--m3-on-surface-variant) !important;
-      opacity: .85;
-    }
   }
 
   .page-edit-shortcuts {
     position: absolute;
     bottom: -33px;
     right: 10px;
-    display: flex;
-    gap: 2px;
 
     .v-btn {
-      border-radius: var(--m3-shape-sm);
-      color: var(--m3-on-surface-variant);
-      background-color: var(--m3-surface) !important;
-      box-shadow: var(--m3-elevation-1);
-      transition:
-        transform var(--m3-motion-short) var(--m3-easing-standard),
-        box-shadow var(--m3-motion-short) var(--m3-easing-standard),
-        color var(--m3-motion-short) var(--m3-easing-standard),
-        background-color var(--m3-motion-short) var(--m3-easing-standard);
+      border-right: 1px solid #DDD !important;
+      border-bottom: 1px solid #DDD !important;
+      border-radius: 0;
+      color: #777;
+      background-color: #FFF !important;
 
-      &:hover {
-        transform: translateY(-2px);
-        box-shadow: var(--m3-elevation-2);
-      }
-
-      &:active {
-        transform: translateY(0) scale(.96);
+      @at-root .theme--dark & {
+        background-color: #222 !important;
+        border-right-color: #444 !important;
+        border-bottom-color: #444 !important;
+        color: #CCC;
       }
 
       .v-icon {
-        color: var(--m3-primary);
-        transition: transform var(--m3-motion-med) var(--m3-easing-emphasized);
+        color: mc('blue', '700');
       }
 
-      &:hover .v-icon {
-        transform: translateY(-1px);
+      &:first-child {
+        border-top-left-radius: 5px;
+        border-bottom-left-radius: 5px;
+      }
+
+      &:last-child {
+        border-top-right-radius: 5px;
+        border-bottom-right-radius: 5px;
       }
     }
   }

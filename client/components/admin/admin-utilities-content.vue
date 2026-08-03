@@ -21,7 +21,7 @@
         persistent
         max-width='450'
         )
-        v-card(color='primary', dark)
+        v-card(color='blue darken-2', dark)
           v-card-text.pa-10.text-center
             semipolar-spinner.animated.fadeIn(
               :animation-duration='1500'

@@ -5,7 +5,7 @@
         .admin-header
           img.animated.fadeInUp(src='/_assets/svg/icon-male-user.svg', :alt='$t(`admin:users.edit`)', style='width: 80px;')
           .admin-header-title
-            .headline.primary--text.text--darken-2.animated.fadeInLeft {{$t('admin:users.edit')}}
+            .headline.blue--text.text--darken-2.animated.fadeInLeft {{$t('admin:users.edit')}}
             .subtitle-1.grey--text.animated.fadeInLeft.wait-p2s {{user.name}}
           v-spacer
           i18next.pr-4.caption.grey--text.animated.fadeInDown(path='admin:users.id', tag='div')
@@ -18,7 +18,7 @@
             .caption.red--text {{$t('admin:users.inactive')}}
           template(v-if='user.isVerified')
             status-indicator.mr-3.ml-4(active, pulse)
-            .caption.primary--text {{$t('admin:users.verified')}}
+            .caption.blue--text {{$t('admin:users.verified')}}
           template(v-else)
             status-indicator.mr-3.ml-4(intermediary, pulse)
             .caption.deep-orange--text {{$t('admin:users.unverified')}}
@@ -41,7 +41,7 @@
                 v-list-item-title Deactivate
               v-list-item(@click='verifyUser', :disabled='user.isVerified')
                 v-list-item-icon
-                  v-icon(color='primary') mdi-account-check
+                  v-icon(color='blue') mdi-account-check
                 v-list-item-title Set as Verified
               v-list-item(@click='deleteUserConfirm', :disabled='user.id == currentUserId || user.isSystem')
                 v-list-item-icon
@@ -326,7 +326,7 @@
                     )
 
         v-card.mt-3.animated.fadeInUp.wait-p4s
-          v-toolbar(color='accent', dark, dense, flat)
+          v-toolbar(color='teal', dark, dense, flat)
             v-toolbar-title
               .subtitle-1 {{$t('profile:activity.title')}}
           v-card-text.grey--text.text--darken-2
@@ -338,7 +338,7 @@
             .body-2: strong {{ user.lastLoginAt | moment('LLLL') }}
 
         //- v-card.mt-3.animated.fadeInUp.wait-p6s
-        //-   v-toolbar(color='accent', dense, dark, flat)
+        //-   v-toolbar(color='teal', dense, dark, flat)
         //-     v-icon.mr-2 mdi-file-document-box-multiple-outline
         //-     span Content
         //-   v-card-text

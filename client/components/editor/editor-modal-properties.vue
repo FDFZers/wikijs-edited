@@ -17,7 +17,7 @@
         v-icon(left) mdi-check
         span {{ $t('common:actions.ok') }}
     v-card(tile)
-      v-tabs(:color='$vuetify.theme.dark ? `grey darken-3` : `white`', :background-color='$vuetify.theme.dark ? `grey darken-4` : `primary`', dark, centered, v-model='currentTab')
+      v-tabs(color='white', background-color='blue darken-1', dark, centered, v-model='currentTab')
         v-tab {{$t('editor:props.info')}}
         v-tab {{$t('editor:props.scheduling')}}
         v-tab(:disabled='!hasScriptPermission') {{$t('editor:props.scripts')}}
@@ -75,8 +75,8 @@
                 :key='`tag-` + tag'
                 close
                 label
-                color='accent'
-                text-color='accent lighten-5'
+                color='teal'
+                text-color='teal lighten-5'
                 @click:close='removeTag(tag)'
                 ) {{tag}}
             v-combobox(

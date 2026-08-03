@@ -3,10 +3,10 @@
   color: #e0e0e0;
 }
 .cm-s-wikijs-dark div.CodeMirror-selected {
-  background: mc('indigo','800');
+  background: mc('blue','800');
 }
 .cm-s-wikijs-dark .cm-matchhighlight {
-  background: mc('indigo','800');
+  background: mc('blue','800');
 }
 .cm-s-wikijs-dark .CodeMirror-line::selection, .cm-s-wikijs-dark .CodeMirror-line > span::selection, .cm-s-wikijs-dark .CodeMirror-line > span > span::selection {
   background: mc('amber', '500');
@@ -90,10 +90,10 @@
 
 .cm-s-wikijs-dark .CodeMirror-buttonmarker {
   display: inline-block;
-  background-color: rgba(mc('indigo', '500'), .3);
-  border: 1px solid mc('indigo', '800');
+  background-color: rgba(mc('blue', '500'), .3);
+  border: 1px solid mc('blue', '800');
   padding: 1px 10px;
-  color: mc('indigo', '200') !important;
+  color: mc('blue', '200') !important;
   border-radius: 5px;
   margin-left: 5px;
   cursor: pointer;

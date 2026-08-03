@@ -12,12 +12,12 @@
             )
             transition(name='fadeUp')
               v-card.elevation-5.md2(v-show='isShown')
-                v-toolbar(color='primary', flat, dense, dark)
+                v-toolbar(color='indigo', flat, dense, dark)
                   v-spacer
                   .subheading {{ $t('auth:registerTitle') }}
                   v-spacer
                 v-card-text.text-center
-                  h1.display-1.primary--text.py-2 {{ siteTitle }}
+                  h1.display-1.indigo--text.py-2 {{ siteTitle }}
                   .body-2 {{ $t('auth:registerSubTitle') }}
                   v-text-field.md2.mt-3(
                     solo
@@ -28,7 +28,7 @@
                     ref='iptEmail'
                     v-model='email'
                     :placeholder='$t("auth:fields.email")'
-                    color='primary'
+                    color='indigo'
                     )
                   v-text-field.md2.mt-2(
                     solo
@@ -41,7 +41,7 @@
                     @click:append='() => (hidePassword = !hidePassword)'
                     :type='hidePassword ? "password" : "text"'
                     :placeholder='$t("auth:fields.password")'
-                    color='primary'
+                    color='indigo'
                     loading
                     counter='255'
                     )
@@ -57,7 +57,7 @@
                     @click:append='() => (hidePassword = !hidePassword)'
                     type='password'
                     :placeholder='$t("auth:fields.verifyPassword")'
-                    color='primary'
+                    color='indigo'
                   )
                   v-text-field.md2.mt-2(
                     solo
@@ -68,7 +68,7 @@
                     v-model='name'
                     :placeholder='$t("auth:fields.name")'
                     @keyup.enter='register'
-                    color='primary'
+                    color='indigo'
                     counter='255'
                     )
                 v-card-actions.pb-4
@@ -78,7 +78,7 @@
                     max-width='250px'
                     large
                     dark
-                    color='primary'
+                    color='indigo'
                     @click='register'
                     rounded
                     :loading='isLoading'

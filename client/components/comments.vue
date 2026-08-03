@@ -9,7 +9,7 @@
       rows='3'
       hide-details
       v-model='newcomment'
-      color='secondary'
+      color='blue-grey darken-2'
       :background-color='$vuetify.theme.dark ? `grey darken-5` : `white`'
       v-if='permissions.write'
       :aria-label='$t(`common:comments.fieldContent`)'
@@ -18,7 +18,7 @@
       v-col(cols='12', lg='6')
         v-text-field(
           outlined
-          color='secondary'
+          color='blue-grey darken-2'
           :background-color='$vuetify.theme.dark ? `grey darken-5` : `white`'
           :placeholder='$t(`common:comments.fieldName`)'
           hide-details
@@ -30,7 +30,7 @@
       v-col(cols='12', lg='6')
         v-text-field(
           outlined
-          color='secondary'
+          color='blue-grey darken-2'
           :background-color='$vuetify.theme.dark ? `grey darken-5` : `white`'
           :placeholder='$t(`common:comments.fieldEmail`)'
           hide-details
@@ -41,15 +41,15 @@
           :aria-label='$t(`common:comments.fieldEmail`)'
         )
     .d-flex.align-center.pt-3(v-if='permissions.write')
-      v-icon.mr-1(color='secondary') mdi-language-markdown-outline
-      .caption.secondary--text {{$t("common:comments.markdownFormat")}}
+      v-icon.mr-1(color='blue-grey') mdi-language-markdown-outline
+      .caption.blue-grey--text {{$t("common:comments.markdownFormat")}}
       v-spacer
       .caption.mr-3(v-if='isAuthenticated')
         i18next(tag='span', path='common:comments.postingAs')
           strong(place='name') {{userDisplayName}}
       v-btn(
         dark
-        color='secondary'
+        color='blue-grey darken-2'
         @click='postComment'
         depressed
         :aria-label='$t(`common:comments.postComment`)'
@@ -62,9 +62,9 @@
         indeterminate
         size='20'
         width='1'
-        color='secondary'
+        color='blue-grey'
       )
-      .caption.secondary--text.pl-3: em {{$t('common:comments.loading')}}
+      .caption.blue-grey--text.pl-3: em {{$t('common:comments.loading')}}
     v-timeline(
       dense
       v-else-if='comments && comments.length > 0'
@@ -77,8 +77,9 @@
         :id='`comment-post-id-` + cm.id'
       )
         template(v-slot:icon)
-          v-avatar(:color='$vuetify.theme.dark ? `secondary darken-2` : `secondary`')
-            span.title(:class='$vuetify.theme.dark ? `grey--text text--lighten-4` : `white--text`') {{cm.initials}}
+          v-avatar(color='blue-grey')
+            //- v-img(src='http://i.pravatar.cc/64')
+            span.white--text.title {{cm.initials}}
         v-card.elevation-1
           v-card-text
             .comments-post-actions(v-if='(permissions.manage || permissions["manage-self"] && cm.authorId === currentUserId) && !isBusy && commentEditId === 0')
@@ -100,14 +101,14 @@
                 rows='3'
                 hide-details
                 v-model='commentEditContent'
-                color='secondary'
+                color='blue-grey darken-2'
                 :background-color='$vuetify.theme.dark ? `grey darken-5` : `white`'
               )
               .d-flex.align-center.pt-3
                 v-spacer
                 v-btn.mr-3(
                   dark
-                  color='secondary'
+                  color='blue-grey darken-2'
                   @click='editCommentCancel'
                   outlined
                 )
@@ -115,14 +116,14 @@
                   span.text-none {{$t('common:actions.cancel')}}
                 v-btn(
                   dark
-                  color='secondary'
+                  color='blue-grey darken-2'
                   @click='updateComment'
                   depressed
                 )
                   v-icon(left) mdi-comment
                   span.text-none {{$t('common:comments.updateComment')}}
-    .pt-5.text-center.body-2.secondary--text(v-else-if='permissions.write') {{$t('common:comments.beFirst')}}
-    .text-center.body-2.secondary--text(v-else) {{$t('common:comments.none')}}
+    .pt-5.text-center.body-2.blue-grey--text(v-else-if='permissions.write') {{$t('common:comments.beFirst')}}
+    .text-center.body-2.blue-grey--text(v-else) {{$t('common:comments.none')}}
 
     v-dialog(v-model='deleteCommentDialogShown', max-width='500')
       v-card
@@ -544,11 +545,11 @@ export default {
     pre > code {
       margin-top: 1rem;
       padding: 12px;
-      background-color: var(--m3-surface-variant);
+      background-color: #111;
       box-shadow: none;
       border-radius: 5px;
       width: 100%;
-      color: var(--m3-on-surface);
+      color: #FFF;
       font-weight: 400;
       font-size: .85rem;
       font-family: Roboto Mono, monospace;

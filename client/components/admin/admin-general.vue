@@ -118,13 +118,13 @@
 
             v-flex(lg6 xs12)
               v-card.animated.fadeInUp.wait-p4s
-                v-toolbar(color='primary', dark, dense, flat)
+                v-toolbar(color='indigo', dark, dense, flat)
                   v-toolbar-title.subtitle-1 Features
                 v-card-text
                   //- v-switch(
                   //-   inset
                   //-   label='Asset Image Optimization'
-                  //-   color='primary'
+                  //-   color='indigo'
                   //-   v-model='config.featureTinyPNG'
                   //-   persistent-hint
                   //-   hint='Image optimization tool to reduce filesize and bandwidth costs.'
@@ -145,7 +145,7 @@
                   //- v-switch(
                   //-   inset
                   //-   label='Page Ratings'
-                  //-   color='primary'
+                  //-   color='indigo'
                   //-   v-model='config.featurePageRatings'
                   //-   persistent-hint
                   //-   hint='Allow users to rate pages.'
@@ -156,7 +156,7 @@
                   v-switch.mt-0(
                     inset
                     label='Comments'
-                    color='primary'
+                    color='indigo'
                     v-model='config.featurePageComments'
                     persistent-hint
                     hint='Allow users to leave comments on pages.'
@@ -166,7 +166,7 @@
                   //- v-switch(
                   //-   inset
                   //-   label='Personal Wikis'
-                  //-   color='primary'
+                  //-   color='indigo'
                   //-   v-model='config.featurePersonalWikis'
                   //-   persistent-hint
                   //-   hint='Allow users to have their own personal wiki.'

@@ -5,7 +5,7 @@
         .admin-header
           img.animated.fadeInUp(src='/_assets/svg/icon-view-details.svg', alt='Edit Page', style='width: 80px;')
           .admin-header-title
-            .headline.primary--text.text--darken-2.animated.fadeInLeft Page Details
+            .headline.blue--text.text--darken-2.animated.fadeInLeft Page Details
             .subtitle-1.grey--text.animated.fadeInLeft.wait-p2s
               v-chip.ml-0.mr-2(label, small).caption ID {{page.id}}
               span /{{page.locale}}/{{page.path}}
@@ -21,7 +21,7 @@
             .caption.deep-orange--text {{$t('common:page.private')}}
           template(v-else)
             status-indicator.mr-3.ml-4(active, pulse)
-            .caption.primary--text {{$t('common:page.global')}}
+            .caption.blue--text {{$t('common:page.global')}}
           v-spacer
           v-btn.animated.fadeInDown.wait-p3s(color='grey', icon, outlined, to='/pages')
             v-icon mdi-arrow-left
@@ -33,11 +33,11 @@
             v-list(dense, nav)
               v-list-item(:href='`/` + page.locale + `/` + page.path')
                 v-list-item-icon
-                  v-icon(color='primary') mdi-text-subject
+                  v-icon(color='indigo') mdi-text-subject
                 v-list-item-title View
               v-list-item(:href='`/e/` + page.locale + `/` + page.path')
                 v-list-item-icon
-                  v-icon(color='primary') mdi-pencil
+                  v-icon(color='indigo') mdi-pencil
                 v-list-item-title Edit
               //- v-list-item(@click='', disabled)
               //-   v-list-item-icon
@@ -49,11 +49,11 @@
               //-   v-list-item-title Unpublish
               v-list-item(:href='`/s/` + page.locale + `/` + page.path')
                 v-list-item-icon
-                  v-icon(color='primary') mdi-code-tags
+                  v-icon(color='indigo') mdi-code-tags
                 v-list-item-title View Source
               v-list-item(:href='`/h/` + page.locale + `/` + page.path')
                 v-list-item-icon
-                  v-icon(color='primary') mdi-history
+                  v-icon(color='indigo') mdi-history
                 v-list-item-title View History
               //- v-list-item(@click='', disabled)
               //-   v-list-item-icon

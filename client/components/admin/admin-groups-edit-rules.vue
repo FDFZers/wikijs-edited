@@ -50,7 +50,7 @@
       v-card-text(:class='$vuetify.theme.dark ? `grey darken-4-l5` : `white`')
         .rules
           .caption(v-if='group.pageRules.length === 0')
-            em(:class='$vuetify.theme.dark ? `grey--text` : `secondary--text`') This group has no page rules yet.
+            em(:class='$vuetify.theme.dark ? `grey--text` : `blue-grey--text`') This group has no page rules yet.
           .rule(v-for='rule of group.pageRules', :key='rule.id')
             v-btn.ma-0.radius-4.rule-deny-btn(
               solo
@@ -108,7 +108,7 @@
                 .body-2 {{item.text}}
               template(slot='item', slot-scope='data')
                 v-list-item-avatar
-                  v-avatar.white--text.radius-4(color='primary', size='30', tile) {{ data.item.icon }}
+                  v-avatar.white--text.radius-4(color='blue', size='30', tile) {{ data.item.icon }}
                 v-list-item-content
                   v-list-item-title(v-html='data.item.text')
             //- Locales
@@ -172,7 +172,7 @@
         v-divider.mt-3
         .overline.py-3 Rules Order
         .body-2.pl-3 Rules are applied in order of path specificity. A more precise path will always override a less defined path.
-        .body-2.pl-5 For example, #[span.accent--text /geography/countries] will override #[span.accent--text /geography].
+        .body-2.pl-5 For example, #[span.teal--text /geography/countries] will override #[span.teal--text /geography].
         .body-2.pl-3.pt-2 When 2 rules have the same specificity, the priority is given from lowest to highest as follows:
         .body-2.pl-3.pt-1
           ul

@@ -18,13 +18,13 @@
   // ---------------------------------
 
   a {
-    color: var(--m3-primary);
+    color: mc('blue', '700');
 
     &.is-internal-link.is-invalid-page {
-      color: var(--m3-error);
+      color: mc('red', '700');
 
       @at-root .theme--dark & {
-        color: var(--m3-error);
+        color: mc('red', '200');
       }
     }
 
@@ -37,13 +37,13 @@
         padding-left: 3px;
         display: inline-block;
         content: '\F03CC';
-        color: var(--m3-outline);
+        color: mc('grey', '500');
         text-decoration: none;
       }
     }
 
     @at-root .theme--dark & {
-      color: var(--m3-primary);
+      color: mc('blue', '200');
     }
   }
 
@@ -85,12 +85,12 @@
 
   h1 {
     padding: 0;
-    color: var(--m3-on-surface);
+    color: mc('blue', '800');
     margin-top: 2rem;
     position: relative;
 
     @at-root .theme--dark & {
-      color: var(--m3-on-surface);
+      color: mc('grey', '300');
     }
 
     &::after {
@@ -99,29 +99,29 @@
       bottom: 0;
       left: 0;
       width: 100%;
-      height: 3px;
-      background: linear-gradient(to right, var(--m3-primary), rgba(var(--m3-primary-rgb), 0));
+      height: 2px;
+      background: linear-gradient(to right, mc('theme', 'primary'), rgba(mc('theme', 'primary'), 0));
       border-radius: 3px;
 
       @at-root .theme--dark & {
-        background: linear-gradient(to right, var(--m3-primary), rgba(var(--m3-primary-rgb), 0));
+        background: linear-gradient(to right, mc('blue', '300') 0%, mc('blue', '500') 10%, rgba(mc('blue', '900'), 0) 100%);
       }
 
       @at-root .is-rtl & {
-        background: linear-gradient(to left, var(--m3-primary), rgba(var(--m3-primary-rgb), 0));
+        background: linear-gradient(to left, mc('theme', 'primary'), rgba(mc('theme', 'primary'), 0));
       }
       @at-root .theme--dark.is-rtl & {
-        background: linear-gradient(to left, var(--m3-primary), rgba(var(--m3-primary-rgb), 0));
+        background: linear-gradient(to left, mc('grey', '600'), rgba(mc('grey', '600'), 0));
       }
     }
   }
   h2 {
     margin: 1rem 0 0 0;
-    color: var(--m3-on-surface);
+    color: mc('grey', '800');
     position: relative;
 
     @at-root .theme--dark & {
-      color: var(--m3-on-surface);
+      color: mc('grey', '400');
     }
 
     &::after {
@@ -131,27 +131,27 @@
       left: 0;
       width: 100%;
       height: 1px;
-      background: linear-gradient(to right, var(--m3-outline), rgba(var(--m3-outline-rgb), 0));
+      background: linear-gradient(to right, mc('grey', '700'), rgba(mc('grey', '700'), 0));
 
       @at-root .theme--dark & {
-        background: linear-gradient(to right, var(--m3-outline), rgba(var(--m3-outline-rgb), 0));
+        background: linear-gradient(to right, mc('grey', '300'), rgba(mc('grey', '700'), 0));
       }
 
       @at-root .is-rtl & {
-        background: linear-gradient(to left, var(--m3-outline), rgba(var(--m3-outline-rgb), 0));
+        background: linear-gradient(to left, mc('grey', '700'), rgba(mc('grey', '700'), 0));
       }
       @at-root .theme--dark.is-rtl & {
-        background: linear-gradient(to left, var(--m3-outline), rgba(var(--m3-outline-rgb), 0));
+        background: linear-gradient(to left, mc('grey', '300'), rgba(mc('grey', '700'), 0));
       }
     }
   }
   h3 {
     margin: 8px 0 0 0;
-    color: var(--m3-on-surface);
+    color: mc('grey', '700');
     position: relative;
 
     @at-root .theme--dark & {
-      color: var(--m3-on-surface-variant);
+      color: mc('grey', '600');
     }
 
     &::after {
@@ -161,17 +161,17 @@
       left: 0;
       width: 100%;
       height: 1px;
-      background: linear-gradient(to right, var(--m3-outline-variant), rgba(var(--m3-outline-variant-rgb), 0) 90%);
+      background: linear-gradient(to right, mc('grey', '500'), rgba(mc('grey', '500'), 0) 90%);
     }
   }
   h4, h5, h6 {
     font-size: 1rem;
     margin: 8px 0 0 0;
-    color: var(--m3-on-surface-variant);
+    color: mc('grey', '700');
     position: relative;
 
     @at-root .theme--dark & {
-      color: var(--m3-on-surface-variant);
+      color: mc('grey', '600');
     }
 
     &::after {
@@ -181,17 +181,17 @@
       left: 0;
       width: 100%;
       height: 1px;
-      background: linear-gradient(to right, var(--m3-outline-variant), rgba(var(--m3-outline-variant-rgb), 0) 70%);
+      background: linear-gradient(to right, mc('grey', '500'), rgba(mc('grey', '500'), 0) 70%);
     }
   }
   h5 {
     &::after {
-      background: linear-gradient(to right, var(--m3-outline-variant), rgba(var(--m3-outline-variant-rgb), 0) 50%);
+      background: linear-gradient(to right, mc('grey', '500'), rgba(mc('grey', '500'), 0) 50%);
     }
   }
   h6 {
     &::after {
-      background: linear-gradient(to right, var(--m3-outline-variant), rgba(var(--m3-outline-variant-rgb), 0) 30%);
+      background: linear-gradient(to right, mc('grey', '500'), rgba(mc('grey', '500'), 0) 30%);
     }
   }
 
@@ -243,14 +243,14 @@
 
   blockquote {
     padding: 0 1rem 1rem 1rem;
-    background-color: var(--m3-surface-variant);
-    border-left: 55px solid var(--m3-primary);
-    border-radius: var(--m3-shape-md);
+    background-color: mc('blue-grey', '50');
+    border-left: 55px solid mc('blue-grey', '500');
+    border-radius: .5rem;
     margin: 1rem 0;
     position: relative;
 
     @at-root .theme--dark & {
-      background-color: var(--m3-surface-variant);
+      background-color: mc('blue-grey', '900');
     }
 
     &::before {
@@ -260,7 +260,7 @@
       margin-top: -12px;
       top: 50%;
       left: -38px;
-      color: rgba(255, 255, 255, .85);
+      color: rgba(255, 255, 255, .7);
       content: "\F0757";
     }
 
@@ -274,84 +274,84 @@
     }
 
     &.is-info {
-      background-color: var(--m3-primary-container);
-      border-color: var(--m3-primary);
-      color: var(--m3-on-primary-container);
+      background-color: mc('blue', '50');
+      border-color: mc('blue', '300');
+      color: mc('blue', '900');
 
       &::before {
         content: "\F02FC";
       }
 
       code:not([class^="language-"]) {
-        background-color: var(--m3-primary-container);
-        color: var(--m3-on-primary-container);
+        background-color: mc('blue', '50');
+        color: mc('blue', '800');
       }
 
       @at-root .theme--dark & {
-        background-color: var(--m3-primary-container);
-        color: var(--m3-on-primary-container);
-        border-color: var(--m3-primary);
+        background-color: mc('blue', '900');
+        color: mc('blue', '50');
+        border-color: mc('blue', '500');
       }
     }
     &.is-warning {
-      background-color: var(--m3-warning-container);
-      border-color: var(--m3-warning);
-      color: var(--m3-on-surface);
+      background-color: mc('orange', '50');
+      border-color: mc('orange', '300');
+      color: darken(mc('orange', '900'), 10%);
 
       &::before {
         content: "\F0026";
       }
 
       code:not([class^="language-"]) {
-        background-color: var(--m3-warning-container);
-        color: var(--m3-on-surface);
+        background-color: mc('orange', '50');
+        color: mc('orange', '800');
       }
 
       @at-root .theme--dark & {
-        background-color: var(--m3-warning-container);
-        color: var(--m3-on-surface);
-        border-color: var(--m3-warning);
-        box-shadow: 0 0 2px 0 rgba(0, 0, 0, .4);
+        background-color: darken(mc('orange', '900'), 5%);
+        color: mc('orange', '100');
+        border-color: mc('orange', '500');
+        box-shadow: 0 0 2px 0 mc('grey', '900');
       }
     }
     &.is-danger {
-      background-color: var(--m3-error-container);
-      border-color: var(--m3-error);
-      color: var(--m3-on-error-container);
+      background-color: mc('red', '50');
+      border-color: mc('red', '300');
+      color: mc('red', '900');
 
       &::before {
         content: "\F0159";
       }
 
       code:not([class^="language-"]) {
-        background-color: var(--m3-error-container);
-        color: var(--m3-on-error-container);
+        background-color: mc('red', '50');
+        color: mc('red', '800');
       }
 
       @at-root .theme--dark & {
-        background-color: var(--m3-error-container);
-        color: var(--m3-on-error-container);
-        border-color: var(--m3-error);
+        background-color: mc('red', '900');
+        color: mc('red', '100');
+        border-color: mc('red', '500');
       }
     }
     &.is-success {
-      background-color: var(--m3-success-container);
-      border-color: var(--m3-success);
-      color: var(--m3-on-surface);
+      background-color: mc('green', '50');
+      border-color: mc('green', '300');
+      color: mc('green', '900');
 
       &::before {
         content: "\F0E1E";
       }
 
       code:not([class^="language-"]) {
-        background-color: var(--m3-success-container);
-        color: var(--m3-on-surface);
+        background-color: mc('green', '50');
+        color: mc('green', '800');
       }
 
       @at-root .theme--dark & {
-        background-color: var(--m3-success-container);
-        color: var(--m3-on-surface);
-        border-color: var(--m3-success);
+        background-color: mc('green', '900');
+        color: mc('green', '50');
+        border-color: mc('green', '500');
       }
     }
   }
@@ -371,8 +371,8 @@
     }
 
     td.icon {
-      border-bottom-left-radius: var(--m3-shape-md);
-      border-top-left-radius: var(--m3-shape-md);
+      border-bottom-left-radius: 7px;
+      border-top-left-radius: 7px;
       text-align: center;
       width: 56px;
 
@@ -383,43 +383,43 @@
     }
 
     td.content {
-      border-bottom-right-radius: var(--m3-shape-md);
-      border-top-right-radius: var(--m3-shape-md);
+      border-bottom-right-radius: 7px;
+      border-top-right-radius: 7px;
     }
 
     &.note {
       td.icon {
-        background-color: var(--m3-primary-container);
-        color: var(--m3-on-primary-container);
+        background-color: mc('blue', '300');
+        color: mc('blue', '50');
         &::before {
           content: "\F02FC";
         }
       }
       td.content {
-        color: var(--m3-on-surface);
-        background-color: var(--m3-surface-variant);
+        color: darken(mc('blue', '900'), 10%);
+        background-color: mc('blue', '50');
 
         @at-root .theme--dark & {
-          background-color: var(--m3-surface-variant);
-          color: var(--m3-on-surface);
+          background-color: mc('blue', '900');
+          color: mc('blue', '50');
         }
       }
     }
     &.tip {
       td.icon {
-        background-color: var(--m3-success-container);
-        color: var(--m3-on-surface);
+        background-color: mc('green', '300');
+        color: mc('green', '50');
         &::before {
           content: "\F0335";
         }
       }
       td.content {
-        color: var(--m3-on-surface);
-        background-color: var(--m3-surface-variant);
+        color: darken(mc('green', '900'), 10%);
+        background-color: mc('green', '50');
 
         @at-root .theme--dark & {
-          background-color: var(--m3-surface-variant);
-          color: var(--m3-on-surface);
+          background-color: mc('green', '900');
+          color: mc('green', '50');
         }
       }
     }
@@ -427,55 +427,55 @@
       background-color: transparent !important;
 
       td.icon {
-        background-color: var(--m3-warning-container);
-        color: var(--m3-on-surface);
+        background-color: mc('orange', '300');
+        color: #FFF;
         &::before {
           content: "\F0026";
         }
       }
       td.content {
-        color: var(--m3-on-surface);
-        background-color: var(--m3-surface-variant);
+        color: darken(mc('orange', '900'), 10%);
+        background-color: mc('orange', '50');
 
         @at-root .theme--dark & {
-          background-color: var(--m3-surface-variant);
-          color: var(--m3-on-surface);
+          background-color: darken(mc('orange', '900'), 5%);
+          color: mc('orange', '100');
         }
       }
     }
     &.caution {
       td.icon {
-        background-color: var(--m3-tertiary-container);
-        color: var(--m3-on-tertiary-container);
+        background-color: mc('purple', '300');
+        color: mc('purple', '50');
         &::before {
           content: "\f0238";
         }
       }
       td.content {
-        color: var(--m3-on-surface);
-        background-color: var(--m3-surface-variant);
+        color: darken(mc('purple', '900'), 10%);
+        background-color: mc('purple', '50');
 
         @at-root .theme--dark & {
-          background-color: var(--m3-surface-variant);
-          color: var(--m3-on-surface);
+          background-color: mc('purple', '900');
+          color: mc('purple', '100');
         }
       }
     }
     &.important {
       td.icon {
-        background-color: var(--m3-error-container);
-        color: var(--m3-on-error-container);
+        background-color: mc('red', '300');
+        color: mc('red', '50');
         &::before {
           content: "\F0159";
         }
       }
       td.content {
-        color: var(--m3-on-surface);
-        background-color: var(--m3-surface-variant);
+        color: darken(mc('red', '900'), 10%);
+        background-color: mc('red', '50');
 
         @at-root .theme--dark & {
-          background-color: var(--m3-surface-variant);
-          color: var(--m3-on-surface);
+          background-color: mc('red', '900');
+          color: mc('red', '100');
         }
       }
     }
@@ -485,15 +485,15 @@
     > .title {
       font-style: italic;
       font-size: 1rem !important;
-      color: var(--m3-on-surface-variant);
+      color: #7a2717;
 
       @at-root .theme--dark & {
-        color: var(--m3-on-surface-variant);
+        color: mc('brown', '300');
       }
     }
     > .content {
-      border: 1px solid var(--m3-outline-variant);
-      border-radius: var(--m3-shape-md);
+      border: 1px solid mc('grey', '200');
+      border-radius: 7px;
       margin-bottom: 12px;
       padding: 16px;
     }
@@ -534,14 +534,14 @@
       }
 
       li {
-        background-color: var(--m3-surface);
-        background-image: linear-gradient(to bottom, var(--m3-surface), var(--m3-surface-variant));
-        border-right: 1px solid var(--m3-outline-variant);
-        border-bottom: 1px solid var(--m3-outline-variant);
-        border-left: 5px solid var(--m3-outline);
-        box-shadow: var(--m3-elevation-1);
+        background-color: mc('grey', '50');
+        background-image: linear-gradient(to bottom, #FFF, mc('grey', '50'));
+        border-right: 1px solid mc('grey', '200');
+        border-bottom: 1px solid mc('grey', '200');
+        border-left: 5px solid mc('grey', '300');
+        box-shadow: 0 3px 8px 0 rgba(116, 129, 141, 0.1);
         padding: 1rem;
-        border-radius: var(--m3-shape-sm);
+        border-radius: 5px;
         font-weight: 500;
 
         @at-root .is-rtl & {
@@ -550,13 +550,13 @@
         }
 
         &:hover {
-          background-image: linear-gradient(to bottom, var(--m3-surface), var(--m3-secondary-container));
-          border-left-color: var(--m3-primary);
+          background-image: linear-gradient(to bottom, #FFF, lighten(mc('blue', '50'), 4%));
+          border-left-color: mc('blue', '500');
           cursor: pointer;
 
           @at-root .is-rtl & {
-            border-left-color: var(--m3-outline-variant);
-            border-right-width: var(--m3-primary);
+            border-left-color: mc('grey', '200');
+            border-right-width: mc('blue', '500');
           }
         }
 
@@ -574,10 +574,10 @@
           > em {
             font-weight: 400;
             font-style: normal;
-            color: var(--m3-on-surface-variant);
+            color: mc('grey', '700');
             display: inline-block;
             padding-left: .5rem;
-            border-left: 1px solid var(--m3-outline-variant);
+            border-left: 1px solid mc('grey', '300');
             margin-left: .5rem;
 
             &.is-block {
@@ -595,12 +595,12 @@
         }
 
         @at-root .theme--dark & {
-          background-color: var(--m3-surface);
-          background-image: linear-gradient(to bottom, var(--m3-surface-variant), var(--m3-surface));
-          border-right: 1px solid var(--m3-outline);
-          border-bottom: 1px solid var(--m3-outline);
-          border-left: 5px solid var(--m3-outline-variant);
-          box-shadow: var(--m3-elevation-1);
+          background-color: mc('grey', '50');
+          background-image: linear-gradient(to bottom, lighten(mc('grey', '900'), 5%), mc('grey', '900'));
+          border-right: 1px solid mc('grey', '900');
+          border-bottom: 1px solid mc('grey', '900');
+          border-left: 5px solid mc('grey', '700');
+          box-shadow: 0 3px 8px 0 rgba(0, 0, 0, 0.1);
 
           @at-root .theme--dark.is-rtl & {
             border-left-width: 1px;
@@ -608,13 +608,13 @@
           }
 
           &:hover {
-            background-image: linear-gradient(to bottom, var(--m3-surface), var(--m3-secondary-container));
-            border-left-color: var(--m3-primary);
+            background-image: linear-gradient(to bottom, lighten(mc('grey', '900'), 2%), darken(mc('grey', '900'), 3%));
+            border-left-color: mc('indigo', '300');
             cursor: pointer;
 
             @at-root .theme--dark.is-rtl & {
-              border-left-color: var(--m3-outline);
-              border-right-width: var(--m3-primary);
+              border-left-color: mc('grey', '900');
+              border-right-width: mc('indigo', '300');
             }
           }
         }
@@ -715,29 +715,28 @@
   // ---------------------------------
 
   code {
-    background-color: var(--m3-primary-container);
+    background-color: mc('indigo', '50');
     padding: 0 5px;
-    color: var(--m3-on-primary-container);
+    color: mc('indigo', '800');
     font-family: 'Roboto Mono', monospace;
     font-weight: normal;
     font-size: 1rem;
     box-shadow: none;
-    border-radius: var(--m3-shape-xs);
 
     &::before, &::after {
       display: none;
     }
 
     @at-root .theme--dark & {
-      background-color: var(--m3-surface-variant);
-      color: var(--m3-on-surface-variant);
+      background-color: darken(mc('grey', '900'), 5%);
+      color: mc('indigo', '100');
     }
   }
 
   .prismjs{
     border: none;
-    border-radius: var(--m3-shape-md);
-    box-shadow: var(--m3-elevation-1);
+    border-radius: 5px;
+    box-shadow: initial;
     background-color: mc('grey', '900');
     padding: 1rem 1rem 1rem 3rem;
     margin: 1rem 0;
@@ -945,30 +944,30 @@
       }
 
       td, th {
-        border: 1px solid var(--m3-outline-variant);
+        border: 1px solid mc('blue-grey', '100');
         box-shadow: inset -1px -1px 0 0 #FFF, inset 1px 0 0 #FFF;
         padding: .5rem .75rem;
         border-radius: 0 !important;
 
         @at-root .theme--dark & {
-          border-color: var(--m3-outline);
+          border-color: mc('grey', '700');
           box-shadow: inset -1px -1px 0 0 rgba(0,0,0, .5);
         }
       }
 
       th {
-        background-color: var(--m3-surface-variant);
+        background-color: lighten(mc('blue-grey', '50'), 1%);
         font-weight: 700;
-        color: var(--m3-on-surface-variant);
+        color: mc('blue-grey', '700');
 
         @at-root .theme--dark & {
-          background-color: var(--m3-surface-variant);
-          color: var(--m3-on-surface-variant);
+          background-color: mc('grey', '800');
+          color: mc('grey', '400');
         }
       }
 
       thead th {
-        border-bottom: 2px solid var(--m3-outline-variant);
+        border-bottom: 2px solid mc('blue-grey', '100');
 
         @at-root .theme--dark & {
           border-bottom: none;
@@ -976,10 +975,10 @@
       }
 
       tbody th {
-        background-color: var(--m3-surface-variant);
+        background-color: lighten(mc('blue-grey', '50'), 4%);
 
         @at-root .theme--dark & {
-          background-color: var(--m3-surface-variant);
+          background-color: darken(mc('grey', '800'), 8%);
         }
       }
     }
@@ -1069,18 +1068,18 @@
   // ---------------------------------
 
   details {
-    background-color: var(--m3-surface);
+    background-color: mc('grey', '50');
     margin: 1rem 2rem;
-    border: 1px solid var(--m3-outline-variant);
-    border-radius: var(--m3-shape-md);
+    border: 1px solid mc('grey', '300');
+    border-radius: 7px;
 
     > p {
       padding-left: 0;
     }
 
     > summary {
-      border-radius: var(--m3-shape-md);
-      background-color: var(--m3-surface);
+      border-radius: 7px;
+      background-color: mc('grey', '50');
       cursor: pointer;
       display: list-item;
       align-items: center;
@@ -1148,12 +1147,10 @@
       background-color: initial;
     }
     &.marker-blue {
-      background-color: var(--m3-primary-container);
-      color: var(--m3-on-primary-container);
+      background-color: mc('blue', '300');
     }
     &.marker-yellow {
-      background-color: var(--m3-warning-container);
-      color: var(--m3-on-surface);
+      background-color: mc('yellow', '300');
     }
     &.marker-pink {
       background-color: mc('pink', '300');
@@ -1188,22 +1185,21 @@
     padding: 8px 20px;
     font-size: 16px;
     font-weight: 500;
-    background-color: var(--m3-secondary);
+    background-color: mc('blue-grey', '500');
     border-radius: 7px 7px 0 0;
 
     @at-root .theme--dark & {
-      background-color: var(--m3-on-secondary-container);
-      color: var(--m3-secondary-container);
+      background-color: lighten(mc('blue-grey', '900'), 5%);
     }
   }
 
   &-main {
-    background-color: var(--m3-surface-variant);
+    background-color: mc('blue-grey', '50');
     border-radius: 0 0 7px 7px;
     padding: 20px;
 
     @at-root .theme--dark & {
-      background-color: var(--m3-surface-variant);
+      background-color: darken(mc('grey', '900'), 5%);
     }
   }
 }

@@ -5,7 +5,7 @@
         .admin-header
           img(src='/_assets/svg/icon-social-group.svg', alt='Edit Group', style='width: 80px;')
           .admin-header-title
-            .headline.primary--text.text--darken-2 Edit Group
+            .headline.blue--text.text--darken-2 Edit Group
             .subtitle-1.grey--text {{group.name}}
           v-spacer
           v-btn(color='grey', icon, outlined, to='/groups')

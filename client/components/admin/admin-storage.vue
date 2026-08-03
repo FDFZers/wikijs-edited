@@ -29,7 +29,7 @@
                   v-icon(color='grey', v-else, v-ripple, @click='tgt.isEnabled = true') mdi-checkbox-blank-outline
                 v-list-item-content
                   v-list-item-title.body-2(:class='!tgt.isAvailable ? `grey--text` : (selectedTarget === tgt.key ? `primary--text` : ``)') {{ tgt.title }}
-                  v-list-item-subtitle: .caption(:class='!tgt.isAvailable ? `grey--text text--lighten-1` : (selectedTarget === tgt.key ? `primary--text ` : ``)') {{ tgt.description }}
+                  v-list-item-subtitle: .caption(:class='!tgt.isAvailable ? `grey--text text--lighten-1` : (selectedTarget === tgt.key ? `blue--text ` : ``)') {{ tgt.description }}
                 v-list-item-avatar(v-if='selectedTarget === tgt.key', size='24')
                   v-icon.animated.fadeInLeft(color='primary', large) mdi-chevron-right
               v-divider(v-if='idx < targets.length - 1')
@@ -86,13 +86,13 @@
             v-spacer
             v-switch(
               dark
-              color='primary lighten-5'
+              color='blue lighten-5'
               label='Active'
               v-model='target.isEnabled'
               hide-details
               inset
               )
-          v-card-info(color='primary')
+          v-card-info(color='blue')
             div
               div {{target.description}}
               span.caption: a(:href='target.website') {{target.website}}

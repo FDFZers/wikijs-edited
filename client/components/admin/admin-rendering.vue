@@ -18,7 +18,7 @@
 
       v-flex.animated.fadeInUp(lg3, xs12)
         v-toolbar(
-          color='primary'
+          color='blue darken-2'
           dense
           flat
           dark
@@ -38,7 +38,7 @@
               ripple
             )
               v-toolbar(
-                color='primary'
+                color='blue'
                 dense
                 dark
                 flat
@@ -69,7 +69,7 @@
       v-flex(lg9, xs12)
         v-card.wiki-form.animated.fadeInUp
           v-toolbar(
-            color='primary'
+            color='indigo'
             dark
             flat
             dense
@@ -85,7 +85,7 @@
               hide-details
               inset
               )
-          v-card-info(color='primary')
+          v-card-info(color='blue')
             div
               div {{currentRenderer.description}}
               span.caption: a(href='https://docs.requarks.io/en/rendering', target='_blank') Documentation
@@ -103,14 +103,14 @@
                 :hint='cfg.value.hint ? cfg.value.hint : ""'
                 persistent-hint
                 :class='cfg.value.hint ? "mb-2" : ""'
-                color='primary'
+                color='indigo'
               )
               v-switch(
                 v-else-if='cfg.value.type === "boolean"'
                 :key='cfg.key'
                 :label='cfg.value.title'
                 v-model='cfg.value.value'
-                color='primary'
+                color='indigo'
                 :hint='cfg.value.hint ? cfg.value.hint : ""'
                 persistent-hint
                 inset
@@ -124,7 +124,7 @@
                 :hint='cfg.value.hint ? cfg.value.hint : ""'
                 persistent-hint
                 :class='cfg.value.hint ? "mb-2" : ""'
-                color='primary'
+                color='indigo'
                 )
               v-divider.my-5(v-if='idx < currentRenderer.config.length - 1')
           v-card-chin

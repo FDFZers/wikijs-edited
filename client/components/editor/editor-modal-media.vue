@@ -7,15 +7,15 @@
             v-card-text
               .d-flex
                 v-toolbar.radius-7(:color='$vuetify.theme.dark ? `teal` : `teal lighten-5`', dense, flat, height='44')
-                  .body-2(:class='$vuetify.theme.dark ? `white--text` : `accent--text`') {{$t('editor:assets.title')}}
+                  .body-2(:class='$vuetify.theme.dark ? `white--text` : `teal--text`') {{$t('editor:assets.title')}}
                   v-spacer
                   v-btn(text, icon, @click='refresh')
                     v-icon(:color='$vuetify.theme.dark ? `white` : `teal`') mdi-refresh
                 v-dialog(v-model='newFolderDialog', max-width='550')
                   template(v-slot:activator='{ on }')
-                    v-btn.ml-3.my-0.mr-0.radius-7(outlined, large, color='accent', :icon='$vuetify.breakpoint.xsOnly', v-on='on')
+                    v-btn.ml-3.my-0.mr-0.radius-7(outlined, large, color='teal', :icon='$vuetify.breakpoint.xsOnly', v-on='on')
                       v-icon(:left='$vuetify.breakpoint.mdAndUp') mdi-plus
-                      span.hidden-sm-and-down(:class='$vuetify.theme.dark ? `accent--text text--lighten-3` : ``') {{$t('editor:assets.newFolder')}}
+                      span.hidden-sm-and-down(:class='$vuetify.theme.dark ? `teal--text text--lighten-3` : ``') {{$t('editor:assets.newFolder')}}
                   v-card
                     .dialog-header.is-short.subtitle-1 {{$t('editor:assets.newFolder')}}
                     v-card-text.pt-5
@@ -70,7 +70,7 @@
                     )
                     td.caption(v-if='$vuetify.breakpoint.smAndUp') {{ props.item.id }}
                     td
-                      .body-2: strong(:class='currentFileId === props.item.id ? `accent--text` : ``') {{ props.item.filename }}
+                      .body-2: strong(:class='currentFileId === props.item.id ? `teal--text` : ``') {{ props.item.filename }}
                       .caption.grey--text {{ props.item.description }}
                     td.text-xs-center(v-if='$vuetify.breakpoint.lgAndUp')
                       v-chip.ma-0(x-small, :color='$vuetify.theme.dark ? `grey darken-4` : `grey lighten-4`')
@@ -85,7 +85,7 @@
                         v-list(nav, style='border-top: 5px solid #444;')
                           //- v-list-item(@click='', disabled)
                           //-   v-list-item-avatar(size='24')
-                          //-     v-icon(color='accent') mdi-text-short
+                          //-     v-icon(color='teal') mdi-text-short
                           //-   v-list-item-content {{$t('common:actions.properties')}}
                           //- template(v-if='props.item.kind === `IMAGE`')
                           //-   v-list-item(@click='previewDialog = true', disabled)
@@ -94,7 +94,7 @@
                           //-     v-list-item-content {{$t('common:actions.preview')}}
                           //-   v-list-item(@click='', disabled)
                           //-     v-list-item-avatar(size='24')
-                          //-       v-icon(color='primary') mdi-crop-rotate
+                          //-       v-icon(color='indigo') mdi-crop-rotate
                           //-     v-list-item-content {{$t('common:actions.edit')}}
                           //-   v-list-item(@click='', disabled)
                           //-     v-list-item-avatar(size='24')
@@ -106,23 +106,23 @@
                             v-list-item-content {{$t('common:actions.rename')}}
                           //- v-list-item(@click='', disabled)
                           //-   v-list-item-avatar(size='24')
-                          //-     v-icon(color='primary') mdi-file-move
+                          //-     v-icon(color='blue') mdi-file-move
                           //-   v-list-item-content {{$t('common:actions.move')}}
                           v-list-item(@click='deleteDialog = true')
                             v-list-item-avatar(size='24')
                               v-icon(color='red') mdi-file-hidden
                             v-list-item-content {{$t('common:actions.delete')}}
                 template(slot='no-data')
-                  v-alert.mt-3.radius-7(icon='mdi-folder-open-outline', :value='true', outlined, color='accent') {{$t('editor:assets.folderEmpty')}}
+                  v-alert.mt-3.radius-7(icon='mdi-folder-open-outline', :value='true', outlined, color='teal') {{$t('editor:assets.folderEmpty')}}
               .text-xs-center.py-2(v-if='this.pageTotal > 1')
-                v-pagination(v-model='pagination', :length='pageTotal', color='accent')
+                v-pagination(v-model='pagination', :length='pageTotal', color='teal')
               .d-flex.mt-3
                 v-toolbar.radius-7(flat, :color='$vuetify.theme.dark ? `grey darken-2` : `grey lighten-4`', dense, height='44')
                   .body-2(:class='$vuetify.theme.dark ? `grey--text text--lighten-1` : `grey--text text--darken-1`') {{$t('editor:assets.fileCount', { count: assets.length })}}
                 v-btn.ml-3.mr-0.my-0.radius-7(color='red darken-2', large, @click='cancel', dark)
                   v-icon(left) mdi-close
                   span {{$t('common:actions.cancel')}}
-                v-btn.ml-3.mr-0.my-0.radius-7(color='accent', large, @click='insert', :disabled='!currentFileId', :dark='currentFileId !== null')
+                v-btn.ml-3.mr-0.my-0.radius-7(color='teal', large, @click='insert', :disabled='!currentFileId', :dark='currentFileId !== null')
                   v-icon(left) mdi-playlist-plus
                   span {{$t('common:actions.insert')}}
 
@@ -132,10 +132,10 @@
               .d-flex
                 v-toolbar.radius-7(:color='$vuetify.theme.dark ? `teal` : `teal lighten-5`', dense, flat, height='44')
                   v-icon.mr-3(:color='$vuetify.theme.dark ? `white` : `teal`') mdi-cloud-upload
-                  .body-2(:class='$vuetify.theme.dark ? `white--text` : `accent--text`') {{$t('editor:assets.uploadAssets')}}
-                v-btn.my-0.ml-3.mr-0.radius-7(outlined, large, color='accent', @click='browse', v-if='$vuetify.breakpoint.mdAndUp')
+                  .body-2(:class='$vuetify.theme.dark ? `white--text` : `teal--text`') {{$t('editor:assets.uploadAssets')}}
+                v-btn.my-0.ml-3.mr-0.radius-7(outlined, large, color='teal', @click='browse', v-if='$vuetify.breakpoint.mdAndUp')
                   v-icon(left) mdi-plus-box-multiple
-                  span(:class='$vuetify.theme.dark ? `accent--text text--lighten-3` : ``') {{$t('common:actions.browse')}}
+                  span(:class='$vuetify.theme.dark ? `teal--text text--lighten-3` : ``') {{$t('common:actions.browse')}}
               file-pond.mt-3(
                 name='mediaUpload'
                 ref='pond'
@@ -152,19 +152,19 @@
             v-card-actions.pa-3
               .caption.grey--text.text-darken-2 Max 10 files, 5 MB each
               v-spacer
-              v-btn.px-4(color='accent', dark, @click='upload') {{$t('common:actions.upload')}}
+              v-btn.px-4(color='teal', dark, @click='upload') {{$t('common:actions.upload')}}
 
           //- v-card.mt-3.radius-7.animated.fadeInRight.wait-p4s(:light='!$vuetify.theme.dark', :dark='$vuetify.theme.dark')
           //-   v-card-text.pb-0
           //-     v-toolbar.radius-7(:color='$vuetify.theme.dark ? `teal` : `teal lighten-5`', dense, flat)
           //-       v-icon.mr-3(:color='$vuetify.theme.dark ? `white` : `teal`') mdi-cloud-download
-          //-       .body-2(:class='$vuetify.theme.dark ? `white--text` : `accent--text`') {{$t('editor:assets.fetchImage')}}
+          //-       .body-2(:class='$vuetify.theme.dark ? `white--text` : `teal--text`') {{$t('editor:assets.fetchImage')}}
           //-       v-spacer
-          //-       v-chip(label, color='white', small).accent--text coming soon
+          //-       v-chip(label, color='white', small).teal--text coming soon
           //-     v-text-field.mt-3(
           //-       v-model='remoteImageUrl'
           //-       outlined
-          //-       color='accent'
+          //-       color='teal'
           //-       single-line
           //-       placeholder='https://example.com/image.jpg'
           //-     )
@@ -172,19 +172,19 @@
           //-   v-card-actions.pa-3
           //-     .caption.grey--text.text-darken-2 Max 5 MB
           //-     v-spacer
-          //-     v-btn.px-4(color='accent', disabled) {{$t('common:actions.fetch')}}
+          //-     v-btn.px-4(color='teal', disabled) {{$t('common:actions.fetch')}}
 
           v-card.mt-3.radius-7.animated.fadeInRight.wait-p4s(:light='!$vuetify.theme.dark', :dark='$vuetify.theme.dark')
             v-card-text.pb-0
               v-toolbar.radius-7(:color='$vuetify.theme.dark ? `teal` : `teal lighten-5`', dense, flat)
                 v-icon.mr-3(:color='$vuetify.theme.dark ? `white` : `teal`') mdi-format-align-top
-                .body-2(:class='$vuetify.theme.dark ? `white--text` : `accent--text`') {{$t('editor:assets.imageAlign')}}
+                .body-2(:class='$vuetify.theme.dark ? `white--text` : `teal--text`') {{$t('editor:assets.imageAlign')}}
               v-select.mt-3(
                 v-model='imageAlignment'
                 :items='imageAlignments'
                 outlined
                 single-line
-                color='accent'
+                color='teal'
                 placeholder='None'
               )
 

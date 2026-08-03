@@ -10,11 +10,11 @@
           strong(place='path') /{{path}}
         template(v-if='$vuetify.breakpoint.mdAndUp')
           v-spacer
-          .caption.primary--text.text--lighten-3 {{$t('common:page.id', { id: pageId })}}
-          .caption.primary--text.text--lighten-3.ml-4(v-if='versionId > 0') {{$t('common:page.versionId', { id: versionId })}}
-          v-btn.ml-4(v-if='versionId > 0', depressed, color='primary', @click='goHistory')
+          .caption.blue--text.text--lighten-3 {{$t('common:page.id', { id: pageId })}}
+          .caption.blue--text.text--lighten-3.ml-4(v-if='versionId > 0') {{$t('common:page.versionId', { id: versionId })}}
+          v-btn.ml-4(v-if='versionId > 0', depressed, color='blue darken-1', @click='goHistory')
             v-icon mdi-history
-          v-btn.ml-4(depressed, color='primary', @click='goLive') {{$t('common:page.returnNormalView')}}
+          v-btn.ml-4(depressed, color='blue darken-1', @click='goLive') {{$t('common:page.returnNormalView')}}
       v-card(tile)
         v-card-text
           v-card.grey.radius-7(flat, :class='$vuetify.theme.dark ? `darken-4` : `lighten-4`')

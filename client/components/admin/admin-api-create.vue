@@ -26,25 +26,25 @@
             persistent-hint
             )
           v-divider.mt-4
-          v-subheader.pl-2: strong.primary--text {{$t('admin:api.newKeyPermissionScopes')}}
+          v-subheader.pl-2: strong.indigo--text {{$t('admin:api.newKeyPermissionScopes')}}
           v-list.pl-8(nav)
             v-list-item-group(v-model='fullAccess')
               v-list-item(
                 :value='true'
-                active-class='primary--text'
+                active-class='indigo--text'
                 )
                 template(v-slot:default='{ active, toggle }')
                   v-list-item-action
                     v-checkbox(
                       :input-value='active'
                       :true-value='true'
-                      color='primary'
+                      color='indigo'
                       @click='toggle'
                     )
                   v-list-item-content
                     v-list-item-title {{$t('admin:api.newKeyFullAccess')}}
             v-divider.mt-3
-            v-subheader.caption.primary--text {{$t('admin:api.newKeyGroupPermissions')}}
+            v-subheader.caption.indigo--text {{$t('admin:api.newKeyGroupPermissions')}}
             v-list-item
               v-select(
                 :disabled='fullAccess'
@@ -52,7 +52,7 @@
                 item-text='name'
                 item-value='id'
                 outlined
-                color='primary'
+                color='indigo'
                 v-model='group'
                 :label='$t(`admin:api.newKeyGroup`)'
                 :hint='$t(`admin:api.newKeyGroupHint`)'
@@ -129,7 +129,7 @@ export default {
         { value: '180d', text: this.$t('admin:api.expiration180d') },
         { value: '1y', text: this.$t('admin:api.expiration1y') },
         { value: '3y', text: this.$t('admin:api.expiration3y') },
-        { value: '100y', text: '100 年' }
+        { value: '100y', text: "100 年" }
       ]
     }
   },
