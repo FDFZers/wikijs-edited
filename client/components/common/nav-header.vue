@@ -348,25 +348,25 @@ export default {
     }
   },
   mounted () {
-    this.$root.$on('pageEdit', () => {
+    this.$root.$on('page-edit', () => {
       this.pageEdit()
     })
-    this.$root.$on('pageHistory', () => {
+    this.$root.$on('page-history', () => {
       this.pageHistory()
     })
-    this.$root.$on('pageSource', () => {
+    this.$root.$on('page-source', () => {
       this.pageSource()
     })
-    this.$root.$on('pageMove', () => {
+    this.$root.$on('page-move', () => {
       this.pageMove()
     })
-    this.$root.$on('pageConvert', () => {
+    this.$root.$on('page-convert', () => {
       this.pageConvert()
     })
-    this.$root.$on('pageDuplicate', () => {
+    this.$root.$on('page-duplicate', () => {
       this.pageDuplicate()
     })
-    this.$root.$on('pageDelete', () => {
+    this.$root.$on('page-delete', () => {
       this.pageDelete()
     })
     this.isDevMode = siteConfig.devMode === true
@@ -391,10 +391,10 @@ export default {
       }
     },
     searchEnter () {
-      this.$root.$emit('searchEnter', true)
+      this.$root.$emit('search-enter', true)
     },
     searchMove(dir) {
-      this.$root.$emit('searchMove', dir)
+      this.$root.$emit('search-move', dir)
     },
     pageNew () {
       this.newPageModal = true
