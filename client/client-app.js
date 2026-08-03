@@ -19,6 +19,7 @@ import moment from 'moment-timezone'
 import VueMoment from 'vue-moment'
 import store from './store'
 import Cookies from 'js-cookie'
+import themePresets, { getSavedThemeIndex, saveThemeIndex } from './modules/theme-presets'
 
 // ====================================
 // Load Modules
@@ -41,7 +42,7 @@ window.WIKI = null
 window.boot = boot
 window.Hammer = Hammer
 
-moment.locale("zh_CN");
+moment.locale('zh_CN')
 
 store.commit('user/REFRESH_AUTH')
 
@@ -201,6 +202,51 @@ let bootstrap = () => {
     darkModeEnabled = (store.get('user/appearance') === 'dark')
   }
 
+  // ====================================
+  // Material 3 Theme — dynamic presets
+  // ====================================
+
+  const savedThemeIdx = getSavedThemeIndex()
+  const activePreset = themePresets[savedThemeIdx]
+
+  const m3Theme = {
+    light: activePreset.light,
+    dark: activePreset.dark
+  }
+
+  // ----------------------------------
+  // Theme switching (global)
+  // ----------------------------------
+  const savedDark = (() => {
+    try { return window.localStorage.getItem('m3DarkMode') === '1' } catch (_) { return darkModeEnabled }
+  })()
+
+  const themeState = Vue.observable({
+    index: savedThemeIdx,
+    presets: themePresets,
+    dark: savedDark
+  })
+
+  Vue.prototype.$themeState = themeState
+
+  Vue.prototype.$switchTheme = function (idx) {
+    if (idx < 0 || idx >= themePresets.length) return
+    const preset = themePresets[idx]
+
+    Object.assign(this.$vuetify.theme.themes.light, preset.light)
+    Object.assign(this.$vuetify.theme.themes.dark, preset.dark)
+
+    saveThemeIndex(idx)
+    themeState.index = idx
+  }
+
+  Vue.prototype.$toggleDarkMode = function () {
+    const newDark = !this.$vuetify.theme.dark
+    this.$vuetify.theme.dark = newDark
+    themeState.dark = newDark
+    window.localStorage.setItem('m3DarkMode', newDark ? '1' : '0')
+  }
+
   window.WIKI = new Vue({
     el: '#root',
     components: {},
@@ -211,7 +257,12 @@ let bootstrap = () => {
     vuetify: new Vuetify({
       rtl: siteConfig.rtl,
       theme: {
-        dark: darkModeEnabled
+        dark: savedDark,
+        themes: m3Theme,
+        options: {
+          customProperties: true,
+          variations: true
+        }
       }
     }),
     mounted () {

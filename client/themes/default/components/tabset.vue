@@ -105,11 +105,13 @@ export default {
 
 <style lang="scss">
 .tabset {
-  border-radius: 5px;
+  border-radius: var(--m3-shape-md);
   margin-top: 10px;
+  overflow: hidden;
+  box-shadow: var(--m3-elevation-1);
 
   @at-root .theme--dark & {
-    background-color: #292929;
+    background-color: var(--m3-surface);
   }
 
   > .tabset-tabs {
@@ -117,80 +119,53 @@ export default {
     margin: 0;
     display: flex;
     align-items: stretch;
-    background: linear-gradient(to bottom, #FFF, #FAFAFA);
-    box-shadow: inset 0 -1px 0 0 #DDD;
-    border-radius: 5px 5px 0 0;
+    background-color: var(--m3-surface);
+    box-shadow: inset 0 -1px 0 0 var(--m3-outline-variant);
+    border-radius: var(--m3-shape-md) var(--m3-shape-md) 0 0;
     overflow: auto;
-
-    @at-root .theme--dark & {
-      background: linear-gradient(to bottom, #424242, #333);
-      box-shadow: inset 0 -1px 0 0 #555;
-    }
 
     > li {
       display: block;
       padding: 16px;
       margin-top: 0;
       cursor: pointer;
-      transition: color 1s ease;
-      border-right: 1px solid #FFF;
+      transition: color var(--m3-motion-short) var(--m3-easing-standard),
+        background-color var(--m3-motion-short) var(--m3-easing-standard);
+      border-right: 1px solid var(--m3-outline-variant);
       font-size: 14px;
       font-weight: 500;
       margin-bottom: 1px;
       user-select: none;
 
-      @at-root .theme--dark & {
-        border-right-color: #555;
-      }
-
       &.is-active {
-        background-color: #FFF;
+        background-color: var(--m3-surface);
         margin-bottom: 0;
         padding-bottom: 17px;
         padding-top: 13px;
-        color: mc('blue', '700');
-        border-top: 3px solid mc('blue', '700');
-
-        @at-root .theme--dark & {
-          background-color: #292929;
-          color: mc('blue', '300');
-        }
+        color: var(--m3-primary);
+        border-top: 3px solid var(--m3-primary);
       }
 
       &:last-child {
         border-right: none;
 
         &.is-active {
-          border-right: 1px solid #EEE;
-
-          @at-root .theme--dark & {
-            border-right-color: #555;
-          }
+          border-right: 1px solid var(--m3-outline-variant);
         }
       }
 
       &:hover {
-        background-color: rgba(#CCC, .1);
-
-        @at-root .theme--dark & {
-          background-color: rgba(#222, .25);
-        }
+        background-color: var(--m3-primary-container);
+        color: var(--m3-on-primary-container);
 
         &.is-active {
-          background-color: #FFF;
-
-          @at-root .theme--dark & {
-            background-color: #292929;
-          }
+          background-color: var(--m3-surface);
+          color: var(--m3-primary);
         }
       }
 
       & + li {
-        border-left: 1px solid #EEE;
-
-        @at-root .theme--dark & {
-          border-left-color: #222;
-        }
+        border-left: 1px solid var(--m3-outline-variant);
       }
     }
   }
@@ -202,6 +177,8 @@ export default {
 
       &.is-active {
         display: block;
+        // Smooth entrance when switching tabs
+        animation: m3-fade-in-up var(--m3-motion-med) var(--m3-easing-decelerate) both;
       }
     }
   }

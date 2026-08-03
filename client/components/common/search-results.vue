@@ -234,7 +234,7 @@ export default {
 
   &-suggestions {
     .highlighted {
-      background: transparent linear-gradient(to bottom, mc('blue', '500'), mc('blue', '700'));
+      background: transparent linear-gradient(to bottom, mc('indigo', '500'), mc('indigo', '700'));
     }
   }
 }

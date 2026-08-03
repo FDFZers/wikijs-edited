@@ -279,10 +279,10 @@ export default {
 .theme--dark {
   .admin-sidebar .v-list__tile--active {
     background-color: rgba(0,0,0, .2);
-    color: mc('blue', '500') !important;
+    color: mc('indigo', '500') !important;
 
     .v-icon {
-      color: mc('blue', '500');
+      color: mc('indigo', '500');
     }
   }
 }

@@ -30,7 +30,7 @@
           v-btn.animated.fadeIn(
             small
             outlined
-            color='blue lighten-4'
+            color='primary lighten-4'
             rounded
             @click='selection = []'
             )

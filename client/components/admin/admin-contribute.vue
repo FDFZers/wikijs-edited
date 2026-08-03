@@ -93,17 +93,17 @@
                 li {{ $t('admin:contribute.talkToFriends') }}
                 i18next(path='admin:contribute.followUsOnTwitter', tag='li')
                   a(href='https://twitter.com/requarks', target='_blank') Twitter
-          v-toolbar(color='indigo', dense, dark)
+          v-toolbar(color='primary', dense, dark)
             .subtitle-1 Sponsors &amp; Backers
           v-container.pa-5.grey(fluid, :class='$vuetify.theme.dark ? `darken-3` : `lighten-4`')
-            v-progress-circular(indeterminate, color='indigo', size='24', width='2', v-if='backers.length < 1')
+            v-progress-circular(indeterminate, color='primary', size='24', width='2', v-if='backers.length < 1')
             v-row(dense)
               v-col(cols='12', lg='6', xl='4', v-for='(backer, idx) in backers', :key='backer.id')
                 v-card.grey(flat, :class='$vuetify.theme.dark ? `darken-4` : `lighten-2`')
                   v-list-item
                     v-list-item-avatar
                       img(v-if='backer.avatar', :src='backer.avatar')
-                      v-avatar(v-else, color='blue-grey', size='40')
+                      v-avatar(v-else, color='secondary', size='40')
                         span.white--text.subtitle-1 {{backer.name[0].toUpperCase()}}
                     v-list-item-content
                       v-list-item-title {{backer.name}}

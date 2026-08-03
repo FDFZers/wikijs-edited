@@ -50,7 +50,7 @@
             v-divider
             v-list-item(@click='insertBeforeEachLine({ content: `NOTE: `})')
               v-list-item-action
-                v-icon(color='blue') mdi-alpha-n-box-outline
+                v-icon(color='primary') mdi-alpha-n-box-outline
               v-list-item-title {{'Note blockquote'}}
             v-divider
             v-list-item(@click='insertBeforeEachLine({ content: `TIP: `})')
@@ -82,24 +82,24 @@
 
     .editor-asciidoc-main
       .editor-asciidoc-sidebar
-        v-tooltip(right, color='teal')
+        v-tooltip(right, color='accent')
           template(v-slot:activator='{ on }')
             v-btn.animated.fadeInLeft(icon, tile, v-on='on', dark, @click='insertLink').mx-0
               v-icon mdi-link-plus
           span {{$t('editor:markup.insertLink')}}
-        v-tooltip(right, color='teal')
+        v-tooltip(right, color='accent')
           template(v-slot:activator='{ on }')
             v-btn.mt-3.animated.fadeInLeft.wait-p1s(icon, tile, v-on='on', dark, @click='toggleModal(`editorModalMedia`)').mx-0
               v-icon(:color='activeModal === `editorModalMedia` ? `teal` : ``') mdi-folder-multiple-image
           span {{$t('editor:markup.insertAssets')}}
-        v-tooltip(right, color='teal')
+        v-tooltip(right, color='accent')
           template(v-slot:activator='{ on }')
             v-btn.mt-3.animated.fadeInLeft.wait-p5s(icon, tile, v-on='on', dark, @click='toggleModal(`editorModalDrawio`)').mx-0
               v-icon mdi-chart-multiline
           span {{$t('editor:markup.insertDiagram')}}
         template(v-if='$vuetify.breakpoint.mdAndUp')
           v-spacer
-          v-tooltip(right, color='teal')
+          v-tooltip(right, color='accent')
             template(v-slot:activator='{ on }')
               v-btn.mt-3.animated.fadeInLeft.wait-p8s(icon, tile, v-on='on', dark, @click='toggleFullscreen').mx-0
                 v-icon mdi-arrow-expand-all
@@ -563,8 +563,8 @@ $editor-ascii-height-mobile: calc(100vh - 112px - 16px);
       }
 
       .tabset {
-        background-color: mc('teal', '700');
-        color: mc('teal', '100') !important;
+        background-color: mc('purple', '700');
+        color: mc('purple', '100') !important;
         padding: 5px 12px;
         font-size: 14px;
         font-weight: 500;
@@ -576,7 +576,7 @@ $editor-ascii-height-mobile: calc(100vh - 112px - 16px);
         }
 
         &-header {
-          background-color: mc('teal', '500');
+          background-color: mc('purple', '500');
           color: #FFF !important;
           padding: 5px 12px;
           font-size: 14px;
@@ -589,13 +589,13 @@ $editor-ascii-height-mobile: calc(100vh - 112px - 16px);
         }
 
         &-content {
-          border-left: 5px solid mc('teal', '500');
-          background-color: mc('teal', '50');
+          border-left: 5px solid mc('purple', '500');
+          background-color: mc('purple', '50');
           padding: 0 15px 15px;
           overflow: hidden;
 
           @at-root .theme--dark & {
-            background-color: rgba(mc('teal', '500'), .1);
+            background-color: rgba(mc('purple', '500'), .1);
           }
         }
       }
@@ -603,8 +603,8 @@ $editor-ascii-height-mobile: calc(100vh - 112px - 16px);
   }
 
   &-toolbar {
-    background-color: mc('blue', '700');
-    background-image: linear-gradient(to bottom, mc('blue', '700') 0%, mc('blue','800') 100%);
+    background-color: mc('indigo', '700');
+    background-image: linear-gradient(to bottom, mc('indigo', '700') 0%, mc('indigo','800') 100%);
     color: #FFF;
 
     .v-toolbar__content {

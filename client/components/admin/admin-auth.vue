@@ -18,7 +18,7 @@
 
       v-flex(lg3, xs12)
         v-card.animated.fadeInUp
-          v-toolbar(flat, color='teal', dark, dense)
+          v-toolbar(flat, color='accent', dark, dense)
             .subtitle-1 {{$t('admin:auth.activeStrategies')}}
           v-list(two-line, dense).py-0
             draggable(
@@ -36,10 +36,10 @@
                   v-list-item-avatar.is-handle(size='24')
                     v-icon(:color='selectedStrategy === str.key ? `teal` : `grey`') mdi-drag-horizontal
                   v-list-item-content
-                    v-list-item-title.body-2(:class='selectedStrategy === str.key ? `teal--text` : ``') {{ str.displayName }}
-                    v-list-item-subtitle: .caption(:class='selectedStrategy === str.key ? `teal--text ` : ``') {{ str.strategy.title }}
+                    v-list-item-title.body-2(:class='selectedStrategy === str.key ? `accent--text` : ``') {{ str.displayName }}
+                    v-list-item-subtitle: .caption(:class='selectedStrategy === str.key ? `accent--text ` : ``') {{ str.strategy.title }}
                   v-list-item-avatar(v-if='selectedStrategy === str.key', size='24')
-                    v-icon.animated.fadeInLeft(color='teal', large) mdi-chevron-right
+                    v-icon.animated.fadeInLeft(color='accent', large) mdi-chevron-right
           v-card-chin
             v-menu(offset-y, bottom, min-width='250px', max-width='550px', max-height='50vh', style='flex: 1 1;', center)
               template(v-slot:activator='{ on }')
@@ -68,7 +68,7 @@
             v-btn(small, outlined, dark, color='white', :disabled='strategy.key === `local`', @click='deleteStrategy()')
               v-icon(left) mdi-close
               span {{$t('common:actions.delete')}}
-          v-card-info(color='blue')
+          v-card-info(color='primary')
             div
               span {{strategy.strategy.description}}
               .caption: a(:href='strategy.strategy.website') {{strategy.strategy.website}}

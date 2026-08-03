@@ -145,7 +145,7 @@
 
               v-card.mt-3.animated.fadeInUp.wait-p3s
                 v-form
-                  v-toolbar(color='teal', dark, dense, flat)
+                  v-toolbar(color='accent', dark, dense, flat)
                     v-toolbar-title.subtitle-1 {{ $t('admin:mail.test') }}
                   .pa-4
                     .body-2.grey--text.text--darken-2 {{ $t('admin:mail.testHint') }}
@@ -159,7 +159,7 @@
                       )
                   v-card-chin
                     v-spacer
-                    v-btn.px-4(color='teal', dark, @click='sendTest', :loading='testLoading')
+                    v-btn.px-4(color='accent', dark, @click='sendTest', :loading='testLoading')
                       v-icon(left) mdi-send
                       span {{ $t('admin:mail.testSend') }}
 

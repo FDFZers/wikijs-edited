@@ -44,7 +44,7 @@
                 template(slot='prepend', slot-scope='{ item, open, leaf }')
                   v-icon mdi-{{ open ? 'folder-open' : 'folder' }}
         v-flex(xs7)
-          v-toolbar(color='blue darken-2', dark, dense, flat)
+          v-toolbar(color='primary', dark, dense, flat)
             .body-2 {{$t('common:pageSelector.pages')}}
             //- v-spacer
             //- v-btn(icon, tile, disabled): v-icon mdi-content-save-move-outline

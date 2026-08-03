@@ -36,7 +36,7 @@
                         v-list-item-content(v-text='data.item')
                       template(v-else)
                         v-list-item-avatar
-                          v-avatar.blue.white--text(tile, size='40', v-html='data.item.code.toUpperCase()')
+                          v-avatar.primary.white--text(tile, size='40', v-html='data.item.code.toUpperCase()')
                         v-list-item-content
                           v-list-item-title(v-html='data.item.name')
                           v-list-item-subtitle(v-html='data.item.nativeName')
@@ -92,7 +92,7 @@
                         v-list-item-content(v-text='data.item')
                       template(v-else)
                         v-list-item-avatar
-                          v-avatar.blue.white--text(tile, size='40', v-html='data.item.code.toUpperCase()')
+                          v-avatar.primary.white--text(tile, size='40', v-html='data.item.code.toUpperCase()')
                         v-list-item-content
                           v-list-item-title(v-html='data.item.name')
                           v-list-item-subtitle(v-html='data.item.nativeName')
@@ -100,7 +100,7 @@
                           v-checkbox(:input-value='data.attrs.inputValue', color='primary', value)
             v-flex(xl6 lg7 xs12)
               v-card.animated.fadeInUp.wait-p4s
-                v-toolbar(color='teal', dark, dense, flat)
+                v-toolbar(color='accent', dark, dense, flat)
                   v-toolbar-title.subtitle-1 {{ $t('admin:locale.downloadTitle') }}
                 v-data-table(
                   :headers='headers',
@@ -110,7 +110,7 @@
                   :items-per-page='1000'
                   )
                   template(v-slot:item.code='{ item }')
-                    v-chip.white--text(label, color='teal', small) {{item.code}}
+                    v-chip.white--text(label, color='accent', small) {{item.code}}
                   template(v-slot:item.name='{ item }')
                     strong {{item.name}}
                   template(v-slot:item.isRTL='{ item }')
@@ -120,21 +120,21 @@
                       v-progress-circular(:value='item.availability', width='2', size='20', :color='item.availability <= 33 ? `red` : (item.availability <= 66) ? `orange` : `green`')
                       .caption.mx-2(:class='item.availability <= 33 ? `red--text` : (item.availability <= 66) ? `orange--text` : `green--text`') {{item.availability}}%
                   template(v-slot:item.isInstalled='{ item }')
-                    v-progress-circular(v-if='item.isDownloading', indeterminate, color='blue', size='20', :width='2')
+                    v-progress-circular(v-if='item.isDownloading', indeterminate, color='primary', size='20', :width='2')
                     v-btn(v-else-if='item.isInstalled && item.installDate < item.updatedAt', icon, small, @click='download(item)')
-                      v-icon.blue--text mdi-cached
+                      v-icon.primary--text mdi-cached
                     v-btn(v-else-if='item.isInstalled', icon, small, @click='download(item)')
                       v-icon.green--text mdi-check-bold
                     v-btn(v-else, icon, small, @click='download(item)')
                       v-icon.grey--text mdi-cloud-download
               v-card.wiki-form.mt-3.animated.fadeInUp.wait-p5s
-                v-toolbar(color='teal', dark, dense, flat)
+                v-toolbar(color='accent', dark, dense, flat)
                   v-toolbar-title.subtitle-1 {{ $t('admin:locale.sideload') }}
                   v-spacer
-                  v-chip(label, color='white', small).teal--text coming soon
+                  v-chip(label, color='white', small).accent--text coming soon
                 v-card-text
                   div {{ $t('admin:locale.sideloadHelp') }}
-                  v-btn.ml-0.mt-3(color='teal', disabled) {{ $t('common:actions.browse') }}
+                  v-btn.ml-0.mt-3(color='accent', disabled) {{ $t('common:actions.browse') }}
 </template>
 
 <script>

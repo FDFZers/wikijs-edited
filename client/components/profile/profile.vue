@@ -16,7 +16,7 @@
           //-   span {{$t('profile:viewPublicProfile')}}
       v-flex(lg6 xs12)
         v-card.animated.fadeInUp
-          v-toolbar(color='blue-grey', dark, dense, flat)
+          v-toolbar(color='secondary', dark, dense, flat)
             v-toolbar-title.subtitle-1 {{$t('profile:myInfo')}}
           v-list(two-line, dense)
             v-list-item
@@ -110,7 +110,7 @@
                     )
 
         v-card.mt-3.animated.fadeInUp.wait-p2s
-          v-toolbar(color='blue-grey', dark, dense, flat)
+          v-toolbar(color='secondary', dark, dense, flat)
             v-toolbar-title
               .subtitle-1 {{$t('profile:auth.title')}}
           v-card-text.pt-0
@@ -170,7 +170,7 @@
               span {{$t('profile:auth.changePassword')}}
       v-flex(lg6 xs12)
         //- v-card
-        //-   v-toolbar(color='blue-grey', dark, dense, flat)
+        //-   v-toolbar(color='secondary', dark, dense, flat)
         //-     v-toolbar-title
         //-       .subtitle-1 Picture
         //-   v-card-title
@@ -181,7 +181,7 @@
         //-     v-btn(outlined).mx-4 Upload Picture
         //-     v-btn(outlined, disabled) Remove Picture
         v-card.animated.fadeInUp.wait-p2s
-          v-toolbar(color='blue-grey', dark, dense, flat)
+          v-toolbar(color='secondary', dark, dense, flat)
             v-toolbar-title.subtitle-1 {{$t('profile:preferences')}}
           v-list(two-line, dense)
             v-list-item
@@ -327,7 +327,7 @@
               v-divider(v-if='idx < user.groups.length - 1')
 
         v-card.mt-3.animated.fadeInUp.wait-p4s
-          v-toolbar(color='teal', dark, dense, flat)
+          v-toolbar(color='accent', dark, dense, flat)
             v-toolbar-title
               .subtitle-1 {{$t('profile:activity.title')}}
           v-card-text.grey--text.text--darken-2

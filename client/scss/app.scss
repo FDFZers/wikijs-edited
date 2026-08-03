@@ -29,3 +29,6 @@
 @import 'pages/error';
 
 @import 'layout/_rtl';
+
+// Material 3 design system (last so it unifies everything)
+@import 'm3/index';

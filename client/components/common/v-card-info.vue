@@ -22,7 +22,7 @@ export default {
       switch (this.color) {
         case 'blue':
           return {
-            cls: this.$vuetify.theme.dark ? 'grey darken-4-l5 blue--text text--lighten-4' : 'blue lighten-5 blue--text text--darken-3',
+            cls: this.$vuetify.theme.dark ? 'grey darken-4-l5 primary--text text--lighten-4' : 'blue lighten-5 primary--text text--darken-3',
             icon: 'blue lighten-3'
           }
         case 'red':
@@ -46,10 +46,10 @@ export default {
   border-bottom: 1px solid #EEE;
 
   &.is-blue {
-    border-bottom-color: mc('blue', '100');
+    border-bottom-color: mc('indigo', '100');
 
     @at-root .theme--dark & {
-      border-bottom-color: rgba(mc('blue', '100'), .3);
+      border-bottom-color: rgba(mc('indigo', '100'), .3);
     }
   }
 

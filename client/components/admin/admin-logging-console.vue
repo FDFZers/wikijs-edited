@@ -3,10 +3,10 @@
     .dialog-header
       span Live Console
       v-spacer
-      .caption.blue--text.text--lighten-3.mr-3 Streaming...
+      .caption.primary--text.text--lighten-3.mr-3 Streaming...
       v-progress-circular(
         indeterminate
-        color='blue lighten-3'
+        color='primary lighten-3'
         :size='20'
         :width='2'
         )

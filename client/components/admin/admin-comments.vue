@@ -29,7 +29,7 @@
                   v-icon(color='grey', v-else) mdi-checkbox-blank-circle-outline
                 v-list-item-content
                   v-list-item-title.body-2(:class='!provider.isAvailable ? `grey--text` : (selectedProvider === provider.key ? `primary--text` : ``)') {{ provider.title }}
-                  v-list-item-subtitle: .caption(:class='!provider.isAvailable ? `grey--text text--lighten-1` : (selectedProvider === provider.key ? `blue--text ` : ``)') {{ provider.description }}
+                  v-list-item-subtitle: .caption(:class='!provider.isAvailable ? `grey--text text--lighten-1` : (selectedProvider === provider.key ? `primary--text ` : ``)') {{ provider.description }}
                 v-list-item-avatar(v-if='selectedProvider === provider.key', size='24')
                   v-icon.animated.fadeInLeft(color='primary', large) mdi-chevron-right
               v-divider(v-if='idx < providers.length - 1')
@@ -38,7 +38,7 @@
         v-card.animated.fadeInUp.wait-p2s
           v-toolbar(color='primary', dense, flat, dark)
             .subtitle-1 {{provider.title}}
-          v-card-info(color='blue')
+          v-card-info(color='primary')
             div
               div {{provider.description}}
               span.caption: a(:href='provider.website') {{provider.website}}

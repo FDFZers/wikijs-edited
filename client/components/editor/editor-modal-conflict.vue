@@ -1,7 +1,7 @@
 <template lang='pug'>
   v-card.editor-modal-conflict.animated.fadeIn(flat, tile)
     .pa-4
-      v-toolbar.radius-7(flat, color='indigo', style='border-bottom-left-radius: 0; border-bottom-right-radius: 0;', dark)
+      v-toolbar.radius-7(flat, color='primary', style='border-bottom-left-radius: 0; border-bottom-right-radius: 0;', dark)
         v-icon.mr-3 mdi-merge
         .subtitle-1 {{$t('editor:conflict.title')}}
         v-spacer
@@ -25,26 +25,26 @@
                 strong(place='refEditsLost') {{$t('editor:conflict.overwrite.editsLost')}}
             v-card-chin
               v-spacer
-              v-btn(outlined, color='indigo', @click='isRemoteConfirmDiagShown = false')
+              v-btn(outlined, color='primary', @click='isRemoteConfirmDiagShown = false')
                 v-icon(left) mdi-close
                 span {{$t('common:actions.cancel')}}
-              v-btn(@click='useRemote', color='indigo', dark)
+              v-btn(@click='useRemote', color='primary', dark)
                 v-icon(left) mdi-check
                 span {{$t('common:actions.confirm')}}
         v-divider.mx-3(vertical)
-        v-btn(outlined, color='indigo lighten-4', @click='close')
+        v-btn(outlined, color='primary lighten-4', @click='close')
           v-icon(left) mdi-close
           span {{$t('common:actions.cancel')}}
-      v-row.indigo.darken-1.body-2(no-gutters)
+      v-row.primary.darken-1.body-2(no-gutters)
         v-col.pa-4
           v-icon.mr-3(color='white') mdi-alpha-l-box
           i18next.white--text(tag='span', path='editor:conflict.localVersion')
-            em.indigo--text.text--lighten-4(place='refEditable') {{$t('editor:conflict.editable')}}
+            em.primary--text.text--lighten-4(place='refEditable') {{$t('editor:conflict.editable')}}
         v-divider(vertical)
         v-col.pa-4
           v-icon.mr-3(color='white') mdi-alpha-r-box
           i18next.white--text(tag='span', path='editor:conflict.remoteVersion')
-            em.indigo--text.text--lighten-4(place='refReadOnly') {{$t('editor:conflict.readonly')}}
+            em.primary--text.text--lighten-4(place='refReadOnly') {{$t('editor:conflict.readonly')}}
       v-row.grey.lighten-2.body-2(no-gutters)
         v-col.px-4.py-2
           i18next.grey--text.text--darken-2(tag='em', path='editor:conflict.leftPanelInfo')
@@ -57,18 +57,18 @@
       v-row.grey.lighten-3.grey--text.text--darken-3(no-gutters)
         v-col.pa-4
           .body-2
-            strong.indigo--text {{$t('editor:conflict.pageTitle')}}
+            strong.primary--text {{$t('editor:conflict.pageTitle')}}
             strong.pl-2 {{title}}
           .caption
-            strong.indigo--text {{$t('editor:conflict.pageDescription')}}
+            strong.primary--text {{$t('editor:conflict.pageDescription')}}
             span.pl-2 {{description}}
         v-divider(vertical, light)
         v-col.pa-4
           .body-2
-            strong.indigo--text {{$t('editor:conflict.pageTitle')}}
+            strong.primary--text {{$t('editor:conflict.pageTitle')}}
             strong.pl-2 {{latest.title}}
           .caption
-            strong.indigo--text {{$t('editor:conflict.pageDescription')}}
+            strong.primary--text {{$t('editor:conflict.pageDescription')}}
             span.pl-2 {{latest.description}}
       v-card.radius-7(:light='!$vuetify.theme.dark', :dark='$vuetify.theme.dark')
         div(ref='cm')

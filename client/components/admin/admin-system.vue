@@ -15,23 +15,23 @@
               v-list(two-line, dense)
                 v-list-item
                   v-list-item-avatar
-                    v-icon.blue.white--text mdi-application-export
+                    v-icon.primary.white--text mdi-application-export
                   v-list-item-content
                     v-list-item-title {{ $t('admin:system.currentVersion') }}
                     v-list-item-subtitle {{ info.currentVersion }}
                 v-list-item
                   v-list-item-avatar
-                    v-icon.blue.white--text mdi-inbox-arrow-up
+                    v-icon.primary.white--text mdi-inbox-arrow-up
                   v-list-item-content
                     v-list-item-title {{ $t('admin:system.latestVersion') }}
                     v-list-item-subtitle {{ info.latestVersion }}
                   v-list-item-action
                     v-list-item-action-text {{ $t('admin:system.published') }} {{ info.latestVersionReleaseDate | moment('from') }}
               v-card-actions(v-if='info.upgradeCapable && !isLatestVersion && info.platform === `docker`', :class='$vuetify.theme.dark ? `grey darken-3-d5` : `indigo lighten-5`')
-                .caption.indigo--text.pl-3(:class='$vuetify.theme.dark ? `text--lighten-4` : ``') Wiki.js can perform the upgrade to the latest version for you.
+                .caption.primary--text.pl-3(:class='$vuetify.theme.dark ? `text--lighten-4` : ``') Wiki.js can perform the upgrade to the latest version for you.
                 v-spacer
                 v-btn.px-3(
-                  color='indigo'
+                  color='primary'
                   dark
                   @click='performUpgrade'
                   )
@@ -95,7 +95,7 @@
               v-list(dense)
                 v-list-item
                   v-list-item-avatar
-                    v-avatar.indigo.darken-1(size='40')
+                    v-avatar.primary.darken-1(size='40')
                       v-icon(color='white') mdi-database
                   v-list-item-content
                     v-list-item-title(v-html='dbVersion')
@@ -108,7 +108,7 @@
       persistent
       width='450'
       )
-      v-card.blue.darken-5(dark)
+      v-card.primary.darken-5(dark)
         v-card-text.text-center.pa-10
           self-building-square-spinner(
             :animation-duration='4000'
@@ -116,10 +116,10 @@
             color='#FFF'
             style='margin: 0 auto;'
             )
-          .body-2.mt-5.blue--text.text--lighten-4 Your Wiki.js container is being upgraded...
-          .caption.blue--text.text--lighten-2 Please wait
+          .body-2.mt-5.primary--text.text--lighten-4 Your Wiki.js container is being upgraded...
+          .caption.primary--text.text--lighten-2 Please wait
           v-progress-linear.mt-5(
-            color='blue lighten-2'
+            color='primary lighten-2'
             :value='upgradeProgress'
             :buffer-value='upgradeProgress'
             rounded

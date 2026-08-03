@@ -8,7 +8,7 @@
           flat
           v-model='currentPageTitle'
           hide-details
-          background-color='black'
+          :background-color='$vuetify.theme.dark ? `grey darken-3` : `primary darken-3`'
           dense
           full-width
         )
@@ -28,11 +28,11 @@
           span.white--text(v-else-if='$vuetify.breakpoint.lgAndUp') {{ mode === 'create' ? $t('common:actions.create') : $t('common:actions.save') }}
         v-btn.animated.fadeInDown.wait-p1s(
           text
-          color='blue'
+          color='primary'
           @click='openPropsModal'
           :class='{ "is-icon": $vuetify.breakpoint.mdAndDown, "mx-0": !welcomeMode, "ml-0": welcomeMode }'
           )
-          v-icon(color='blue', :left='$vuetify.breakpoint.lgAndUp') mdi-tag-text-outline
+          v-icon(color='primary', :left='$vuetify.breakpoint.lgAndUp') mdi-tag-text-outline
           span.white--text(v-if='$vuetify.breakpoint.lgAndUp') {{ $t('common:actions.page') }}
         v-btn.animated.fadeInDown.wait-p2s(
           v-if='!welcomeMode'
@@ -582,11 +582,11 @@ export default {
 <style lang='scss'>
 
   .editor {
-    background-color: mc('grey', '900') !important;
+    background-color: var(--m3-background) !important;
     min-height: 100vh;
 
     .application--wrap {
-      background-color: mc('grey', '900');
+      background-color: var(--m3-background);
     }
 
     &-title-input input {

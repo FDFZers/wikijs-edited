@@ -28,7 +28,7 @@
                   v-icon(color='grey', v-else, v-ripple, @click='str.isEnabled = true') check_box_outline_blank
                 v-list-item-content
                   v-list-item-title.body-2(:class='!str.isAvailable ? `grey--text` : (selectedHook === str.key ? `primary--text` : ``)') {{ str.title }}
-                  v-list-item-sub-title.caption(:class='!str.isAvailable ? `grey--text text--lighten-1` : (selectedHook === str.key ? `blue--text ` : ``)') {{ str.description }}
+                  v-list-item-sub-title.caption(:class='!str.isAvailable ? `grey--text text--lighten-1` : (selectedHook === str.key ? `primary--text ` : ``)') {{ str.description }}
                 v-list-item-avatar(v-if='selectedHook === str.key')
                   v-icon.animated.fadeInLeft(color='primary') arrow_forward_ios
               v-divider(v-if='idx < hooks.length - 1')

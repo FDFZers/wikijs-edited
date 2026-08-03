@@ -12,10 +12,10 @@
           v-card.radius-7(light, flat, @click='selectBlock(item)')
             v-card-text
               .d-flex.align-center
-                v-avatar.radius-7(color='teal')
+                v-avatar.radius-7(color='accent')
                   v-icon(dark) {{item.icon}}
                 .pl-3
-                  .body-2: strong.teal--text {{item.title}}
+                  .body-2: strong.accent--text {{item.title}}
                   .caption.grey--text {{item.description}}
 </template>
 

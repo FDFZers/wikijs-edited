@@ -29,7 +29,7 @@
                     )
                     template(slot='item', slot-scope='data')
                       v-list-item-avatar
-                        v-icon.blue--text(dark) mdi-image-filter-frames
+                        v-icon.primary--text(dark) mdi-image-filter-frames
                       v-list-item-content
                         v-list-item-title(v-html='data.item.text')
                         v-list-item-sub-title(v-html='data.item.author')
@@ -67,10 +67,10 @@
                     )
             v-flex(lg6 xs12)
               //- v-card.animated.fadeInUp.wait-p2s
-              //-   v-toolbar(color='teal', dark, dense, flat)
+              //-   v-toolbar(color='accent', dark, dense, flat)
               //-     v-toolbar-title.subtitle-1 {{$t('admin:theme.downloadThemes')}}
               //-     v-spacer
-              //-     v-chip(label, color='white', small).teal--text coming soon
+              //-     v-chip(label, color='white', small).accent--text coming soon
               //-   v-data-table(
               //-     :headers='headers',
               //-     :items='themes',
@@ -84,9 +84,9 @@
               //-       td
               //-         span {{ thm.item.author }}
               //-       td.text-xs-center
-              //-         v-progress-circular(v-if='thm.item.isDownloading', indeterminate, color='blue', size='20', :width='2')
+              //-         v-progress-circular(v-if='thm.item.isDownloading', indeterminate, color='primary', size='20', :width='2')
               //-         v-btn(v-else-if='thm.item.isInstalled && thm.item.installDate < thm.item.updatedAt', icon)
-              //-           v-icon.blue--text mdi-cached
+              //-           v-icon.primary--text mdi-cached
               //-         v-btn(v-else-if='thm.item.isInstalled', icon)
               //-           v-icon.green--text mdi-check-bold
               //-         v-btn(v-else, icon)

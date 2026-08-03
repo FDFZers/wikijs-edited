@@ -12,9 +12,9 @@
               .text-center
                 img.setup-logo.animated.fadeInUp.wait-p2s(src='/_assets/svg/logo-wikijs-full.svg', alt='Wiki.js Logo')
               v-alert(v-model='error', type='error', icon='mdi-alert', tile, dismissible) {{ errorMessage }}
-              v-alert(v-if='!error', tile, color='blue lighten-5', :value='true')
-                v-icon.mr-3(color='blue') mdi-package-variant
-                span.blue--text You are about to install Wiki.js #[strong {{wikiVersion}}].
+              v-alert(v-if='!error', tile, color='primary lighten-5', :value='true')
+                v-icon.mr-3(color='primary') mdi-package-variant
+                span.primary--text You are about to install Wiki.js #[strong {{wikiVersion}}].
               v-card-text
                 .overline.pl-3 Administrator Account
                 v-container.pa-3.mt-3(grid-list-xl)
@@ -237,7 +237,7 @@ export default {
   .v-application--wrap {
     padding-top: 10vh;
     background-color: #111;
-    background-image: linear-gradient(45deg, mc('blue', '100'), mc('blue', '700'), mc('indigo', '900'));
+    background-image: linear-gradient(45deg, mc('indigo', '100'), mc('indigo', '700'), mc('indigo', '900'));
     background-blend-mode: exclusion;
 
     &::before {

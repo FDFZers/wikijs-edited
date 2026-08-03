@@ -1,0 +1,193 @@
+// ============================================================
+// Material 3 主题预设 — 全部基于 material.scss 色表
+// ============================================================
+// 每个预设包含完整的 light / dark 双模式 M3 色系。
+// primary 来自对应色系的 600(light) / 300(dark) 阶，
+// container 使用 100(light) / 800(dark) 阶保证柔和。
+// secondary 统一用 blue-grey 保持 UI 中性。
+// accent 选取与 primary 互补的色系。
+
+const grey = {
+  50: '#fafafa',
+  100: '#f5f5f5',
+  200: '#eeeeee',
+  300: '#e0e0e0',
+  400: '#bdbdbd',
+  500: '#9e9e9e',
+  600: '#757575',
+  700: '#616161',
+  800: '#424242',
+  900: '#212121'
+}
+
+const blueGrey = {
+  50: '#eceff1',
+  100: '#cfd8dc',
+  200: '#b0bec5',
+  300: '#90a4ae',
+  400: '#78909c',
+  500: '#607d8b',
+  600: '#546e7a',
+  700: '#455a64',
+  800: '#37474f',
+  900: '#263238'
+}
+
+/**
+ * 根据 material.scss 色系生成的完整 M3 主题
+ * @param {string} name     主题名称
+ * @param {string} icon     Material Design Icons 名称
+ * @param {object} pal      主色系（50-900）
+ * @param {object} accentPal accent 色系
+ */
+function makeTheme (name, icon, pal, accentPal) {
+  const iconMuted = pal['200']
+  const iconSubtle = pal['100']
+
+  const light = {
+    primary: pal['600'],
+    onPrimary: '#FFFFFF',
+    primaryContainer: pal['100'],
+    onPrimaryContainer: pal['800'],
+    secondary: blueGrey['600'],
+    onSecondary: '#FFFFFF',
+    secondaryContainer: blueGrey['100'],
+    onSecondaryContainer: blueGrey['800'],
+    accent: accentPal['500'],
+    onAccent: '#FFFFFF',
+    accentContainer: accentPal['100'],
+    onAccentContainer: accentPal['800'],
+    tertiary: accentPal['500'],
+    onTertiary: '#FFFFFF',
+    tertiaryContainer: accentPal['100'],
+    onTertiaryContainer: accentPal['800'],
+    error: '#d32f2f',
+    onError: '#FFFFFF',
+    errorContainer: '#ffcdd2',
+    onErrorContainer: '#b71c1c',
+    info: pal['600'],
+    success: '#388e3c',
+    warning: '#b26a00',
+    surface: grey['50'],
+    onSurface: grey['900'],
+    surfaceVariant: grey['200'],
+    onSurfaceVariant: grey['600'],
+    background: grey['50'],
+    onBackground: grey['900'],
+    outline: grey['400'],
+    outlineVariant: grey['300'],
+    shadow: '#000000',
+    inverseSurface: grey['800'],
+    inverseOnSurface: grey['100'],
+    inversePrimary: pal['300'],
+    anchor: pal['600'],
+    iconMuted,
+    iconSubtle,
+    surfaceColorful: pal['50'],
+    surfaceVariantColorful: pal['100']
+  }
+
+  const dark = {
+    primary: pal['300'],
+    onPrimary: pal['900'],
+    primaryContainer: pal['800'],
+    onPrimaryContainer: pal['100'],
+    secondary: blueGrey['300'],
+    onSecondary: blueGrey['900'],
+    secondaryContainer: blueGrey['800'],
+    onSecondaryContainer: blueGrey['100'],
+    accent: accentPal['300'],
+    onAccent: accentPal['900'],
+    accentContainer: accentPal['800'],
+    onAccentContainer: accentPal['100'],
+    tertiary: accentPal['300'],
+    onTertiary: accentPal['900'],
+    tertiaryContainer: accentPal['800'],
+    onTertiaryContainer: accentPal['100'],
+    error: '#e57373',
+    onError: '#b71c1c',
+    errorContainer: '#c62828',
+    onErrorContainer: '#ffcdd2',
+    info: pal['300'],
+    success: '#81c784',
+    warning: '#ffb74d',
+    surface: grey['900'],
+    onSurface: grey['100'],
+    surfaceVariant: grey['800'],
+    onSurfaceVariant: grey['300'],
+    background: grey['900'],
+    onBackground: grey['100'],
+    outline: grey['600'],
+    outlineVariant: grey['700'],
+    shadow: '#000000',
+    inverseSurface: grey['100'],
+    inverseOnSurface: grey['800'],
+    inversePrimary: pal['600'],
+    anchor: pal['300'],
+    iconMuted,
+    iconSubtle,
+    surfaceColorful: pal['900'],
+    surfaceVariantColorful: pal['800']
+  }
+
+  return { name, icon, light, dark }
+}
+
+// Colors extracted from material.scss
+const colors = {
+  red: { '50': '#ffebee', '100': '#ffcdd2', '200': '#ef9a9a', '300': '#e57373', '400': '#ef5350', '500': '#f44336', '600': '#e53935', '700': '#d32f2f', '800': '#c62828', '900': '#b71c1c' },
+  pink: { '50': '#fce4ec', '100': '#f8bbd0', '200': '#f48fb1', '300': '#f06292', '400': '#ec407a', '500': '#e91e63', '600': '#d81b60', '700': '#c2185b', '800': '#ad1457', '900': '#880e4f' },
+  purple: { '50': '#f3e5f5', '100': '#e1bee7', '200': '#ce93d8', '300': '#ba68c8', '400': '#ab47bc', '500': '#9c27b0', '600': '#8e24aa', '700': '#7b1fa2', '800': '#6a1b9a', '900': '#4a148c' },
+  deepPurple: { '50': '#ede7f6', '100': '#d1c4e9', '200': '#b39ddb', '300': '#9575cd', '400': '#7e57c2', '500': '#673ab7', '600': '#5e35b1', '700': '#512da8', '800': '#4527a0', '900': '#311b92' },
+  indigo: { '50': '#e8eaf6', '100': '#c5cae9', '200': '#9fa8da', '300': '#7986cb', '400': '#5c6bc0', '500': '#3f51b5', '600': '#3949ab', '700': '#303f9f', '800': '#283593', '900': '#1a237e' },
+  blue: { '50': '#e3f2fd', '100': '#bbdefb', '200': '#90caf9', '300': '#64b5f6', '400': '#42a5f5', '500': '#2196f3', '600': '#1e88e5', '700': '#1976d2', '800': '#1565c0', '900': '#0d47a1' },
+  cyan: { '50': '#e0f7fa', '100': '#b2ebf2', '200': '#80deea', '300': '#4dd0e1', '400': '#26c6da', '500': '#00bcd4', '600': '#00acc1', '700': '#0097a7', '800': '#00838f', '900': '#006064' },
+  teal: { '50': '#e0f2f1', '100': '#b2dfdb', '200': '#80cbc4', '300': '#4db6ac', '400': '#26a69a', '500': '#009688', '600': '#00897b', '700': '#00796b', '800': '#00695c', '901': '#004d40' },
+  green: { '50': '#e8f5e9', '100': '#c8e6c9', '200': '#a5d6a7', '300': '#81c784', '400': '#66bb6a', '500': '#4caf50', '600': '#43a047', '700': '#388e3c', '800': '#2e7d32', '900': '#1b5e20' },
+  orange: { '50': '#fff3e0', '100': '#ffebee', '200': '#ffcc80', '300': '#ffb74d', '400': '#ffa726', '500': '#ff9800', '600': '#fb8c00', '700': '#f57c00', '800': '#ef6c00', '900': '#e65100' }
+}
+
+// ============================================================
+// 7 THEMES PRESET
+// ============================================================
+
+const presets = [
+  makeTheme('靛青 Indigo', 'mdi-palette', colors.indigo, colors.purple),
+  makeTheme('深紫 Deep Purple', 'mdi-palette', colors.deepPurple, colors.pink),
+  makeTheme('经典蓝 Blue', 'mdi-palette', colors.blue, colors.cyan),
+  makeTheme('青碧 Teal', 'mdi-palette', colors.teal, colors.green),
+  makeTheme('翠绿 Green', 'mdi-palette', colors.green, colors.teal),
+  makeTheme('活力橙 Orange', 'mdi-palette', colors.orange, colors.deepPurple)
+]
+
+// Colorful
+const colorfulPreset = makeTheme('彩色 Colorful', 'mdi-palette', colors.indigo, colors.purple)
+colorfulPreset.light = {
+  ...colorfulPreset.light,
+  surface: colors.indigo['50'],
+  surfaceVariant: colors.indigo['100'],
+  background: colors.indigo['50']
+}
+colorfulPreset.dark = {
+  ...colorfulPreset.dark,
+  surface: colors.indigo['900'],
+  surfaceVariant: colors.indigo['800'],
+  background: colors.indigo['900']
+}
+presets.push(colorfulPreset)
+
+export default presets
+
+// Save theme to localStorage for persistence
+export function getSavedThemeIndex () {
+  try {
+    const idx = parseInt(window.localStorage.getItem('m3ThemeIndex'), 10)
+    return (idx >= 0 && idx < presets.length) ? idx : 0
+  } catch (_) {
+    return 0
+  }
+}
+
+export function saveThemeIndex (idx) {
+  window.localStorage.setItem('m3ThemeIndex', String(idx))
+}

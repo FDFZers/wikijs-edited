@@ -117,7 +117,7 @@
               v-card.animated.fadeInUp.wait-p2s
                 v-toolbar(color='primary', dark, dense, flat)
                   v-toolbar-title.subtitle-1 {{ $t('admin:security.uploads') }}
-                v-card-info(color='blue')
+                v-card-info(color='primary')
                   span {{$t('admin:security.uploadsInfo')}}
                 v-card-text
                   v-text-field.mt-3(
@@ -164,7 +164,7 @@
               v-card.mt-3.animated.fadeInUp.wait-p2s
                 v-toolbar(flat, color='primary', dark, dense)
                   .subtitle-1 {{$t('admin:security.login')}}
-                //- v-card-info(color='blue')
+                //- v-card-info(color='primary')
                 //-   span {{$t('admin:security.loginInfo')}}
                 .overline.grey--text.pa-4 {{$t('admin:security.loginScreen')}}
                 .px-4.pb-3

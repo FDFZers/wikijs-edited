@@ -27,7 +27,7 @@
                   v-icon(color='grey', v-else, v-ripple, @click='str.isEnabled = true') mdi-checkbox-blank-outline
                 v-list-item-content
                   v-list-item-title.body-2(:class='!str.isAvailable ? `grey--text` : (selectedProvider === str.key ? `primary--text` : ``)') {{ str.title }}
-                  v-list-item-subtitle: .caption(:class='!str.isAvailable ? `grey--text text--lighten-1` : (selectedProvider === str.key ? `blue--text ` : ``)') {{ str.description }}
+                  v-list-item-subtitle: .caption(:class='!str.isAvailable ? `grey--text text--lighten-1` : (selectedProvider === str.key ? `primary--text ` : ``)') {{ str.description }}
                 v-list-item-avatar(v-if='selectedProvider === str.key', size='24')
                   v-icon.animated.fadeInLeft(color='primary', large) mdi-chevron-right
               v-divider(v-if='idx < providers.length - 1')
@@ -40,13 +40,13 @@
             v-spacer
             v-switch(
               dark
-              color='blue lighten-5'
+              color='primary lighten-5'
               label='Active'
               v-model='provider.isEnabled'
               hide-details
               inset
               )
-          v-card-info(color='blue')
+          v-card-info(color='primary')
             div
               div {{provider.description}}
               span.caption: a(:href='provider.website') {{provider.website}}

@@ -1,7 +1,7 @@
 <template lang='pug'>
   v-dialog(v-model='isShown', persistent, max-width='700', no-click-animation)
     v-btn(fab, fixed, bottom, right, color='grey darken-3', dark, @click='goBack', style='width: 50px;'): v-icon mdi-undo-variant
-    v-card.radius-7(color='blue darken-3', dark)
+    v-card.radius-7(color='primary', dark)
       v-card-text.text-center.py-4
         .subtitle-1.white--text {{$t('editor:select.title')}}
         v-container(grid-list-lg, fluid)
@@ -54,7 +54,7 @@
                 )
                 v-card-text.text-center(@click='fromTemplate')
                   img(src='/_assets/svg/icon-cube.svg', alt='From Template', style='width: 42px; opacity: .5;')
-                  .body-2.mt-1.teal--text From Template
+                  .body-2.mt-1.accent--text From Template
                   .caption.grey--text Use an existing page...
 
     page-selector(mode='select', v-model='templateDialogIsShown', :open-handler='fromTemplateHandle', :path='path', :locale='locale', must-exist)

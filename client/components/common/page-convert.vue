@@ -3,7 +3,7 @@
     v-model='isShown'
     max-width='550'
     persistent
-    overlay-color='blue-grey darken-4'
+    overlay-color='secondary darken-1'
     overlay-opacity='.7'
     )
     v-card
@@ -12,7 +12,7 @@
         span {{$t('common:page.convert')}}
       v-card-text.pt-5
         i18next.body-2(path='common:page.convertTitle', tag='div')
-          span.blue-grey--text.text--darken-2(place='title') {{pageTitle}}
+          span.secondary--text.text--darken-2(place='title') {{pageTitle}}
         v-select.mt-5(
           :items=`[
             { value: 'markdown', text: 'Markdown' },

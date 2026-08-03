@@ -5,7 +5,7 @@
         .admin-header
           img.animated.fadeInUp(src='/_assets/svg/icon-venn-diagram.svg', alt='Visualize Pages', style='width: 80px;')
           .admin-header-title
-            .headline.blue--text.text--darken-2.animated.fadeInLeft Visualize Pages
+            .headline.primary--text.text--darken-2.animated.fadeInLeft Visualize Pages
             .subtitle-1.grey--text.animated.fadeInLeft.wait-p2s Dendrogram representation of your pages
           v-spacer
           v-select.mx-5.animated.fadeInDown.wait-p1s(

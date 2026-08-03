@@ -3,13 +3,13 @@
     nav-header
     v-content
       v-toolbar(color='primary', dark)
-        .subheading 正在查看页面历史：#[strong /{{path}}]
+        .subheading 正在查看页面历史 [strong /{{path}}]
         template(v-if='$vuetify.breakpoint.mdAndUp')
           v-spacer
-          .caption.blue--text.text--lighten-3.mr-4 记录条目：{{total}}
-          .caption.blue--text.text--lighten-3 ID：{{pageId}}
-          v-btn.ml-4(depressed, color='blue darken-1', @click='goLive') 返回最新页面
-      v-container(fluid, grid-list-xl)
+          .caption.primary--text.text--lighten-3.mr-4 记录条目：{{total}}
+          .caption.primary--text.text--lighten-3 ID：{{pageId}}
+          v-btn.ml-4(depressed, color='primary', @click='goLive') 返回最新页面
+          v-container(fluid, grid-list-xl)
         v-layout(row, wrap)
           v-flex(xs12, md4)
             v-chip.my-0.ml-6(
@@ -34,7 +34,7 @@
                     .caption(:title='$options.filters.moment(ph.versionDate, `LLL`)') {{ ph.versionDate | moment('ll') }}
                     v-divider.mx-3(vertical)
                     .caption(v-if='ph.actionType === `edit`') 修改页面 #[br] #[strong {{ ph.authorName }}] (ID: #[strong {{ ph.authorId }}])
-                    .caption(v-else-if='ph.actionType === `move`') 移动页面 #[strong {{ph.valueBefore}}] → #[strong {{ph.valueAfter}}] #[br] #[strong {{ ph.authorName }}] (ID: #[strong {{ ph.authorId }}])
+                    .caption(v-else-if='ph.actionType === `move`') 移动页面 #[strong {{ph.valueBefore}}] �?#[strong {{ph.valueAfter}}] #[br] #[strong {{ ph.authorName }}] (ID: #[strong {{ ph.authorId }}])
                     .caption(v-else-if='ph.actionType === `initial`') 创建页面 #[br] #[strong {{ ph.authorName }}] (ID: #[strong {{ ph.authorId }}])
                     .caption(v-else-if='ph.actionType === `live`') 最近一次修改 #[br] #[strong {{ ph.authorName }}] (ID: #[strong {{ ph.authorId }}])
                     .caption(v-else) 未知操作 #[br] #[strong {{ ph.authorName }}] (ID: #[strong {{ ph.authorId }}])
@@ -45,8 +45,8 @@
                       v-list(dense, nav).history-promptmenu
                         v-list-item(@click='setDiffSource(ph.versionId)', :disabled='(ph.versionId >= diffTarget && diffTarget !== 0) || ph.versionId === 0')
                           v-list-item-avatar(size='24'): v-avatar A
-                          v-list-item-title 设为差异显示源
-                        v-list-item(@click='setDiffTarget(ph.versionId)', :disabled='ph.versionId <= diffSource && ph.versionId !== 0')
+                          v-list-item-title 设为差异显示
+                          v-list-item(@click='setDiffTarget(ph.versionId)', :disabled='ph.versionId <= diffSource && ph.versionId !== 0')
                           v-list-item-avatar(size='24'): v-avatar B
                           v-list-item-title 设为差异显示目标
                         v-list-item(@click='viewSource(ph.versionId)')
@@ -561,7 +561,7 @@ export default {
 
 .history {
   &-promptmenu {
-    border-top: 5px solid mc('blue', '700');
+    border-top: 5px solid mc('indigo', '700');
   }
 
   .d2h-file-wrapper {

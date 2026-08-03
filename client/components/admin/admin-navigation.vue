@@ -19,7 +19,7 @@
           v-row(dense)
             v-col(cols='3')
               v-card.animated.fadeInUp
-                v-toolbar(color='teal', dark, dense, flat, height='56')
+                v-toolbar(color='accent', dark, dense, flat, height='56')
                   v-toolbar-title.subtitle-1 {{$t('admin:navigation.mode')}}
                 v-list(nav, two-line)
                   v-list-item-group(v-model='config.mode', mandatory, :color='$vuetify.theme.dark ? `teal lighten-3` : `teal`')
@@ -64,14 +64,14 @@
                 v-row(no-gutters, align='stretch')
                   v-col(style='flex: 0 0 350px;')
                     v-card.grey(flat, style='height: 100%; border-radius: 4px 0 0 4px;', :class='$vuetify.theme.dark ? `darken-4-l5` : `lighten-3`')
-                      .teal.lighten-1.pa-2.d-flex(style='margin-bottom: 1px; height:56px;')
+                      .accent.lighten-1.pa-2.d-flex(style='margin-bottom: 1px; height:56px;')
                         v-select(
                           :disabled='locales.length < 2'
                           label='Locale'
                           hide-details
                           solo
                           flat
-                          background-color='teal darken-2'
+                          background-color='accent darken-1'
                           dark
                           dense
                           v-model='currentLang'
@@ -84,11 +84,11 @@
                             v-btn.ml-2(icon, tile, color='white', v-on='on', @click='copyFromLocaleDialogIsShown = true')
                               v-icon mdi-arrange-send-backward
                           span {{$t('admin:navigation.copyFromLocale')}}
-                      v-list.py-2(dense, nav, dark, class='blue darken-2', style='border-radius: 0;')
+                      v-list.py-2(dense, nav, dark, class='primary', style='border-radius: 0;')
                         v-list-item(v-if='currentTree.length < 1')
-                          v-list-item-avatar(size='24'): v-icon(color='blue lighten-3') mdi-alert
+                          v-list-item-avatar(size='24'): v-icon(color='primary lighten-3') mdi-alert
                           v-list-item-content
-                            em.caption.blue--text.text--lighten-4 {{$t('navigation.emptyList')}}
+                            em.caption.primary--text.text--lighten-4 {{$t('navigation.emptyList')}}
                         draggable(v-model='currentTree')
                           template(v-for='navItem in currentTree')
                             v-list-item(
@@ -133,7 +133,7 @@
                   v-col
                     v-card(flat, style='border-radius: 0 4px 4px 0;')
                       template(v-if='current.kind === "link"')
-                        v-toolbar(height='56', color='teal lighten-1', flat, dark)
+                        v-toolbar(height='56', color='accent lighten-1', flat, dark)
                           .subtitle-1 {{$t('navigation.edit', { kind: $t('navigation.link') })}}
                           v-spacer
                           v-btn.px-5(color='white', outlined, @click='deleteItem(current)')
@@ -198,7 +198,7 @@
                         v-divider
 
                       template(v-else-if='current.kind === "header"')
-                        v-toolbar(height='56', color='teal lighten-1', flat, dark)
+                        v-toolbar(height='56', color='accent lighten-1', flat, dark)
                           .subtitle-1 {{$t('navigation.edit', { kind: $t('navigation.header') })}}
                           v-spacer
                           v-btn.px-5(color='white', outlined, @click='deleteItem(current)')
@@ -214,7 +214,7 @@
                         v-divider
 
                       div(v-else-if='current.kind === "divider"')
-                        v-toolbar(height='56', color='teal lighten-1', flat, dark)
+                        v-toolbar(height='56', color='accent lighten-1', flat, dark)
                           .subtitle-1 {{$t('navigation.edit', { kind: $t('navigation.divider') })}}
                           v-spacer
                           v-btn.px-5(color='white', outlined, @click='deleteItem(current)')
@@ -240,7 +240,7 @@
                             multiple
                           )
                       template(v-else)
-                        v-toolbar(height='56', color='teal lighten-1', flat, dark)
+                        v-toolbar(height='56', color='accent lighten-1', flat, dark)
                         v-card-text.grey--text(v-if='currentTree.length > 0') {{$t('navigation.noSelectionText')}}
                         v-card-text.grey--text(v-else) {{$t('navigation.noItemsText')}}
 
@@ -519,7 +519,7 @@ export default {
   cursor: pointer;
 
   &:hover {
-    background-color: rgba(mc('blue', '500'), .25);
+    background-color: rgba(mc('indigo', '500'), .25);
   }
 }
 

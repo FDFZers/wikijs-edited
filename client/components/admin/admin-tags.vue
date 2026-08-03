@@ -23,7 +23,7 @@
                     solo
                     flat
                     dense
-                    color='teal'
+                    color='accent'
                     :background-color='$vuetify.theme.dark ? `grey darken-4` : `grey lighten-2`'
                     prepend-inner-icon='mdi-magnify'
                   )
@@ -44,7 +44,7 @@
             v-flex.animated.fadeInUp.wait-p2s
               template(v-if='current.id')
                 v-card
-                  v-toolbar(dense, color='teal', flat, dark)
+                  v-toolbar(dense, color='accent', flat, dark)
                     .subtitle-1 {{$t('tags.edit')}}
                     v-spacer
                     v-btn.pl-4(
@@ -241,7 +241,7 @@ export default {
   cursor: pointer;
 
   &:hover {
-    background-color: rgba(mc('blue', '500'), .25);
+    background-color: rgba(mc('indigo', '500'), .25);
   }
 }
 

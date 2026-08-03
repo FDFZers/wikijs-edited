@@ -111,6 +111,11 @@ body {
       height: 40px;
       padding: 0 1rem;
       margin: 5px 0;
+
+      @at-root .theme--dark & {
+        background-color: var(--m3-surface-variant);
+        color: var(--m3-on-surface);
+      }
     }
 
     button {
@@ -120,14 +125,14 @@ body {
       border: none;
       border-radius: 5px;
       margin: 0 auto;
-      background-color: mc('blue', '700');
+      background-color: mc('indigo', '700');
       color: #FFF;
       cursor: pointer;
       margin-top: 1rem;
       font-weight: 600;
 
       &:hover {
-        background-color: mc('blue', '800');
+        background-color: mc('indigo', '800');
       }
     }
   }
@@ -214,7 +219,7 @@ body {
       align-items: center;
 
       &:hover {
-        color: mc('blue', '500');
+        color: mc('indigo', '500');
       }
     }
   }
@@ -233,7 +238,7 @@ body {
 
 .sidebar {
   width: 256px;
-  background-color: mc('blue', '700');
+  background-color: mc('indigo', '700');
   color: #FFF;
   padding: 8px 0;
   align-self: stretch;
@@ -333,7 +338,7 @@ body {
     font-size: 13px;
     height: 40px;
     display: flex;
-    color: mc('blue', '600');
+    color: mc('indigo', '600');
     align-items: center;
     font-weight: 500;
     padding: 0 16px;

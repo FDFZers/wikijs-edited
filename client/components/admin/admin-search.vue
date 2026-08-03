@@ -32,7 +32,7 @@
                   v-icon(color='grey', v-else) mdi-checkbox-blank-circle-outline
                 v-list-item-content
                   v-list-item-title.body-2(:class='!eng.isAvailable ? `grey--text` : (selectedEngine === eng.key ? `primary--text` : ``)') {{ eng.title }}
-                  v-list-item-subtitle: .caption(:class='!eng.isAvailable ? `grey--text text--lighten-1` : (selectedEngine === eng.key ? `blue--text ` : ``)') {{ eng.description }}
+                  v-list-item-subtitle: .caption(:class='!eng.isAvailable ? `grey--text text--lighten-1` : (selectedEngine === eng.key ? `primary--text ` : ``)') {{ eng.description }}
                 v-list-item-avatar(v-if='selectedEngine === eng.key', size='24')
                   v-icon.animated.fadeInLeft(color='primary', large) mdi-chevron-right
               v-divider(v-if='idx < engines.length - 1')
@@ -41,7 +41,7 @@
         v-card.animated.fadeInUp.wait-p2s
           v-toolbar(color='primary', dense, flat, dark)
             .subtitle-1 {{engine.title}}
-          v-card-info(color='blue')
+          v-card-info(color='primary')
             div
               div {{engine.description}}
               span.caption: a(:href='engine.website') {{engine.website}}
