@@ -15,16 +15,9 @@ exports.up = knex => {
       table.json('metadata')
       table.string('createdAt').notNullable()
       table.string('updatedAt').notNullable()
+      table.string('dir').notNullable().defaultTo('/')
 
-      table.integer('folderId').unsigned().references('id').inTable('assetFolders')
       table.integer('authorId').unsigned().references('id').inTable('users')
-    })
-    // ASSET FOLDERS -----------------------
-    .createTable('assetFolders', table => {
-      table.increments('id').primary()
-      table.string('name').notNullable()
-      table.string('slug').notNullable()
-      table.integer('parentId').unsigned().references('id').inTable('assetFolders')
     })
     // AUTHENTICATION ----------------------
     .createTable('authentication', table => {

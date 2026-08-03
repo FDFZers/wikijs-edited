@@ -42,14 +42,6 @@ module.exports = class Asset extends Model {
           from: 'assets.authorId',
           to: 'users.id'
         }
-      },
-      folder: {
-        relation: Model.BelongsToOneRelation,
-        modelClass: require('./assetFolders'),
-        join: {
-          from: 'assets.folderId',
-          to: 'assetFolders.id'
-        }
       }
     }
   }
@@ -67,11 +59,7 @@ module.exports = class Asset extends Model {
   }
 
   async getAssetPath() {
-    let hierarchy = []
-    if (this.folderId) {
-      hierarchy = await WIKI.models.assetFolders.getHierarchy(this.folderId)
-    }
-    return (this.folderId) ? hierarchy.map(h => h.slug).join('/') + `/${this.filename}` : this.filename
+    return path.join(this.dir, this.filename)
   }
 
   async deleteAssetCache() {
@@ -85,7 +73,7 @@ module.exports = class Asset extends Model {
     // Check for existing asset
     let asset = await WIKI.models.assets.query().where({
       hash: fileHash,
-      folderId: opts.folderId
+      dir: opts.dir
     }).first()
 
     // Build Object
@@ -96,7 +84,7 @@ module.exports = class Asset extends Model {
       kind: _.startsWith(opts.mimetype, 'image/') ? 'image' : 'binary',
       mime: opts.mimetype,
       fileSize: opts.size,
-      folderId: opts.folderId
+      dir: opts.dir
     }
 
     // Sanitize SVG contents
@@ -218,6 +206,11 @@ module.exports = class Asset extends Model {
       }
     }
     return false
+  }
+
+  static async getAllPaths() {
+    const assets = await WIKI.models.assets.query().select('dir')
+    return [...new Set(assets.map(a => a.dir))]
   }
 
   static async getAssetFromDb(assetPath, fileHash, cachePath, res) {

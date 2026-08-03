@@ -43,14 +43,20 @@ router.post('/u', (req, res, next) => {
     })
   }
 
-  // Get folder Id
-  let folderId = null
+  // Get dir
+  let dir = '/'
   try {
-    const folderRaw = _.get(req, 'body.mediaUpload', false)
-    if (folderRaw) {
-      folderId = _.get(JSON.parse(folderRaw), 'folderId', null)
-      if (folderId === 0) {
-        folderId = null
+    const dirRaw = _.get(req, 'body.mediaUpload', false)
+    if (dirRaw) {
+      dir = _.get(JSON.parse(dirRaw), 'dir', null)?.trim() ?? '/'
+      if (dir === '') {
+        dir = '/'
+      }
+      if (!dir.startsWith('/')) {
+        dir = '/' + dir
+      }
+      if (dir.endsWith('/')) {
+        dir = dir.slice(0, -1)
       }
     } else {
       throw new Error('Missing File Metadata')
@@ -62,24 +68,11 @@ router.post('/u', (req, res, next) => {
     })
   }
 
-  // Build folder hierarchy
-  let hierarchy = []
-  if (folderId) {
-    try {
-      hierarchy = await WIKI.models.assetFolders.getHierarchy(folderId)
-    } catch (err) {
-      return res.status(400).json({
-        succeeded: false,
-        message: 'Failed to fetch folder hierarchy.'
-      })
-    }
-  }
-
   // Sanitize filename
   fileMeta.originalname = sanitize(fileMeta.originalname.toLowerCase().replace(/[\s,;#]+/g, '_'))
 
   // Check if user can upload at path
-  const assetPath = (folderId) ? hierarchy.map(h => h.slug).join('/') + `/${fileMeta.originalname}` : fileMeta.originalname
+  const assetPath = path.join(dir, `${fileMeta.originalname}`)
   if (!WIKI.auth.checkAccess(req.user, ['write:assets'], { path: assetPath })) {
     return res.status(403).json({
       succeeded: false,
@@ -91,7 +84,7 @@ router.post('/u', (req, res, next) => {
   await WIKI.models.assets.upload({
     ...fileMeta,
     mode: 'upload',
-    folderId: folderId,
+    dir,
     assetPath,
     user: req.user
   })

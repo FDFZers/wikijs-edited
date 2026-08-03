@@ -6,7 +6,7 @@
       template(v-else-if='company && company.length > 0 && contentLicense !== ``')
         span(v-if='contentLicense === `alr`') {{ $t('common:footer.copyright', { company: company, year: currentYear, interpolation: { escapeValue: false } }) }} |&nbsp;
         span(v-else) {{ $t('common:footer.license', { company: company, license: $t('common:license.' + contentLicense), interpolation: { escapeValue: false } }) }} |&nbsp;
-      span 由 #[a(href='https://wiki.js.org', ref='nofollow') Wiki.js] 驱动（FFWiki #[a(href='https://github.com/Tigercrl/wikijs-edited', ref='nofollow') 魔改版]）
+      span 由 #[a(href='https://wiki.js.org', ref='nofollow') Wiki.js] 驱动（FFWiki #[a(href='https://github.com/FDFZers/wikijs-edited', ref='nofollow') 魔改版]）
 </template>
 
 <script>

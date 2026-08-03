@@ -2,6 +2,7 @@ const _ = require('lodash')
 const sanitize = require('sanitize-filename')
 const graphHelper = require('../../helpers/graph')
 const assetHelper = require('../../helpers/asset')
+const path = require('path')
 
 /* global WIKI */
 
@@ -15,62 +16,27 @@ module.exports = {
   AssetQuery: {
     async list(obj, args, context) {
       let cond = {
-        folderId: args.folderId === 0 ? null : args.folderId
+        dir: args.dir
       }
       if (args.kind !== 'ALL') {
         cond.kind = args.kind.toLowerCase()
       }
-      const folderHierarchy = await WIKI.models.assetFolders.getHierarchy(args.folderId)
-      const folderPath = folderHierarchy.map(h => h.slug).join('/')
       const results = await WIKI.models.assets.query().where(cond)
       return _.filter(results, r => {
-        const path = folderPath ? `${folderPath}/${r.filename}` : r.filename
-        return WIKI.auth.checkAccess(context.req.user, ['read:assets'], { path })
+        const filePath = path.join(args.dir, r.filename)
+        return WIKI.auth.checkAccess(context.req.user, ['read:assets'], { path: filePath })
       }).map(a => ({
         ...a,
         kind: a.kind.toUpperCase()
       }))
     },
     async folders(obj, args, context) {
-      const results = await WIKI.models.assetFolders.query().where({
-        parentId: args.parentFolderId === 0 ? null : args.parentFolderId
-      })
-      const parentHierarchy = await WIKI.models.assetFolders.getHierarchy(args.parentFolderId)
-      const parentPath = parentHierarchy.map(h => h.slug).join('/')
-      return _.filter(results, r => {
-        const path = parentPath ? `${parentPath}/${r.slug}` : r.slug
-        return WIKI.auth.checkAccess(context.req.user, ['read:assets'], { path })
-      })
+      const results = await WIKI.models.assets.getAllPaths()
+      return _.filter(results, path =>
+        WIKI.auth.checkAccess(context.req.user, ['read:assets'], { path }))
     }
   },
   AssetMutation: {
-    /**
-     * Create New Asset Folder
-     */
-    async createFolder(obj, args, context) {
-      try {
-        const folderSlug = sanitize(args.slug).toLowerCase()
-        const parentFolderId = args.parentFolderId === 0 ? null : args.parentFolderId
-        const result = await WIKI.models.assetFolders.query().where({
-          parentId: parentFolderId,
-          slug: folderSlug
-        }).first()
-        if (!result) {
-          await WIKI.models.assetFolders.query().insert({
-            slug: folderSlug,
-            name: folderSlug,
-            parentId: parentFolderId
-          })
-          return {
-            responseResult: graphHelper.generateSuccess('Asset Folder has been created successfully.')
-          }
-        } else {
-          throw new WIKI.Error.AssetFolderExists()
-        }
-      } catch (err) {
-        return graphHelper.generateError(err)
-      }
-    },
     /**
      * Rename an Asset
      */
@@ -93,26 +59,20 @@ module.exports = {
           // Check for collision
           const assetCollision = await WIKI.models.assets.query().where({
             filename,
-            folderId: asset.folderId
+            dir: asset.dir
           }).first()
           if (assetCollision) {
             throw new WIKI.Error.AssetRenameCollision()
           }
 
-          // Get asset folder path
-          let hierarchy = []
-          if (asset.folderId) {
-            hierarchy = await WIKI.models.assetFolders.getHierarchy(asset.folderId)
-          }
-
           // Check source asset permissions
-          const assetSourcePath = (asset.folderId) ? hierarchy.map(h => h.slug).join('/') + `/${asset.filename}` : asset.filename
+          const assetSourcePath = path.join(asset.dir, asset.filename)
           if (!WIKI.auth.checkAccess(context.req.user, ['manage:assets'], { path: assetSourcePath })) {
             throw new WIKI.Error.AssetRenameForbidden()
           }
 
           // Check target asset permissions
-          const assetTargetPath = (asset.folderId) ? hierarchy.map(h => h.slug).join('/') + `/${filename}` : filename
+          const assetTargetPath = path.join(asset.dir, filename)
           if (!WIKI.auth.checkAccess(context.req.user, ['write:assets'], { path: assetTargetPath })) {
             throw new WIKI.Error.AssetRenameTargetForbidden()
           }
@@ -158,7 +118,7 @@ module.exports = {
         const asset = await WIKI.models.assets.query().findById(args.id)
         if (asset) {
           // Check permissions
-          const assetPath = await asset.getAssetPath()
+          const assetPath = path.join(asset.dir, asset.filename)
           if (!WIKI.auth.checkAccess(context.req.user, ['manage:assets'], { path: assetPath })) {
             throw new WIKI.Error.AssetDeleteForbidden()
           }
@@ -203,9 +163,4 @@ module.exports = {
       }
     }
   }
-  // File: {
-  //   folder(fl) {
-  //     return fl.getFolder()
-  //   }
-  // }
 }

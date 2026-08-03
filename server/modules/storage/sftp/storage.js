@@ -130,14 +130,12 @@ module.exports = {
     )
 
     // -> Assets
-    const assetFolders = await WIKI.models.assetFolders.getAllPaths()
-
     await pipeline(
-      WIKI.models.knex.column('filename', 'folderId', 'data').select().from('assets').join('assetData', 'assets.id', '=', 'assetData.id').stream(),
+      WIKI.models.knex.column('filename', 'dir', 'data').select().from('assets').join('assetData', 'assets.id', '=', 'assetData.id').stream(),
       new Transform({
         objectMode: true,
         transform: async (asset, enc, cb) => {
-          const filename = (asset.folderId && asset.folderId > 0) ? `${_.get(assetFolders, asset.folderId)}/${asset.filename}` : asset.filename
+          const filename = path.join(asset.dir, asset.filename)
           WIKI.logger.info(`(STORAGE/SFTP) Adding asset ${filename}...`)
           await this.ensureDirectory(filename)
           await this.sftp.writeFile(path.posix.join(this.config.basePath, filename), asset.data)

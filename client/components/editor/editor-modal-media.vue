@@ -7,7 +7,7 @@
             v-card-text
               .d-flex
                 v-toolbar.radius-7(:color='$vuetify.theme.dark ? `teal` : `teal lighten-5`', dense, flat, height='44')
-                  .body-2(:class='$vuetify.theme.dark ? `white--text` : `teal--text`') {{$t('editor:assets.title')}}
+                  .body-2(:class='$vuetify.theme.dark ? `white--text` : `teal--text`') {{$t("editor:assets.title")}}
                   v-spacer
                   v-btn(text, icon, @click='refresh')
                     v-icon(:color='$vuetify.theme.dark ? `white` : `teal`') mdi-refresh
@@ -15,9 +15,9 @@
                   template(v-slot:activator='{ on }')
                     v-btn.ml-3.my-0.mr-0.radius-7(outlined, large, color='teal', :icon='$vuetify.breakpoint.xsOnly', v-on='on')
                       v-icon(:left='$vuetify.breakpoint.mdAndUp') mdi-plus
-                      span.hidden-sm-and-down(:class='$vuetify.theme.dark ? `teal--text text--lighten-3` : ``') {{$t('editor:assets.newFolder')}}
+                      span.hidden-sm-and-down(:class='$vuetify.theme.dark ? `teal--text text--lighten-3` : ``') {{$t("editor:assets.newFolder")}}
                   v-card
-                    .dialog-header.is-short.subtitle-1 {{$t('editor:assets.newFolder')}}
+                    .dialog-header.is-short.subtitle-1 {{$t("editor:assets.newFolder")}}
                     v-card-text.pt-5
                       v-text-field.md2(
                         outlined
@@ -28,13 +28,13 @@
                         @keyup.enter='createFolder'
                         @keyup.esc='newFolderDialog = false'
                         ref='folderNameIpt'
-                        )
+                      )
                       i18next.caption.grey--text.text--darken-1.pl-5(path='editor:assets.folderNameNamingRules', tag='div')
-                        a(place='namingRules', href='https://docs-beta.requarks.io/guide/assets#naming-restrictions', target='_blank') {{$t('editor:assets.folderNameNamingRulesLink')}}
+                        a(place='namingRules', href='https://docs-beta.requarks.io/guide/assets#naming-restrictions', target='_blank') {{$t("editor:assets.folderNameNamingRulesLink")}}
                     v-card-chin
                       v-spacer
                       v-btn(text, @click='newFolderDialog = false') {{$t('common:actions.cancel')}}
-                      v-btn.px-3(color='primary', @click='createFolder', :disabled='!isFolderNameValid', :loading='newFolderLoading') {{$t('common:actions.create')}}
+                      v-btn.px-3(color='primary', @click='createFolder', :disabled='!isFolderNameValid') {{$t('common:actions.create')}}
               v-toolbar(flat, dense, :color='$vuetify.theme.dark ? `grey darken-3` : `white`')
                 template(v-if='folderTree.length > 0')
                   .body-2
@@ -43,10 +43,10 @@
                       span(:key='folder.id') {{folder.name}}
                       span.mx-1 /
                 .body-2(v-else) / #[em root]
-              template(v-if='folders.length > 0 || currentFolderId > 0')
-                v-btn.is-icon.mx-1(:color='$vuetify.theme.dark ? `grey lighten-1` : `grey darken-2`', outlined, :dark='currentFolderId > 0', @click='upFolder()', :disabled='currentFolderId === 0')
+              template(v-if='folders[currentDir] && folders[currentDir].length > 0 || currentDir !== "/"')
+                v-btn.is-icon.mx-1(:color='$vuetify.theme.dark ? `grey lighten-1` : `grey darken-2`', outlined, :dark='currentDir !== "/"', @click='upFolder()', :disabled='currentDir === "/"')
                   v-icon mdi-folder-upload
-                v-btn.btn-normalcase.mx-1(v-for='folder of folders', :key='folder.id', depressed,  color='grey darken-2', dark, @click='downFolder(folder)')
+                v-btn.btn-normalcase.mx-1(v-for='folder of folders[currentDir]', :key='folder.id', depressed,  color='grey darken-2', dark, @click='downFolder(folder)')
                   v-icon(left) mdi-folder
                   span.caption(style='text-transform: none;') {{ folder.name }}
                 v-divider.mt-2
@@ -67,7 +67,7 @@
                     @click.left='currentFileId = props.item.id'
                     @click.right.prevent=''
                     :class='currentFileId === props.item.id ? ($vuetify.theme.dark ? `grey darken-3-d5` : `teal lighten-5`) : ``'
-                    )
+                  )
                     td.caption(v-if='$vuetify.breakpoint.smAndUp') {{ props.item.id }}
                     td
                       .body-2: strong(:class='currentFileId === props.item.id ? `teal--text` : ``') {{ props.item.filename }}
@@ -228,17 +228,16 @@
 </template>
 
 <script>
-import _ from 'lodash'
-import { get, sync } from 'vuex-pathify'
-import Cookies from 'js-cookie'
-import vueFilePond from 'vue-filepond'
-import 'filepond/dist/filepond.min.css'
+import _ from "lodash";
+import {get, sync} from "vuex-pathify";
+import Cookies from "js-cookie";
+import vueFilePond from "vue-filepond";
+import "filepond/dist/filepond.min.css";
 
-import listAssetQuery from 'gql/editor/editor-media-query-list.gql'
-import listFolderAssetQuery from 'gql/editor/editor-media-query-folder-list.gql'
-import createAssetFolderMutation from 'gql/editor/editor-media-mutation-folder-create.gql'
-import renameAssetMutation from 'gql/editor/editor-media-mutation-asset-rename.gql'
-import deleteAssetMutation from 'gql/editor/editor-media-mutation-asset-delete.gql'
+import listAssetQuery from "gql/editor/editor-media-query-list.gql";
+import listFolderAssetQuery from "gql/editor/editor-media-query-folder-list.gql";
+import renameAssetMutation from "gql/editor/editor-media-mutation-asset-rename.gql";
+import deleteAssetMutation from "gql/editor/editor-media-mutation-asset-delete.gql";
 
 const FilePond = vueFilePond()
 const localeSegmentRegex = /^[A-Z]{2}(-[A-Z]{2})?$/i
@@ -256,23 +255,23 @@ export default {
   },
   data() {
     return {
-      folders: [],
+      folders: {},
       files: [],
       assets: [],
       pagination: 1,
       remoteImageUrl: '',
       imageAlignments: [
-        { text: 'None', value: '' },
-        { text: 'Left', value: 'left' },
-        { text: 'Centered', value: 'center' },
-        { text: 'Right', value: 'right' },
-        { text: 'Absolute Top Right', value: 'abstopright' }
+        {text: 'None', value: ''},
+        {text: 'Left', value: 'left'},
+        {text: 'Centered', value: 'center'},
+        {text: 'Right', value: 'right'},
+        {text: 'Absolute Top Right', value: 'abstopright'}
       ],
       imageAlignment: '',
       loading: false,
       newFolderDialog: false,
       newFolderName: '',
-      newFolderLoading: false,
+      newlyCreatedDirs: [],
       previewDialog: false,
       renameDialog: false,
       renameAssetName: '',
@@ -283,38 +282,58 @@ export default {
   },
   computed: {
     isShown: {
-      get() { return this.value },
-      set(val) { this.$emit('input', val) }
+      get() {
+        return this.value
+      },
+      set(val) {
+        this.$emit('input', val)
+      }
     },
     editorKey: get('editor/editorKey'),
     activeModal: sync('editor/activeModal'),
-    folderTree: get('editor/media@folderTree'),
-    currentFolderId: sync('editor/media@currentFolderId'),
+    currentDir: sync('editor/media@currentDir'),
     currentFileId: sync('editor/media@currentFileId'),
-    pageTotal () {
+    pageTotal() {
       if (!this.assets) {
         return 0
       }
 
       return Math.ceil(this.assets.length / 15)
     },
+    folderTree() {
+      return this.folders.split('/')
+    },
     headers() {
       return _.compact([
-        this.$vuetify.breakpoint.smAndUp && { text: this.$t('editor:assets.headerId'), value: 'id', width: 80 },
-        { text: this.$t('editor:assets.headerFilename'), value: 'filename' },
-        this.$vuetify.breakpoint.lgAndUp && { text: this.$t('editor:assets.headerType'), value: 'ext', width: 90 },
-        this.$vuetify.breakpoint.mdAndUp && { text: this.$t('editor:assets.headerFileSize'), value: 'fileSize', width: 110 },
-        this.$vuetify.breakpoint.mdAndUp && { text: this.$t('editor:assets.headerAdded'), value: 'createdAt', width: 175 },
-        this.$vuetify.breakpoint.smAndUp && { text: this.$t('editor:assets.headerActions'), value: '', width: 80, sortable: false, align: 'right' }
+        this.$vuetify.breakpoint.smAndUp && {text: this.$t('editor:assets.headerId'), value: 'id', width: 80},
+        {text: this.$t('editor:assets.headerFilename'), value: 'filename'},
+        this.$vuetify.breakpoint.lgAndUp && {text: this.$t('editor:assets.headerType'), value: 'ext', width: 90},
+        this.$vuetify.breakpoint.mdAndUp && {
+          text: this.$t('editor:assets.headerFileSize'),
+          value: 'fileSize',
+          width: 110
+        },
+        this.$vuetify.breakpoint.mdAndUp && {
+          text: this.$t('editor:assets.headerAdded'),
+          value: 'createdAt',
+          width: 175
+        },
+        this.$vuetify.breakpoint.smAndUp && {
+          text: this.$t('editor:assets.headerActions'),
+          value: '',
+          width: 80,
+          sortable: false,
+          align: 'right'
+        }
       ])
     },
     isFolderNameValid() {
       return this.newFolderName.length > 1 && !localeSegmentRegex.test(this.newFolderName) && !disallowedFolderChars.test(this.newFolderName)
     },
-    currentAsset () {
+    currentAsset() {
       return _.find(this.assets, ['id', this.currentFileId]) || {}
     },
-    filePondServerOpts () {
+    filePondServerOpts() {
       const jwtToken = Cookies.get('jwt')
       return {
         process: {
@@ -333,6 +352,12 @@ export default {
           this.$refs.folderNameIpt.focus()
         })
       }
+    },
+    currentDir(newValue, oldValue) {
+      let corrected = newValue
+      if (corrected.endsWith('/')) corrected = corrected.slice(0, -1)
+      if (!corrected.startsWith('/')) corrected = '/' + corrected
+      if (corrected !== newValue) this.currentDir = corrected
     }
   },
   filters: {
@@ -368,21 +393,26 @@ export default {
         icon: 'check'
       })
     },
-    insert () {
+    insert() {
       const asset = _.find(this.assets, ['id', this.currentFileId])
-      const assetPath = this.folderTree.map(f => f.slug).join('/')
       this.$root.$emit('editorInsert', {
         kind: asset.kind,
-        path: this.currentFolderId > 0 ? `/${assetPath}/${asset.filename}` : `/${asset.filename}`,
+        path: this.currentDir !== '/' ? this.pathJoin(this.currentDir, asset.filename) : this.pathJoin('/', asset.filename),
         text: asset.filename,
         align: this.imageAlignment
       })
       this.activeModal = ''
     },
-    browse () {
+    browse() {
       this.$refs.pond.browse()
     },
-    async upload () {
+    pathJoin(p1, p2) {
+      if (p2 === '') return p1;
+      if (p1 === '') return p2;
+      let p2Clean = p2.startsWith('/') ? p2.slice(1) : p2;
+      return p1.endsWith('/') ? p1 + p2Clean : p1 + '/' + p2Clean;
+    },
+    async upload() {
       const files = this.$refs.pond.getFiles()
       if (files.length < 1) {
         return this.$store.commit('showNotification', {
@@ -393,12 +423,12 @@ export default {
       }
       for (let file of files) {
         file.setMetadata({
-          folderId: this.currentFolderId
+          dir: this.currentDir
         })
       }
       await this.$refs.pond.processFiles()
     },
-    async onFileProcessed (err, file) {
+    async onFileProcessed(err, file) {
       if (err) {
         return this.$store.commit('showNotification', {
           message: this.$t('editor:assets.uploadFailed'),
@@ -413,44 +443,20 @@ export default {
       await this.$apollo.queries.assets.refetch()
     },
     downFolder(folder) {
-      this.$store.commit('editor/pushMediaFolderTree', folder)
-      this.currentFolderId = folder.id
+      this.currentDir = folder.dir
       this.currentFileId = null
     },
     upFolder() {
-      this.$store.commit('editor/popMediaFolderTree')
       const parentFolder = _.last(this.folderTree)
-      this.currentFolderId = parentFolder ? parentFolder.id : 0
+      this.currentDir = parentFolder ? parentFolder.dir : '/'
       this.currentFileId = null
     },
     async createFolder() {
-      this.$store.commit(`loadingStart`, 'editor-media-createfolder')
-      this.newFolderLoading = true
-      try {
-        const resp = await this.$apollo.mutate({
-          mutation: createAssetFolderMutation,
-          variables: {
-            parentFolderId: this.currentFolderId,
-            slug: this.newFolderName
-          }
-        })
-        if (_.get(resp, 'data.assets.createFolder.responseResult.succeeded', false)) {
-          await this.$apollo.queries.folders.refetch()
-          this.$store.commit('showNotification', {
-            message: this.$t('editor:assets.folderCreateSuccess'),
-            style: 'success',
-            icon: 'check'
-          })
-          this.newFolderDialog = false
-          this.newFolderName = ''
-        } else {
-          this.$store.commit('pushGraphError', new Error(_.get(resp, 'data.assets.createFolder.responseResult.message')))
-        }
-      } catch (err) {
-        this.$store.commit('pushGraphError', err)
-      }
-      this.newFolderLoading = false
-      this.$store.commit(`loadingStop`, 'editor-media-createfolder')
+      const newDir = this.pathJoin(this.currentDir, this.newFolderName)
+      this.newlyCreatedDirs.push(newDir)
+      this.newFolderDialog = false
+      this.newFolderName = ''
+      this.downFolder(newDir)
     },
     openRenameDialog() {
       this.renameAssetName = this.currentAsset.filename
@@ -513,21 +519,27 @@ export default {
       this.deleteAssetLoading = false
       this.$store.commit(`loadingStop`, 'editor-media-deleteasset')
     },
-    cancel () {
+    cancel() {
       this.activeModal = ''
     }
   },
   apollo: {
     folders: {
       query: listFolderAssetQuery,
-      variables() {
-        return {
-          parentFolderId: this.currentFolderId
-        }
-      },
       fetchPolicy: 'network-only',
-      update: (data) => data.assets.folders,
-      watchLoading (isLoading) {
+      update: (data) => {
+        const list = data.assets.folders || []
+        return list.reduce((acc, folder) => {
+          const dir = folder.dir || ''
+          const lastSlash = dir.lastIndexOf('/')
+          const parent = lastSlash === -1 ? '' : dir.substring(0, lastSlash)
+          const child = dir.substring(lastSlash + 1)
+          if (!acc[parent]) acc[parent] = []
+          acc[parent].push(child)
+          return acc
+        }, {})
+      },
+      watchLoading(isLoading) {
         this.$store.commit(`loading${isLoading ? 'Start' : 'Stop'}`, 'editor-media-folders-list-refresh')
       }
     },
@@ -535,14 +547,22 @@ export default {
       query: listAssetQuery,
       variables() {
         return {
-          folderId: this.currentFolderId,
+          dir: this.currentDir,
           kind: 'ALL'
         }
       },
       throttle: 1000,
       fetchPolicy: 'network-only',
+      skip() {
+        return this.newlyCreatedDirs.includes(this.currentDir)
+      },
+      result() {
+        if (this.newlyCreatedDirs.includes(this.currentDir)) {
+          this.assets = []
+        }
+      },
       update: (data) => data.assets.list,
-      watchLoading (isLoading) {
+      watchLoading(isLoading) {
         this.loading = isLoading
         this.$store.commit(`loading${isLoading ? 'Start' : 'Stop'}`, 'editor-media-list-refresh')
       }

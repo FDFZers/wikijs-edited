@@ -8,8 +8,7 @@ const state = {
   activeModal: '',
   activeModalData: null,
   media: {
-    folderTree: [],
-    currentFolderId: 0,
+    currentDir: '/',
     currentFileId: null
   },
   checkoutDateActive: ''

@@ -3,6 +3,7 @@ const { pipeline } = require('node:stream/promises')
 const { Transform } = require('node:stream')
 const pageHelper = require('../../../helpers/page.js')
 const _ = require('lodash')
+const path = require("path");
 
 /* global WIKI */
 
@@ -142,14 +143,12 @@ module.exports = {
     )
 
     // -> Assets
-    const assetFolders = await WIKI.models.assetFolders.getAllPaths()
-
     await pipeline(
-      WIKI.models.knex.column('filename', 'folderId', 'data').select().from('assets').join('assetData', 'assets.id', '=', 'assetData.id').stream(),
+      WIKI.models.knex.column('filename', 'dir', 'data').select().from('assets').join('assetData', 'assets.id', '=', 'assetData.id').stream(),
       new Transform({
         objectMode: true,
         transform: async (asset, enc, cb) => {
-          const filename = (asset.folderId && asset.folderId > 0) ? `${_.get(assetFolders, asset.folderId)}/${asset.filename}` : asset.filename
+          const filename = path.join(asset.dir, asset.filename)
           WIKI.logger.info(`(STORAGE/AZURE) Adding asset ${filename}...`)
           const blockBlobClient = this.container.getBlockBlobClient(filename)
           await blockBlobClient.upload(asset.data, asset.data.length, { tier: this.config.storageTier })

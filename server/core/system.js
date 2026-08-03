@@ -109,7 +109,6 @@ module.exports = {
           // -----------------------------------------
           case 'assets': {
             WIKI.logger.info('Exporting assets...')
-            const assetFolders = await WIKI.models.assetFolders.getAllPaths()
             const assetsCountRaw = await WIKI.models.assets.query().count('* as total').first()
             const assetsCount = parseInt(assetsCountRaw.total)
             if (assetsCount < 1) {
@@ -120,11 +119,11 @@ module.exports = {
             WIKI.logger.info(`Found ${assetsCount} assets to export. Streaming to disk...`)
 
             await pipeline(
-              WIKI.models.knex.select('filename', 'folderId', 'data').from('assets').join('assetData', 'assets.id', '=', 'assetData.id').stream(),
+              WIKI.models.knex.select('filename', 'dir', 'data').from('assets').join('assetData', 'assets.id', '=', 'assetData.id').stream(),
               new Transform({
                 objectMode: true,
                 transform: async (asset, enc, cb) => {
-                  const filename = (asset.folderId && asset.folderId > 0) ? `${_.get(assetFolders, asset.folderId)}/${asset.filename}` : asset.filename
+                  const filename = path.join(asset.dir, asset.filename)
                   WIKI.logger.info(`Exporting asset ${filename}...`)
                   await fs.outputFile(path.join(opts.path, 'assets', filename), asset.data)
                   this.exportStatus.progress += assetsProgressMultiplier * 100

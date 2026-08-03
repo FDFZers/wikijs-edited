@@ -1,9 +1,5 @@
-query ($parentFolderId: Int!) {
+query {
   assets {
-    folders(parentFolderId:$parentFolderId) {
-      id
-      name
-      slug
-    }
+    folders
   }
 }

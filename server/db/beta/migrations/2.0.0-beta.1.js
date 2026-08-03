@@ -22,14 +22,6 @@ exports.up = knex => {
       table.string('createdAt').notNullable()
       table.string('updatedAt').notNullable()
     })
-    // ASSET FOLDERS -----------------------
-    .createTable('assetFolders', table => {
-      if (dbCompat.charset) { table.charset('utf8mb4') }
-      table.increments('id').primary()
-      table.string('name').notNullable()
-      table.string('slug').notNullable()
-      table.integer('parentId').unsigned().references('id').inTable('assetFolders')
-    })
     // AUTHENTICATION ----------------------
     .createTable('authentication', table => {
       if (dbCompat.charset) { table.charset('utf8mb4') }
@@ -233,7 +225,6 @@ exports.up = knex => {
     // REFERENCES
     // =====================================
     .table('assets', table => {
-      table.integer('folderId').unsigned().references('id').inTable('assetFolders')
       table.integer('authorId').unsigned().references('id').inTable('users')
     })
     .table('comments', table => {

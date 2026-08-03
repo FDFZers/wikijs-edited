@@ -11,7 +11,6 @@ const pageHelper = require('../../../helpers/page.js')
 /* global WIKI */
 
 module.exports = {
-  assetFolders: null,
   async importFromDisk ({ fullPath, moduleName }) {
     const rootUser = await WIKI.models.users.getRootUser()
 
@@ -67,7 +66,6 @@ module.exports = {
         }
       })
     )
-    this.clearFolderCache()
   },
 
   async processPage ({ user, fullPath, relPath, contentType, moduleName }) {
@@ -117,38 +115,9 @@ module.exports = {
   async processAsset ({ user, relPath, file, moduleName }) {
     WIKI.logger.info(`(STORAGE/${moduleName}) Asset marked for import: ${relPath}`)
 
-    // -> Get all folder paths
-    if (!this.assetFolders) {
-      this.assetFolders = await WIKI.models.assetFolders.getAllPaths()
-    }
-
     // -> Find existing folder
     const filePathInfo = path.parse(file.path)
-    const folderPath = path.dirname(relPath).replace(/\\/g, '/')
-    let folderId = _.toInteger(_.findKey(this.assetFolders, fld => { return fld === folderPath })) || null
-
-    // -> Create missing folder structure
-    if (!folderId && folderPath !== '.') {
-      const folderParts = folderPath.split('/')
-      let currentFolderPath = []
-      let currentFolderParentId = null
-      for (const folderPart of folderParts) {
-        currentFolderPath.push(folderPart)
-        const existingFolderId = _.findKey(this.assetFolders, fld => { return fld === currentFolderPath.join('/') })
-        if (!existingFolderId) {
-          const newFolderObj = await WIKI.models.assetFolders.query().insert({
-            slug: folderPart,
-            name: folderPart,
-            parentId: currentFolderParentId
-          })
-          _.set(this.assetFolders, newFolderObj.id, currentFolderPath.join('/'))
-          currentFolderParentId = newFolderObj.id
-        } else {
-          currentFolderParentId = _.toInteger(existingFolderId)
-        }
-      }
-      folderId = currentFolderParentId
-    }
+    const dir = path.dirname(relPath).replace(/\\/g, '/')
 
     // -> Import asset
     await WIKI.models.assets.upload({
@@ -157,15 +126,11 @@ module.exports = {
       ext: filePathInfo.ext,
       mimetype: mime(filePathInfo.base) || 'application/octet-stream',
       size: file.stats.size,
-      folderId: folderId,
+      dir,
       path: file.path,
       assetPath: relPath,
       user: user,
       skipStorage: true
     })
-  },
-
-  clearFolderCache () {
-    this.assetFolders = null
   }
 }

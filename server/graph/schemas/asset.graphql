@@ -16,13 +16,11 @@ extend type Mutation {
 
 type AssetQuery {
   list(
-    folderId: Int!
+    dir: String!
     kind: AssetKind!
   ): [AssetItem] @auth(requires: ["manage:system", "read:assets"])
 
-  folders(
-    parentFolderId: Int!
-  ): [AssetFolder] @auth(requires: ["manage:system", "read:assets"])
+  folders: [String!] @auth(requires: ["manage:system", "read:assets"])
 }
 
 # -----------------------------------------------
@@ -30,12 +28,6 @@ type AssetQuery {
 # -----------------------------------------------
 
 type AssetMutation {
-  createFolder(
-    parentFolderId: Int!
-    slug: String!
-    name: String
-  ): DefaultResponse @auth(requires: ["manage:system", "write:assets"])
-
   renameAsset(
     id: Int!
     filename: String!
@@ -62,14 +54,8 @@ type AssetItem {
   metadata: String
   createdAt: Date!
   updatedAt: Date!
-  folder: AssetFolder
+  dir: String!
   author: User
-}
-
-type AssetFolder {
-  id: Int!
-  slug: String!
-  name: String
 }
 
 enum AssetKind {
