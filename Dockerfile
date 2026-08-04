@@ -7,13 +7,17 @@ RUN apk add yarn g++ make cmake python3 --no-cache
 
 WORKDIR /wiki
 
-COPY ./package.json ./patches/ ./
+COPY ./patches ./patches
+COPY ./package.json ./package.json
 
 RUN yarn --frozen-lockfile --non-interactive
+RUN yarn patch-package
 
-COPY ./.babelrc ./.eslintignore ./.eslintrc.yml ./
-COPY ./dev ./dev
 COPY ./client ./client
+COPY ./dev ./dev
+COPY ./.babelrc ./.babelrc
+COPY ./.eslintignore ./.eslintignore
+COPY ./.eslintrc.yml ./.eslintrc.yml
 
 RUN yarn build
 
@@ -26,7 +30,8 @@ RUN apk add yarn g++ make cmake python3 --no-cache
 
 WORKDIR /wiki
 
-COPY ./package.json ./patches/ ./
+COPY ./patches ./patches
+COPY ./package.json ./package.json
 
 RUN yarn --production --frozen-lockfile --non-interactive
 RUN yarn patch-package
@@ -35,7 +40,7 @@ RUN yarn patch-package
 # --- Release ---
 # ===============
 FROM node:24-alpine
-LABEL maintainer="requarks.io"
+LABEL maintainer="requarks.io, fdfzers"
 
 RUN apk add bash curl git openssh gnupg sqlite --no-cache && \
     mkdir -p /wiki /logs /wiki/data/content && \
