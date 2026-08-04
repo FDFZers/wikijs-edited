@@ -57,13 +57,13 @@ jobs:
         file: dev/build/Dockerfile
         push: true
         tags: |
-          ghcr.io/FDFZers/wikijs:canary
-          ghcr.io/FDFZers/wikijs:canary-${{ env.REL_VERSION_STRICT }}
+          ghcr.io/FDFZers/wikijs-edited:canary
+          ghcr.io/FDFZers/wikijs-edited:canary-${{ env.REL_VERSION_STRICT }}
 
     - name: Extract compiled files
       run: |
         mkdir -p _dist
-        docker create --name wiki ghcr.io/FDFZers/wikijs:canary-$REL_VERSION_STRICT
+        docker create --name wiki ghcr.io/FDFZers/wikijs-edited:canary-$REL_VERSION_STRICT
         docker cp wiki:/wiki _dist
         docker rm wiki
         rm _dist/wiki/config.yml
