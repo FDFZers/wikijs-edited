@@ -301,7 +301,7 @@ export default {
       return Math.ceil(this.assets.length / 15)
     },
     folderTree() {
-      return this.folders.split('/')
+      return this.currentDir.split('/')
     },
     headers() {
       return _.compact([
