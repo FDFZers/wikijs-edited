@@ -16,7 +16,6 @@ COPY ./dev ./dev
 COPY ./client ./client
 
 RUN yarn build
-RUN yarn patch-package
 
 # ====================
 # --- Prepare Env ---
@@ -30,6 +29,7 @@ WORKDIR /wiki
 COPY ./package.json ./patches/ ./
 
 RUN yarn --production --frozen-lockfile --non-interactive
+RUN yarn patch-package
 
 # ===============
 # --- Release ---
