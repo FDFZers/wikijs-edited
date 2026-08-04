@@ -1,0 +1,12 @@
+mutation ($id: Int!, $dir: String!) {
+  assets {
+    moveAsset(id:$id, dir: $dir) {
+      responseResult {
+        succeeded
+        errorCode
+        slug
+        message
+      }
+    }
+  }
+}

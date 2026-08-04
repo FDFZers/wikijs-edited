@@ -49,15 +49,7 @@ router.post('/u', (req, res, next) => {
     const dirRaw = _.get(req, 'body.mediaUpload', false)
     if (dirRaw) {
       dir = _.get(JSON.parse(dirRaw), 'dir', null)?.trim() ?? '/'
-      if (dir === '') {
-        dir = '/'
-      }
-      if (!dir.startsWith('/')) {
-        dir = '/' + dir
-      }
-      if (dir.endsWith('/')) {
-        dir = dir.slice(0, -1)
-      }
+      dir = WIKI.models.assets.correctDir(dir)
     } else {
       throw new Error('Missing File Metadata')
     }

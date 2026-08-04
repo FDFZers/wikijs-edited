@@ -33,22 +33,22 @@
                         a(place='namingRules', href='https://docs-beta.requarks.io/guide/assets#naming-restrictions', target='_blank') {{$t("editor:assets.folderNameNamingRulesLink")}}
                     v-card-chin
                       v-spacer
-                      v-btn(text, @click='newFolderDialog = false') {{$t('common:actions.cancel')}}
-                      v-btn.px-3(color='primary', @click='createFolder', :disabled='!isFolderNameValid') {{$t('common:actions.create')}}
+                      v-btn(text, @click='newFolderDialog = false') {{$t("common:actions.cancel")}}
+                      v-btn.px-3(color='primary', @click='createFolder', :disabled='!isFolderNameValid') {{$t("common:actions.create")}}
               v-toolbar(flat, dense, :color='$vuetify.theme.dark ? `grey darken-3` : `white`')
                 template(v-if='folderTree.length > 0')
                   .body-2
                     span.mr-1 /
-                    template(v-for='folder of folderTree')
-                      span(:key='folder.id') {{folder.name}}
+                    template(v-for='(folder, i) of folderTree')
+                      span(:key='i') {{folder}}
                       span.mx-1 /
                 .body-2(v-else) / #[em root]
               template(v-if='folders[currentDir] && folders[currentDir].length > 0 || currentDir !== "/"')
                 v-btn.is-icon.mx-1(:color='$vuetify.theme.dark ? `grey lighten-1` : `grey darken-2`', outlined, :dark='currentDir !== "/"', @click='upFolder()', :disabled='currentDir === "/"')
                   v-icon mdi-folder-upload
-                v-btn.btn-normalcase.mx-1(v-for='folder of folders[currentDir]', :key='folder.id', depressed,  color='grey darken-2', dark, @click='downFolder(folder)')
+                v-btn.btn-normalcase.mx-1(v-for='(folder, i) of folders[currentDir]', :key='i', depressed,  color='grey darken-2', dark, @click='gotoFolder(pathJoin(currentDir, folder))')
                   v-icon(left) mdi-folder
-                  span.caption(style='text-transform: none;') {{ folder.name }}
+                  span.caption(style='text-transform: none;') {{ folder }}
                 v-divider.mt-2
               v-data-table(
                 :items='assets'
@@ -76,7 +76,7 @@
                       v-chip.ma-0(x-small, :color='$vuetify.theme.dark ? `grey darken-4` : `grey lighten-4`')
                         .overline {{props.item.ext.toUpperCase().substring(1)}}
                     td.caption(v-if='$vuetify.breakpoint.mdAndUp') {{ props.item.fileSize | prettyBytes }}
-                    td.caption(v-if='$vuetify.breakpoint.mdAndUp') {{ props.item.createdAt | moment('from') }}
+                    td.caption(v-if='$vuetify.breakpoint.mdAndUp') {{ props.item.createdAt | moment("from") }}
                     td(v-if='$vuetify.breakpoint.smAndUp')
                       v-menu(offset-x, min-width='200')
                         template(v-slot:activator='{ on }')
@@ -103,25 +103,25 @@
                           v-list-item(@click='openRenameDialog')
                             v-list-item-avatar(size='24')
                               v-icon(color='orange') mdi-keyboard-outline
-                            v-list-item-content {{$t('common:actions.rename')}}
-                          //- v-list-item(@click='', disabled)
-                          //-   v-list-item-avatar(size='24')
-                          //-     v-icon(color='blue') mdi-file-move
-                          //-   v-list-item-content {{$t('common:actions.move')}}
+                            v-list-item-content {{$t("common:actions.rename")}}
+                          v-list-item(@click='openMoveDialog')
+                            v-list-item-avatar(size='24')
+                              v-icon(color='blue') mdi-file-move
+                            v-list-item-content {{$t('common:actions.move')}}
                           v-list-item(@click='deleteDialog = true')
                             v-list-item-avatar(size='24')
                               v-icon(color='red') mdi-file-hidden
-                            v-list-item-content {{$t('common:actions.delete')}}
+                            v-list-item-content {{$t("common:actions.delete")}}
                 template(slot='no-data')
-                  v-alert.mt-3.radius-7(icon='mdi-folder-open-outline', :value='true', outlined, color='teal') {{$t('editor:assets.folderEmpty')}}
+                  v-alert.mt-3.radius-7(icon='mdi-folder-open-outline', :value='true', outlined, color='teal') {{$t("editor:assets.folderEmpty")}}
               .text-xs-center.py-2(v-if='this.pageTotal > 1')
                 v-pagination(v-model='pagination', :length='pageTotal', color='teal')
               .d-flex.mt-3
                 v-toolbar.radius-7(flat, :color='$vuetify.theme.dark ? `grey darken-2` : `grey lighten-4`', dense, height='44')
-                  .body-2(:class='$vuetify.theme.dark ? `grey--text text--lighten-1` : `grey--text text--darken-1`') {{$t('editor:assets.fileCount', { count: assets.length })}}
+                  .body-2(:class='$vuetify.theme.dark ? `grey--text text--lighten-1` : `grey--text text--darken-1`') {{$t("editor:assets.fileCount", { count: assets.length })}}
                 v-btn.ml-3.mr-0.my-0.radius-7(color='red darken-2', large, @click='cancel', dark)
                   v-icon(left) mdi-close
-                  span {{$t('common:actions.cancel')}}
+                  span {{$t("common:actions.cancel")}}
                 v-btn.ml-3.mr-0.my-0.radius-7(color='teal', large, @click='insert', :disabled='!currentFileId', :dark='currentFileId !== null')
                   v-icon(left) mdi-playlist-plus
                   span {{$t('common:actions.insert')}}
@@ -210,6 +210,27 @@
           v-btn(text, @click='renameDialog = false', :disabled='renameAssetLoading') {{$t('common:actions.cancel')}}
           v-btn.px-3(color='orange darken-3', @click='renameAsset', :loading='renameAssetLoading').white--text {{$t('common:actions.rename')}}
 
+    //- MOVE DIALOG
+    v-dialog(v-model='moveDialog', max-width='550', persistent)
+      v-card
+        .dialog-header.is-short.is-blue
+          v-icon.mr-2(color='white') mdi-file-move
+          span 移动
+        v-card-text.pt-5
+          .body-2 输入新路径：
+          v-text-field(
+            outlined
+            single-line
+            :counter='255'
+            v-model='moveAssetDir'
+            @keyup.enter='moveAsset'
+            :disabled='moveAssetLoading'
+          )
+        v-card-chin
+          v-spacer
+          v-btn(text, @click='moveDialog = false', :disabled='moveAssetLoading') {{$t('common:actions.cancel')}}
+          v-btn.px-3(color='blue darken-3', @click='moveAsset', :loading='moveAssetLoading').white--text {{$t('common:actions.move')}}
+
     //- DELETE DIALOG
 
     v-dialog(v-model='deleteDialog', max-width='550', persistent)
@@ -238,6 +259,8 @@ import listAssetQuery from "gql/editor/editor-media-query-list.gql";
 import listFolderAssetQuery from "gql/editor/editor-media-query-folder-list.gql";
 import renameAssetMutation from "gql/editor/editor-media-mutation-asset-rename.gql";
 import deleteAssetMutation from "gql/editor/editor-media-mutation-asset-delete.gql";
+import moveAssetMutation from "gql/editor/editor-media-mutation-asset-move.gql";
+
 
 const FilePond = vueFilePond()
 const localeSegmentRegex = /^[A-Z]{2}(-[A-Z]{2})?$/i
@@ -273,6 +296,9 @@ export default {
       newFolderName: '',
       newlyCreatedDirs: [],
       previewDialog: false,
+      moveDialog: false,
+      moveAssetDir: '',
+      moveAssetLoading: false,
       renameDialog: false,
       renameAssetName: '',
       renameAssetLoading: false,
@@ -301,7 +327,8 @@ export default {
       return Math.ceil(this.assets.length / 15)
     },
     folderTree() {
-      return this.currentDir.split('/')
+      if (this.currentDir === '/') return []
+      return this.currentDir.slice(1).split('/')
     },
     headers() {
       return _.compact([
@@ -386,6 +413,7 @@ export default {
   },
   methods: {
     async refresh() {
+      await this.$apollo.queries.folders.refetch()
       await this.$apollo.queries.assets.refetch()
       this.$store.commit('showNotification', {
         message: this.$t('editor:assets.refreshSuccess'),
@@ -440,27 +468,65 @@ export default {
         this.$refs.pond.removeFile(file.id)
       }, 5000)
 
+      await this.$apollo.queries.folders.refetch()
       await this.$apollo.queries.assets.refetch()
     },
-    downFolder(folder) {
-      this.currentDir = folder.dir
+    gotoFolder(dir) {
+      this.currentDir = dir
       this.currentFileId = null
     },
     upFolder() {
-      const parentFolder = _.last(this.folderTree)
-      this.currentDir = parentFolder ? parentFolder.dir : '/'
-      this.currentFileId = null
+      const parentFolder = this.folderTree.slice(0, -1).join('/')
+      this.gotoFolder(parentFolder ? parentFolder : '/')
     },
     async createFolder() {
       const newDir = this.pathJoin(this.currentDir, this.newFolderName)
       this.newlyCreatedDirs.push(newDir)
+      if (!this.folders[this.currentDir]) this.folders[this.currentDir] = []
+      this.folders[this.currentDir].push(this.newFolderName)
       this.newFolderDialog = false
       this.newFolderName = ''
-      this.downFolder(newDir)
+      this.gotoFolder(newDir)
+    },
+    openMoveDialog() {
+      this.moveAssetDir = this.currentDir
+      this.moveDialog = true
     },
     openRenameDialog() {
       this.renameAssetName = this.currentAsset.filename
       this.renameDialog = true
+    },
+    async moveAsset(){
+      this.$store.commit(`loadingStart`, 'editor-media-moveasset')
+      this.moveAssetLoading = true
+      let dir = this.moveAssetDir
+      if (dir.endsWith('/')) dir = dir.slice(0, -1)
+      if (!dir.startsWith('/')) dir = '/' + dir
+      try {
+        const resp = await this.$apollo.mutate({
+          mutation: moveAssetMutation,
+          variables: {
+            id: this.currentFileId,
+            dir
+          }
+        })
+        if (_.get(resp, 'data.assets.moveAsset.responseResult.succeeded', false)) {
+          await this.$apollo.queries.assets.refetch()
+          this.$store.commit('showNotification', {
+            message: '已成功移动。',
+            style: 'success',
+            icon: 'check'
+          })
+          this.moveDialog = false
+          this.moveAssetDir = ''
+        } else {
+          this.$store.commit('pushGraphError', new Error(_.get(resp, 'data.assets.moveAsset.responseResult.message')))
+        }
+      } catch (err) {
+        this.$store.commit('pushGraphError', err)
+      }
+      this.moveAssetLoading = false
+      this.$store.commit(`loadingStop`, 'editor-media-moveasset')
     },
     async renameAsset() {
       this.$store.commit(`loadingStart`, 'editor-media-renameasset')
@@ -529,13 +595,17 @@ export default {
       fetchPolicy: 'network-only',
       update: (data) => {
         const list = data.assets.folders || []
-        return list.reduce((acc, folder) => {
-          const dir = folder.dir || ''
-          const lastSlash = dir.lastIndexOf('/')
-          const parent = lastSlash === -1 ? '' : dir.substring(0, lastSlash)
-          const child = dir.substring(lastSlash + 1)
-          if (!acc[parent]) acc[parent] = []
-          acc[parent].push(child)
+        return list.reduce((acc, dir) => {
+          dir = dir || '/'
+          if (dir.endsWith('/')) dir = dir.slice(0, -1)
+          if (dir.startsWith('/')) dir = dir.slice(1)
+          const segments = dir.split('/')
+          let parentPath = '/'
+          for (const segment of segments) {
+            if (!acc[parentPath]) acc[parentPath] = []
+            if (!acc[parentPath].includes(segment)) acc[parentPath].push(segment)
+            parentPath = parentPath === '/' ? `/${segment}` : `${parentPath}/${segment}`
+          }
           return acc
         }, {})
       },

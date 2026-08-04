@@ -2,243 +2,243 @@ const CustomError = require('custom-error-instance')
 
 module.exports = {
   AssetDeleteForbidden: CustomError('AssetDeleteForbidden', {
-    message: 'You are not authorized to delete this asset.',
+    message: '您没有权限删除此资源。',
     code: 2003
   }),
   AssetFolderExists: CustomError('AssetFolderExists', {
-    message: 'An asset folder with the same name already exists.',
+    message: '同名资源文件夹已存在。',
     code: 2002
   }),
   AssetGenericError: CustomError('AssetGenericError', {
-    message: 'An unexpected error occured during asset operation.',
+    message: '资源操作过程中发生意外错误。',
     code: 2001
   }),
   AssetInvalid: CustomError('AssetInvalid', {
-    message: 'This asset does not exist or is invalid.',
+    message: '该资源不存在或无效。',
     code: 2004
   }),
   AssetRenameCollision: CustomError('AssetRenameCollision', {
-    message: 'An asset with the same filename in the same folder already exists.',
+    message: '同一文件夹下已存在同名文件。',
     code: 2005
   }),
   AssetRenameForbidden: CustomError('AssetRenameForbidden', {
-    message: 'You are not authorized to rename this asset.',
+    message: '您没有权限重命名此资源。',
     code: 2006
   }),
   AssetRenameInvalid: CustomError('AssetRenameInvalid', {
-    message: 'The new asset filename is invalid.',
+    message: '新的资源文件名无效。',
     code: 2007
   }),
   AssetRenameInvalidExt: CustomError('AssetRenameInvalidExt', {
-    message: 'The file extension cannot be changed on an existing asset.',
+    message: '无法更改现有资源的文件扩展名。',
     code: 2008
   }),
   AssetRenameTargetForbidden: CustomError('AssetRenameTargetForbidden', {
-    message: 'You are not authorized to rename this asset to the requested name.',
+    message: '您没有权限将此资源重命名为指定名称。',
     code: 2009
   }),
   AuthAccountBanned: CustomError('AuthAccountBanned', {
-    message: 'Your account has been disabled.',
+    message: '您的账户已被禁用。',
     code: 1013
   }),
   AuthAccountAlreadyExists: CustomError('AuthAccountAlreadyExists', {
-    message: 'An account already exists using this email address.',
+    message: '使用该邮箱地址的账户已存在。',
     code: 1004
   }),
   AuthAccountNotVerified: CustomError('AuthAccountNotVerified', {
-    message: 'You must verify your account before your can login.',
+    message: '您必须先验证账户才能登录。',
     code: 1014
   }),
   AuthGenericError: CustomError('AuthGenericError', {
-    message: 'An unexpected error occured during login.',
+    message: '登录过程中发生意外错误。',
     code: 1001
   }),
   AuthLoginFailed: CustomError('AuthLoginFailed', {
-    message: 'Invalid email / username or password.',
+    message: '邮箱/用户名或密码无效。',
     code: 1002
   }),
   AuthPasswordInvalid: CustomError('AuthPasswordInvalid', {
-    message: 'Password is incorrect.',
+    message: '密码不正确。',
     code: 1020
   }),
   AuthProviderInvalid: CustomError('AuthProviderInvalid', {
-    message: 'Invalid authentication provider.',
+    message: '无效的认证提供商。',
     code: 1003
   }),
   AuthRegistrationDisabled: CustomError('AuthRegistrationDisabled', {
-    message: 'Registration is disabled. Contact your system administrator.',
+    message: '注册功能已关闭，请联系系统管理员。',
     code: 1010
   }),
   AuthRegistrationDomainUnauthorized: CustomError('AuthRegistrationDomainUnauthorized', {
-    message: 'You are not authorized to register. Your domain is not whitelisted.',
+    message: '您无权注册，您的邮箱域名不在白名单内。',
     code: 1011
   }),
   AuthRequired: CustomError('AuthRequired', {
-    message: 'You must be authenticated to access this resource.',
+    message: '访问此资源需要先进行身份验证。',
     code: 1019
   }),
   AuthTFAFailed: CustomError('AuthTFAFailed', {
-    message: 'Incorrect TFA Security Code.',
+    message: '双重认证 (2FA) 安全码不正确。',
     code: 1005
   }),
   AuthTFAInvalid: CustomError('AuthTFAInvalid', {
-    message: 'Invalid TFA Security Code or Login Token.',
+    message: '双重认证 (2FA) 安全码或登录令牌无效。',
     code: 1006
   }),
   AuthValidationTokenInvalid: CustomError('AuthValidationTokenInvalid', {
-    message: 'Invalid validation token.',
+    message: '验证令牌无效。',
     code: 1015
   }),
   BruteInstanceIsInvalid: CustomError('BruteInstanceIsInvalid', {
-    message: 'Invalid Brute Force Instance.',
+    message: '无效的暴力破解防护实例。',
     code: 1007
   }),
   BruteTooManyAttempts: CustomError('BruteTooManyAttempts', {
-    message: 'Too many attempts! Try again later.',
+    message: '尝试次数过多！请稍后再试。',
     code: 1008
   }),
   CommentContentMissing: CustomError('CommentContentMissing', {
-    message: 'Comment content is missing or too short.',
+    message: '评论内容缺失或过短。',
     code: 8003
   }),
   CommentGenericError: CustomError('CommentGenericError', {
-    message: 'An unexpected error occured.',
+    message: '发生意外错误。',
     code: 8001
   }),
   CommentManageForbidden: CustomError('CommentManageForbidden', {
-    message: 'You are not authorized to manage comments on this page.',
+    message: '您没有权限管理此页面的评论。',
     code: 8004
   }),
   CommentNotFound: CustomError('CommentNotFound', {
-    message: 'This comment does not exist.',
+    message: '该评论不存在。',
     code: 8005
   }),
   CommentPostForbidden: CustomError('CommentPostForbidden', {
-    message: 'You are not authorized to post a comment on this page.',
+    message: '您没有权限在此页面发表评论。',
     code: 8002
   }),
   CommentViewForbidden: CustomError('CommentViewForbidden', {
-    message: 'You are not authorized to view comments for this page.',
+    message: '您没有权限查看此页面的评论。',
     code: 8006
   }),
   InputInvalid: CustomError('InputInvalid', {
-    message: 'Input data is invalid.',
+    message: '输入数据无效。',
     code: 1012
   }),
   LocaleGenericError: CustomError('LocaleGenericError', {
-    message: 'An unexpected error occured during locale operation.',
+    message: '语言环境操作过程中发生意外错误。',
     code: 5001
   }),
   LocaleInvalidNamespace: CustomError('LocaleInvalidNamespace', {
-    message: 'Invalid locale or namespace.',
+    message: '无效的语言环境或命名空间。',
     code: 5002
   }),
   MailGenericError: CustomError('MailGenericError', {
-    message: 'An unexpected error occured during mail operation.',
+    message: '邮件操作过程中发生意外错误。',
     code: 3001
   }),
   MailInvalidRecipient: CustomError('MailInvalidRecipient', {
-    message: 'The recipient email address is invalid.',
+    message: '收件人邮箱地址无效。',
     code: 3004
   }),
   MailNotConfigured: CustomError('MailNotConfigured', {
-    message: 'The mail configuration is incomplete or invalid.',
+    message: '邮件配置不完整或无效。',
     code: 3002
   }),
   MailTemplateFailed: CustomError('MailTemplateFailed', {
-    message: 'Mail template failed to load.',
+    message: '邮件模板加载失败。',
     code: 3003
   }),
   PageCreateForbidden: CustomError('PageCreateForbidden', {
-    message: 'You are not authorized to create this page.',
+    message: '您没有权限创建此页面。',
     code: 6008
   }),
   PageDeleteForbidden: CustomError('PageDeleteForbidden', {
-    message: 'You are not authorized to delete this page.',
+    message: '您没有权限删除此页面。',
     code: 6010
   }),
   PageGenericError: CustomError('PageGenericError', {
-    message: 'An unexpected error occured during a page operation.',
+    message: '页面操作过程中发生意外错误。',
     code: 6001
   }),
   PageDuplicateCreate: CustomError('PageDuplicateCreate', {
-    message: 'Cannot create this page because an entry already exists at the same path.',
+    message: '无法创建此页面，因为相同路径下已存在条目。',
     code: 6002
   }),
   PageEmptyContent: CustomError('PageEmptyContent', {
-    message: 'Page content cannot be empty.',
+    message: '页面内容不能为空。',
     code: 6004
   }),
   PageHistoryForbidden: CustomError('PageHistoryForbidden', {
-    message: 'You are not authorized to view the history of this page.',
+    message: '您没有权限查看此页面的历史记录。',
     code: 6012
   }),
   PageIllegalPath: CustomError('PageIllegalPath', {
-    message: 'Page path cannot contains illegal characters.',
+    message: '页面路径不能包含非法字符。',
     code: 6005
   }),
   PageMoveForbidden: CustomError('PageMoveForbidden', {
-    message: 'You are not authorized to move this page.',
+    message: '您没有权限移动此页面。',
     code: 6007
   }),
   PageNotFound: CustomError('PageNotFound', {
-    message: 'This page does not exist.',
+    message: '该页面不存在。',
     code: 6003
   }),
   PagePathCollision: CustomError('PagePathCollision', {
-    message: 'Destination page path already exists.',
+    message: '目标页面路径已存在。',
     code: 6006
   }),
   PageRestoreForbidden: CustomError('PageRestoreForbidden', {
-    message: 'You are not authorized to restore this page version.',
+    message: '您没有权限恢复此页面版本。',
     code: 6011
   }),
   PageUpdateForbidden: CustomError('PageUpdateForbidden', {
-    message: 'You are not authorized to update this page.',
+    message: '您没有权限更新此页面。',
     code: 6009
   }),
   PageViewForbidden: CustomError('PageViewForbidden', {
-    message: 'You are not authorized to view this page.',
+    message: '您没有权限查看此页面。',
     code: 6013
   }),
   SearchActivationFailed: CustomError('SearchActivationFailed', {
-    message: 'Search Engine activation failed.',
+    message: '搜索引擎激活失败。',
     code: 4002
   }),
   SearchGenericError: CustomError('SearchGenericError', {
-    message: 'An unexpected error occured during search operation.',
+    message: '搜索操作过程中发生意外错误。',
     code: 4001
   }),
   SystemGenericError: CustomError('SystemGenericError', {
-    message: 'An unexpected error occured.',
+    message: '发生意外错误。',
     code: 7001
   }),
   SystemSSLDisabled: CustomError('SystemSSLDisabled', {
-    message: 'SSL is not enabled.',
+    message: 'SSL 未启用。',
     code: 7002
   }),
   SystemSSLLEUnavailable: CustomError('SystemSSLLEUnavailable', {
-    message: 'Let\'s Encrypt is not initialized.',
+    message: "Let's Encrypt 尚未初始化。",
     code: 7004
   }),
   SystemSSLRenewInvalidProvider: CustomError('SystemSSLRenewInvalidProvider', {
-    message: 'Current provider does not support SSL certificate renewal.',
+    message: '当前提供商不支持 SSL 证书续期。',
     code: 7003
   }),
   UserCreationFailed: CustomError('UserCreationFailed', {
-    message: 'An unexpected error occured during user creation.',
+    message: '创建用户时发生意外错误。',
     code: 1009
   }),
   UserDeleteForeignConstraint: CustomError('UserDeleteForeignConstraint', {
-    message: 'Cannot delete user because of content relational constraints.',
+    message: '由于内容关联约束，无法删除该用户。',
     code: 1017
   }),
   UserDeleteProtected: CustomError('UserDeleteProtected', {
-    message: 'Cannot delete a protected system account.',
+    message: '无法删除受保护的系统账户。',
     code: 1018
   }),
   UserNotFound: CustomError('UserNotFound', {
-    message: 'This user does not exist.',
+    message: '该用户不存在。',
     code: 1016
   })
 }

@@ -78,7 +78,7 @@ module.exports = {
           }
 
           // Update filename + hash
-          const fileHash = assetHelper.generateHash(assetTargetPath)
+          const fileHash = assetHelper.generateHash(WIKI.models.assets.correctDir(assetTargetPath))
           await WIKI.models.assets.query().patch({
             filename: filename,
             hash: fileHash
@@ -102,6 +102,69 @@ module.exports = {
 
           return {
             responseResult: graphHelper.generateSuccess('Asset has been renamed successfully.')
+          }
+        } else {
+          throw new WIKI.Error.AssetInvalid()
+        }
+      } catch (err) {
+        return graphHelper.generateError(err)
+      }
+    },
+    /**
+     * Move an Asset
+     */
+    async moveAsset(obj, args, context) {
+      try {
+        const dir = WIKI.models.assets.correctDir(args.dir)
+
+        const asset = await WIKI.models.assets.query().findById(args.id)
+        if (asset) {
+          // Check for collision
+          const assetCollision = await WIKI.models.assets.query().where({
+            filename: asset.filename,
+            dir
+          }).first()
+          if (assetCollision) {
+            throw new WIKI.Error.AssetRenameCollision()
+          }
+
+          // Check source asset permissions
+          const assetSourcePath = path.join(asset.dir, asset.filename)
+          if (!WIKI.auth.checkAccess(context.req.user, ['manage:assets'], { path: assetSourcePath })) {
+            throw new WIKI.Error.AssetRenameForbidden()
+          }
+
+          // Check target asset permissions
+          const assetTargetPath = path.join(dir, asset.filename)
+          if (!WIKI.auth.checkAccess(context.req.user, ['write:assets'], { path: assetTargetPath })) {
+            throw new WIKI.Error.AssetRenameTargetForbidden()
+          }
+
+          // Update dir + hash
+          const fileHash = assetHelper.generateHash(WIKI.models.assets.correctDir(assetTargetPath))
+          await WIKI.models.assets.query().patch({
+            dir,
+            hash: fileHash
+          }).findById(args.id)
+
+          // Delete old asset cache
+          await asset.deleteAssetCache()
+
+          // Rename in Storage
+          await WIKI.models.storage.assetEvent({
+            event: 'renamed',
+            asset: {
+              ...asset,
+              path: assetSourcePath,
+              destinationPath: assetTargetPath,
+              moveAuthorId: context.req.user.id,
+              moveAuthorName: context.req.user.name,
+              moveAuthorEmail: context.req.user.email
+            }
+          })
+
+          return {
+            responseResult: graphHelper.generateSuccess('Asset has been moved successfully.')
           }
         } else {
           throw new WIKI.Error.AssetInvalid()

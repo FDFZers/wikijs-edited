@@ -66,9 +66,17 @@ module.exports = class Asset extends Model {
     await fs.remove(path.resolve(WIKI.ROOTPATH, WIKI.config.dataPath, `cache/${this.hash}.dat`))
   }
 
+  static correctDir(dir) {
+    if (dir === '') dir = '/'
+    if (dir.endsWith('/')) dir = dir.slice(0, -1)
+    if (!dir.startsWith('/')) dir = '/' + dir
+    dir = dir.toLowerCase().replace(/[\s,;#]+/g, '_')
+    return dir
+  }
+
   static async upload(opts) {
     const fileInfo = path.parse(opts.originalname)
-    const fileHash = assetHelper.generateHash(opts.assetPath)
+    const fileHash = assetHelper.generateHash(this.correctDir(opts.assetPath))
 
     // Check for existing asset
     let asset = await WIKI.models.assets.query().where({
@@ -156,8 +164,8 @@ module.exports = class Asset extends Model {
 
   static async getAsset(assetPath, res) {
     try {
-      const fileInfo = assetHelper.getPathInfo(assetPath)
-      const fileHash = assetHelper.generateHash(assetPath)
+      const fileInfo = assetHelper.getPathInfo(this.correctDir(assetPath))
+      const fileHash = assetHelper.generateHash(this.correctDir(assetPath))
       const cachePath = path.resolve(WIKI.ROOTPATH, WIKI.config.dataPath, `cache/${fileHash}.dat`)
 
       // Force unsafe extensions to download
