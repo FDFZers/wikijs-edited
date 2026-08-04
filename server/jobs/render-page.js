@@ -26,15 +26,23 @@ module.exports = async (pageId) => {
       WIKI.logger.warn(`Failed to render page ID ${pageId} because content was empty: [ FAILED ]`)
     }
 
-    for (let core of pipeline) {
-      const renderer = require(`../modules/rendering/${_.kebabCase(core.key)}/renderer.js`)
-      output = await renderer.render.call({
-        config: core.config,
-        children: core.children,
-        page: page,
-        input: output
-      })
+    let custom = false
+
+    if (page.editorKey === "code") {
+      const $ = cheerio.load(output, null, false)
+      custom = $('*').first().hasClass('custom-style')
     }
+
+    if (!custom)
+      for (let core of pipeline) {
+        const renderer = require(`../modules/rendering/${_.kebabCase(core.key)}/renderer.js`)
+        output = await renderer.render.call({
+          config: core.config,
+          children: core.children,
+          page: page,
+          input: output
+        })
+      }
 
     // Parse TOC
     const $ = cheerio.load(output)
@@ -57,7 +65,7 @@ module.exports = async (pageId) => {
         return curPath
       }, 'root')
 
-      if (leafPathError) { return }
+      if (leafPathError || custom) { return }
 
       const leafSlug = $('.toc-anchor', el).first().attr('href')
       $('.toc-anchor', el).remove()

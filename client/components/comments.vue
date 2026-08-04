@@ -90,7 +90,7 @@
               span &nbsp;(ID:&nbsp;
               strong {{cm.authorId}}
               span )
-            .comments-post-date.overline.grey--text {{cm.id}} 楼 - {{cm.createdAt | moment('from') }} #[em(v-if='cm.createdAt !== cm.updatedAt') - {{$t('common:comments.modified', { reldate: $options.filters.moment(cm.updatedAt, 'from') })}}]
+            .comments-post-date.overline.grey--text ID {{cm.id}} - {{cm.createdAt | moment('from') }} #[em(v-if='cm.createdAt !== cm.updatedAt') - {{$t('common:comments.modified', { reldate: $options.filters.moment(cm.updatedAt, 'from') })}}]
             .comments-post-content.mt-3(v-if='commentEditId !== cm.id', v-html='cm.render')
             .comments-post-editcontent.mt-3(v-else)
               v-textarea(

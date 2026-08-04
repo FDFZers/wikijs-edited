@@ -1,6 +1,6 @@
 /* THEME SPECIFIC STYLES */
 
-.v-main .contents {
+.v-main .contents:not(.custom-style) {
   color: mc('grey', '800');
   padding: .5rem 0 50px;
   position: relative;
@@ -115,6 +115,7 @@
       }
     }
   }
+
   h2 {
     margin: 1rem 0 0 0;
     color: mc('grey', '800');
@@ -145,6 +146,7 @@
       }
     }
   }
+
   h3 {
     margin: 8px 0 0 0;
     color: mc('grey', '700');
@@ -164,6 +166,7 @@
       background: linear-gradient(to right, mc('grey', '500'), rgba(mc('grey', '500'), 0) 90%);
     }
   }
+
   h4, h5, h6 {
     font-size: 1rem;
     margin: 8px 0 0 0;
@@ -184,11 +187,13 @@
       background: linear-gradient(to right, mc('grey', '500'), rgba(mc('grey', '500'), 0) 70%);
     }
   }
+
   h5 {
     &::after {
       background: linear-gradient(to right, mc('grey', '500'), rgba(mc('grey', '500'), 0) 50%);
     }
   }
+
   h6 {
     &::after {
       background: linear-gradient(to right, mc('grey', '500'), rgba(mc('grey', '500'), 0) 30%);
@@ -231,12 +236,15 @@
   .text-huge {
     font-size: 1.8em;
   }
+
   .text-big {
     font-size: 1.4em;
   }
+
   .text-small {
     font-size: .85em;
   }
+
   .text-tiny {
     font-size: .7em;
   }
@@ -293,6 +301,7 @@
         border-color: mc('blue', '500');
       }
     }
+
     &.is-warning {
       background-color: mc('orange', '50');
       border-color: mc('orange', '300');
@@ -314,6 +323,7 @@
         box-shadow: 0 0 2px 0 mc('grey', '900');
       }
     }
+
     &.is-danger {
       background-color: mc('red', '50');
       border-color: mc('red', '300');
@@ -334,6 +344,7 @@
         border-color: mc('red', '500');
       }
     }
+
     &.is-success {
       background-color: mc('green', '50');
       border-color: mc('green', '300');
@@ -391,10 +402,12 @@
       td.icon {
         background-color: mc('blue', '300');
         color: mc('blue', '50');
+
         &::before {
           content: "\F02FC";
         }
       }
+
       td.content {
         color: darken(mc('blue', '900'), 10%);
         background-color: mc('blue', '50');
@@ -405,14 +418,17 @@
         }
       }
     }
+
     &.tip {
       td.icon {
         background-color: mc('green', '300');
         color: mc('green', '50');
+
         &::before {
           content: "\F0335";
         }
       }
+
       td.content {
         color: darken(mc('green', '900'), 10%);
         background-color: mc('green', '50');
@@ -423,16 +439,19 @@
         }
       }
     }
+
     &.warning {
       background-color: transparent !important;
 
       td.icon {
         background-color: mc('orange', '300');
         color: #FFF;
+
         &::before {
           content: "\F0026";
         }
       }
+
       td.content {
         color: darken(mc('orange', '900'), 10%);
         background-color: mc('orange', '50');
@@ -443,14 +462,17 @@
         }
       }
     }
+
     &.caution {
       td.icon {
         background-color: mc('purple', '300');
         color: mc('purple', '50');
+
         &::before {
           content: "\f0238";
         }
       }
+
       td.content {
         color: darken(mc('purple', '900'), 10%);
         background-color: mc('purple', '50');
@@ -461,14 +483,17 @@
         }
       }
     }
+
     &.important {
       td.icon {
         background-color: mc('red', '300');
         color: mc('red', '50');
+
         &::before {
           content: "\F0159";
         }
       }
+
       td.content {
         color: darken(mc('red', '900'), 10%);
         background-color: mc('red', '50');
@@ -491,6 +516,7 @@
         color: mc('brown', '300');
       }
     }
+
     > .content {
       border: 1px solid mc('grey', '200');
       border-radius: 7px;
@@ -498,6 +524,7 @@
       padding: 16px;
     }
   }
+
   // ---------------------------------
   // LISTS
   // ---------------------------------
@@ -665,6 +692,7 @@
 
   ul:not(.tabset-tabs):not(.contains-task-list) {
     list-style: none;
+
     > li::before {
       position: absolute;
       left: -1.1rem;
@@ -678,13 +706,15 @@
       }
     }
   }
+
   ol, ul:not(.tabset-tabs) {
     > li {
       position: relative;
+
       > p {
-        display:inline-block;
-        vertical-align:top;
-        padding-top:0;
+        display: inline-block;
+        vertical-align: top;
+        padding-top: 0;
 
         &:first-child {
           width: 100%;
@@ -733,7 +763,7 @@
     }
   }
 
-  .prismjs{
+  .prismjs {
     border: none;
     border-radius: 5px;
     box-shadow: initial;
@@ -819,7 +849,7 @@
         }
       }
 
-      &[checked]::after  {
+      &[checked]::after {
         content: '✓';
       }
     }
@@ -865,6 +895,7 @@
       &:first-child {
         border-top-left-radius: 7px;
       }
+
       &:last-child {
         border-top-right-radius: 7px;
       }
@@ -922,6 +953,7 @@
           &:first-child {
             border-bottom-left-radius: 7px;
           }
+
           &:last-child {
             border-bottom-right-radius: 7px;
           }
@@ -951,7 +983,7 @@
 
         @at-root .theme--dark & {
           border-color: mc('grey', '700');
-          box-shadow: inset -1px -1px 0 0 rgba(0,0,0, .5);
+          box-shadow: inset -1px -1px 0 0 rgba(0, 0, 0, .5);
         }
       }
 
@@ -1001,17 +1033,20 @@
       float: left;
       margin: 0 1rem 1rem 0;
     }
+
     &.align-right {
       float: right;
       margin: 0 0 1rem 1rem;
       z-index: 1;
       position: relative;
     }
+
     &.align-center {
       display: block;
       max-width: 100%;
       margin: auto;
     }
+
     &.align-abstopright {
       position: absolute;
       top: -90px;
@@ -1024,12 +1059,15 @@
         right: initial;
       }
     }
+
     &.decor-shadow {
       box-shadow: 0 3px 8px 0 rgba(116, 129, 141, 0.1);
     }
+
     &.decor-outline {
       border: 1px solid mc('grey', '400');
     }
+
     &.uml-diagram {
       margin: 1rem 0;
     }
@@ -1041,6 +1079,7 @@
     img {
       margin: 0 auto;
     }
+
     figcaption {
       padding: 4px 1rem;
       text-align: center;
@@ -1142,19 +1181,24 @@
       color: mc('red', '500');
       background-color: initial;
     }
+
     &.pen-green {
       color: mc('green', '500');
       background-color: initial;
     }
+
     &.marker-blue {
       background-color: mc('blue', '300');
     }
+
     &.marker-yellow {
       background-color: mc('yellow', '300');
     }
+
     &.marker-pink {
       background-color: mc('pink', '300');
     }
+
     &.marker-green {
       background-color: mc('green', '300');
     }
@@ -1233,8 +1277,7 @@
   .v-navigation-drawer,
   .v-btn--fab,
   .page-col-sd,
-  .v-tooltip__content
-  {
+  .v-tooltip__content {
     display: none !important;
   }
 
@@ -1272,7 +1315,7 @@
       color: #000;
     }
 
-    .prismjs{
+    .prismjs {
       box-shadow: none;
       background-color: #FFF;
 

@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
 
 env:
-  BASE_DEV_VERSION: 2.5.0
+  BASE_DEV_VERSION: 2.5.314-edited
 
 jobs:
 

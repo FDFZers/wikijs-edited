@@ -326,7 +326,7 @@
               span {{$t('common:page.editPage')}}
             v-alert.mb-5(v-if='!isPublished', color='red', outlined, icon='mdi-minus-circle', dense)
               .caption {{$t('common:page.unpublishedWarning')}}
-            .contents(ref='container')
+            .contents(ref='container', :class="useCustomStyle ? 'custom-style' : ''")
               slot(name='contents')
             .comments-container#discussion(v-if='commentsEnabled && commentsPerms.read && !printView')
               .comments-header
@@ -498,6 +498,7 @@ export default {
       locales: siteLangs,
       navShown: false,
       navExpanded: false,
+      useCustomStyle: false,
       upBtnShown: false,
       pageEditFab: false,
       scrollOpts: {
@@ -606,6 +607,12 @@ export default {
     this.$store.set('page/mode', 'view')
   },
   mounted () {
+    const innerContainer = this.$refs.container.getElementsByTagName("div")[0]
+    if (innerContainer) {
+      const el = innerContainer.children[0]
+      if (el) this.useCustomStyle = el.classList.contains("custom-style")
+    }
+
     if (this.$vuetify.theme.dark) {
       this.scrollStyle.bar.background = '#424242'
     }
@@ -616,14 +623,15 @@ export default {
       this.handleSideNavVisibility()
     }, 500))
 
-    // -> Highlight Code Blocks
-    Prism.highlightAllUnder(this.$refs.container)
+      // -> Highlight Code Blocks
+    if (!this.useCustomStyle) Prism.highlightAllUnder(this.$refs.container)
 
     // -> Render Mermaid diagrams
-    mermaid.mermaidAPI.initialize({
-      startOnLoad: true,
-      theme: this.$vuetify.theme.dark ? `dark` : `default`
-    })
+    if (!this.useCustomStyle)
+      mermaid.mermaidAPI.initialize({
+        startOnLoad: true,
+        theme: this.$vuetify.theme.dark ? `dark` : `default`
+      })
 
     // -> Handle anchor scrolling
     if (window.location.hash && window.location.hash.length > 1) {
