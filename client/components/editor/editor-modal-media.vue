@@ -107,7 +107,7 @@
                           v-list-item(@click='openMoveDialog')
                             v-list-item-avatar(size='24')
                               v-icon(color='blue') mdi-file-move
-                            v-list-item-content {{$t('common:actions.move')}}
+                            v-list-item-content {{$t("common:actions.move")}}
                           v-list-item(@click='deleteDialog = true')
                             v-list-item-avatar(size='24')
                               v-icon(color='red') mdi-file-hidden
@@ -124,7 +124,7 @@
                   span {{$t("common:actions.cancel")}}
                 v-btn.ml-3.mr-0.my-0.radius-7(color='teal', large, @click='insert', :disabled='!currentFileId', :dark='currentFileId !== null')
                   v-icon(left) mdi-playlist-plus
-                  span {{$t('common:actions.insert')}}
+                  span {{$t("common:actions.insert")}}
 
         v-flex(xs12, lg3)
           v-card.radius-7.animated.fadeInRight.wait-p3s(:light='!$vuetify.theme.dark', :dark='$vuetify.theme.dark')
@@ -413,7 +413,7 @@ export default {
   },
   methods: {
     async refresh() {
-      await this.$apollo.queries.folders.refetch()
+      await this.refetchFolders()
       await this.$apollo.queries.assets.refetch()
       this.$store.commit('showNotification', {
         message: this.$t('editor:assets.refreshSuccess'),
@@ -468,12 +468,29 @@ export default {
         this.$refs.pond.removeFile(file.id)
       }, 5000)
 
-      await this.$apollo.queries.folders.refetch()
+      await this.refetchFolders()
       await this.$apollo.queries.assets.refetch()
+    },
+    async refetchFolders() {
+      await this.$apollo.queries.folders.refetch()
+      this.newlyCreatedDirs.forEach(dir => {
+        dir = dir || '/'
+        if (dir === '/') return
+        if (dir.endsWith('/')) dir = dir.slice(0, -1)
+        if (dir.startsWith('/')) dir = dir.slice(1)
+        const segments = dir.split('/')
+        let parentPath = '/'
+        for (const segment of segments) {
+          if (!this.folders[parentPath]) this.folders[parentPath] = []
+          if (!this.folders[parentPath].includes(segment)) this.folders[parentPath].push(segment)
+          parentPath = parentPath === '/' ? `/${segment}` : `${parentPath}/${segment}`
+        }
+      })
     },
     gotoFolder(dir) {
       this.currentDir = dir
       this.currentFileId = null
+      if (this.newlyCreatedDirs.includes(this.currentDir)) this.assets = []
     },
     upFolder() {
       const parentFolder = this.folderTree.slice(0, -1).join('/')
@@ -496,7 +513,7 @@ export default {
       this.renameAssetName = this.currentAsset.filename
       this.renameDialog = true
     },
-    async moveAsset(){
+    async moveAsset() {
       this.$store.commit(`loadingStart`, 'editor-media-moveasset')
       this.moveAssetLoading = true
       let dir = this.moveAssetDir
@@ -511,6 +528,7 @@ export default {
           }
         })
         if (_.get(resp, 'data.assets.moveAsset.responseResult.succeeded', false)) {
+          await this.refetchFolders()
           await this.$apollo.queries.assets.refetch()
           this.$store.commit('showNotification', {
             message: '已成功移动。',
@@ -597,6 +615,7 @@ export default {
         const list = data.assets.folders || []
         return list.reduce((acc, dir) => {
           dir = dir || '/'
+          if (dir === '/') return acc
           if (dir.endsWith('/')) dir = dir.slice(0, -1)
           if (dir.startsWith('/')) dir = dir.slice(1)
           const segments = dir.split('/')
@@ -625,11 +644,6 @@ export default {
       fetchPolicy: 'network-only',
       skip() {
         return this.newlyCreatedDirs.includes(this.currentDir)
-      },
-      result() {
-        if (this.newlyCreatedDirs.includes(this.currentDir)) {
-          this.assets = []
-        }
       },
       update: (data) => data.assets.list,
       watchLoading(isLoading) {
