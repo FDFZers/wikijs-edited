@@ -425,7 +425,7 @@ export default {
       const asset = _.find(this.assets, ['id', this.currentFileId])
       this.$root.$emit('editorInsert', {
         kind: asset.kind,
-        path: this.currentDir !== '/' ? this.pathJoin(this.currentDir, asset.filename) : this.pathJoin('/', asset.filename),
+        path: this.pathJoin(this.currentDir, asset.filename),
         text: asset.filename,
         align: this.imageAlignment
       })
