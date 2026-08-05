@@ -132,7 +132,7 @@
               .d-flex
                 v-toolbar.radius-7(:color='$vuetify.theme.dark ? `teal` : `teal lighten-5`', dense, flat, height='44')
                   v-icon.mr-3(:color='$vuetify.theme.dark ? `white` : `teal`') mdi-cloud-upload
-                  .body-2(:class='$vuetify.theme.dark ? `white--text` : `teal--text`') {{$t('editor:assets.uploadAssets')}}
+                  .body-2(:class='$vuetify.theme.dark ? `white--text` : `teal--text`') {{$t("editor:assets.uploadAssets")}}
                 v-btn.my-0.ml-3.mr-0.radius-7(outlined, large, color='teal', @click='browse', v-if='$vuetify.breakpoint.mdAndUp')
                   v-icon(left) mdi-plus-box-multiple
                   span(:class='$vuetify.theme.dark ? `teal--text text--lighten-3` : ``') {{$t('common:actions.browse')}}
@@ -250,7 +250,7 @@
 
 <script>
 import _ from "lodash";
-import {get, sync} from "vuex-pathify";
+import { get, sync } from "vuex-pathify";
 import Cookies from "js-cookie";
 import vueFilePond from "vue-filepond";
 import "filepond/dist/filepond.min.css";
@@ -284,11 +284,11 @@ export default {
       pagination: 1,
       remoteImageUrl: '',
       imageAlignments: [
-        {text: 'None', value: ''},
-        {text: 'Left', value: 'left'},
-        {text: 'Centered', value: 'center'},
-        {text: 'Right', value: 'right'},
-        {text: 'Absolute Top Right', value: 'abstopright'}
+        { text: 'None', value: '' },
+        { text: 'Left', value: 'left' },
+        { text: 'Centered', value: 'center' },
+        { text: 'Right', value: 'right' },
+        { text: 'Absolute Top Right', value: 'abstopright' }
       ],
       imageAlignment: '',
       loading: false,
@@ -332,9 +332,9 @@ export default {
     },
     headers() {
       return _.compact([
-        this.$vuetify.breakpoint.smAndUp && {text: this.$t('editor:assets.headerId'), value: 'id', width: 80},
-        {text: this.$t('editor:assets.headerFilename'), value: 'filename'},
-        this.$vuetify.breakpoint.lgAndUp && {text: this.$t('editor:assets.headerType'), value: 'ext', width: 90},
+        this.$vuetify.breakpoint.smAndUp && { text: this.$t('editor:assets.headerId'), value: 'id', width: 80 },
+        { text: this.$t('editor:assets.headerFilename'), value: 'filename' },
+        this.$vuetify.breakpoint.lgAndUp && { text: this.$t('editor:assets.headerType'), value: 'ext', width: 90 },
         this.$vuetify.breakpoint.mdAndUp && {
           text: this.$t('editor:assets.headerFileSize'),
           value: 'fileSize',
@@ -385,6 +385,7 @@ export default {
       if (corrected.endsWith('/')) corrected = corrected.slice(0, -1)
       if (corrected.startsWith('/')) corrected = corrected.slice(1)
       if (corrected !== newValue) this.currentDir = corrected
+      console.log(this.currentDir)
     }
   },
   filters: {
@@ -425,7 +426,7 @@ export default {
       const asset = _.find(this.assets, ['id', this.currentFileId])
       this.$root.$emit('editorInsert', {
         kind: asset.kind,
-        path: this.pathJoin(this.currentDir, asset.filename),
+        path: this.pathJoin('/', this.pathJoin(this.currentDir, asset.filename)),
         text: asset.filename,
         align: this.imageAlignment
       })
@@ -483,7 +484,7 @@ export default {
         for (const segment of segments) {
           if (!this.folders[parentPath]) this.folders[parentPath] = []
           if (!this.folders[parentPath].includes(segment)) this.folders[parentPath].push(segment)
-          parentPath = `${parentPath}/${segment}`
+          parentPath = parentPath === "" ? segment : `${parentPath}/${segment}`
         }
       })
     },
@@ -623,7 +624,7 @@ export default {
           for (const segment of segments) {
             if (!acc[parentPath]) acc[parentPath] = []
             if (!acc[parentPath].includes(segment)) acc[parentPath].push(segment)
-            parentPath = `${parentPath}/${segment}`
+            parentPath = parentPath === "" ? segment : `${parentPath}/${segment}`;
           }
           return acc
         }, {})

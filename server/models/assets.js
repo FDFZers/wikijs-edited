@@ -74,13 +74,14 @@ module.exports = class Asset extends Model {
   }
 
   static async upload(opts) {
+    const dir = this.correctDir(opts.assetPath)
     const fileInfo = path.parse(opts.originalname)
-    const fileHash = assetHelper.generateHash(this.correctDir(opts.assetPath))
+    const fileHash = assetHelper.generateHash(dir)
 
     // Check for existing asset
     let asset = await WIKI.models.assets.query().where({
       hash: fileHash,
-      dir: opts.dir
+      dir
     }).first()
 
     // Build Object
@@ -91,7 +92,7 @@ module.exports = class Asset extends Model {
       kind: _.startsWith(opts.mimetype, 'image/') ? 'image' : 'binary',
       mime: opts.mimetype,
       fileSize: opts.size,
-      dir: opts.dir
+      dir
     }
 
     // Sanitize SVG contents
@@ -163,8 +164,9 @@ module.exports = class Asset extends Model {
 
   static async getAsset(assetPath, res) {
     try {
-      const fileInfo = assetHelper.getPathInfo(this.correctDir(assetPath))
-      const fileHash = assetHelper.generateHash(this.correctDir(assetPath))
+      assetPath = this.correctDir(assetPath)
+      const fileInfo = assetHelper.getPathInfo(assetPath)
+      const fileHash = assetHelper.generateHash(assetPath)
       const cachePath = path.resolve(WIKI.ROOTPATH, WIKI.config.dataPath, `cache/${fileHash}.dat`)
 
       // Force unsafe extensions to download
@@ -196,7 +198,7 @@ module.exports = class Asset extends Model {
     }
     const sendFile = Promise.promisify(res.sendFile, {context: res})
     res.type(path.extname(assetPath))
-    await sendFile(cachePath, { dotfiles: 'deny' })
+    await sendFile(cachePath, { dotfiles: 'deny', root: path.resolve(WIKI.ROOTPATH) })
     return true
   }
 
