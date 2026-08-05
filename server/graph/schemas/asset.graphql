@@ -31,16 +31,16 @@ type AssetMutation {
   renameAsset(
     id: Int!
     filename: String!
-  ): DefaultResponse @auth(requires: ["manage:system", "manage:assets"])
+  ): DefaultResponse @auth(requires: ["manage:system", "edit:assets"])
 
   deleteAsset(
     id: Int!
-  ): DefaultResponse @auth(requires: ["manage:system", "manage:assets"])
+  ): DefaultResponse @auth(requires: ["manage:system", "delete:assets"])
 
   moveAsset(
     id: Int!
     dir: String!
-  ): DefaultResponse @auth(requires: ["manage:system", "manage:assets"])
+  ): DefaultResponse @auth(requires: ["manage:system", "edit:assets"])
 
   flushTempUploads: DefaultResponse @auth(requires: ["manage:system"])
 }

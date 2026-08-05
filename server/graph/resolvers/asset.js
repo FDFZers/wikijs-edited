@@ -24,7 +24,7 @@ module.exports = {
       const results = await WIKI.models.assets.query().where(cond)
       return _.filter(results, r => {
         const filePath = path.join(args.dir, r.filename)
-        return WIKI.auth.checkAccess(context.req.user, ['read:assets'], { path: filePath })
+        return WIKI.auth.checkAccess(context.req.user, ['read:assets'], { path: filePath.slice(1) })
       }).map(a => ({
         ...a,
         kind: a.kind.toUpperCase()
@@ -33,7 +33,7 @@ module.exports = {
     async folders(obj, args, context) {
       const results = await WIKI.models.assets.getAllPaths()
       return _.filter(results, path =>
-        WIKI.auth.checkAccess(context.req.user, ['read:assets'], { path }))
+        WIKI.auth.checkAccess(context.req.user, ['read:assets'], { path: path.slice(1) }))
     }
   },
   AssetMutation: {
@@ -67,13 +67,13 @@ module.exports = {
 
           // Check source asset permissions
           const assetSourcePath = path.join(asset.dir, asset.filename)
-          if (!WIKI.auth.checkAccess(context.req.user, ['manage:assets'], { path: assetSourcePath })) {
+          if (!WIKI.auth.checkAccess(context.req.user, ['edit:assets'], { path: assetSourcePath.slice(1) })) {
             throw new WIKI.Error.AssetRenameForbidden()
           }
 
           // Check target asset permissions
           const assetTargetPath = path.join(asset.dir, filename)
-          if (!WIKI.auth.checkAccess(context.req.user, ['write:assets'], { path: assetTargetPath })) {
+          if (!WIKI.auth.checkAccess(context.req.user, ['write:assets'], { path: assetTargetPath.slice(1) })) {
             throw new WIKI.Error.AssetRenameTargetForbidden()
           }
 
@@ -130,13 +130,13 @@ module.exports = {
 
           // Check source asset permissions
           const assetSourcePath = path.join(asset.dir, asset.filename)
-          if (!WIKI.auth.checkAccess(context.req.user, ['manage:assets'], { path: assetSourcePath })) {
+          if (!WIKI.auth.checkAccess(context.req.user, ['edit:assets'], { path: assetSourcePath.slice(1) })) {
             throw new WIKI.Error.AssetRenameForbidden()
           }
 
           // Check target asset permissions
           const assetTargetPath = path.join(dir, asset.filename)
-          if (!WIKI.auth.checkAccess(context.req.user, ['write:assets'], { path: assetTargetPath })) {
+          if (!WIKI.auth.checkAccess(context.req.user, ['write:assets'], { path: assetTargetPath.slice(1) })) {
             throw new WIKI.Error.AssetRenameTargetForbidden()
           }
 
@@ -182,7 +182,7 @@ module.exports = {
         if (asset) {
           // Check permissions
           const assetPath = path.join(asset.dir, asset.filename)
-          if (!WIKI.auth.checkAccess(context.req.user, ['manage:assets'], { path: assetPath })) {
+          if (!WIKI.auth.checkAccess(context.req.user, ['delete:assets'], { path: assetPath.slice(1) })) {
             throw new WIKI.Error.AssetDeleteForbidden()
           }
 

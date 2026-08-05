@@ -99,7 +99,7 @@ export default {
       currentItems: [],
       currentParent: {
         id: 0,
-        title: '/ (root)'
+        title: '/ (根目录)'
       },
       parents: [],
       loadedCache: []
@@ -222,7 +222,7 @@ export default {
     }
   },
   mounted () {
-    this.currentParent.title = `/ ${this.$t('common:sidebar.root')}`
+    this.currentParent.title = `/ (根目录)`
     if (this.navMode === 'TREE') {
       this.currentMode = 'browse'
     } else if (this.navMode === 'STATIC') {

@@ -115,8 +115,15 @@ export default {
               disabled: false
             },
             {
-              permission: 'manage:assets',
-              hint: 'Can edit and delete existing assets (such as images and files), as specified in the Page Rules',
+              permission: 'edit:assets',
+              hint: 'Can edit and move existing assets (such as images and files), as specified in the Page Rules',
+              warning: false,
+              restrictedForSystem: true,
+              disabled: false
+            },
+            {
+              permission: 'delete:assets',
+              hint: 'Can delete existing assets (such as images and files), as specified in the Page Rules',
               warning: false,
               restrictedForSystem: true,
               disabled: false

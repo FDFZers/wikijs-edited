@@ -42,7 +42,7 @@
                     template(v-for='(folder, i) of folderTree')
                       span(:key='i') {{folder}}
                       span.mx-1 /
-                .body-2(v-else) / #[em root]
+                .body-2(v-else) / #[em (根目录)]
               template(v-if='folders[currentDir] && folders[currentDir].length > 0 || currentDir !== "/"')
                 v-btn.is-icon.mx-1(:color='$vuetify.theme.dark ? `grey lighten-1` : `grey darken-2`', outlined, :dark='currentDir !== "/"', @click='upFolder()', :disabled='currentDir === "/"')
                   v-icon mdi-folder-upload
