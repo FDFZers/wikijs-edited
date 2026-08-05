@@ -469,6 +469,7 @@ export default {
         this.$refs.pond.removeFile(file.id)
       }, 5000)
 
+      this.newlyCreatedDirs = this.newlyCreatedDirs.filter(dir => dir !== file.dir)
       await this.refetchFolders()
       await this.$apollo.queries.assets.refetch()
     },
