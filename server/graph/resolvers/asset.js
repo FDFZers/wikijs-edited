@@ -92,8 +92,8 @@ module.exports = {
             event: 'renamed',
             asset: {
               ...asset,
-              path: assetSourcePath,
-              destinationPath: assetTargetPath,
+              path: assetSourcePath.slice(1),
+              destinationPath: assetTargetPath.slice(1),
               moveAuthorId: context.req.user.id,
               moveAuthorName: context.req.user.name,
               moveAuthorEmail: context.req.user.email
@@ -155,8 +155,8 @@ module.exports = {
             event: 'renamed',
             asset: {
               ...asset,
-              path: assetSourcePath,
-              destinationPath: assetTargetPath,
+              path: assetSourcePath.slice(1),
+              destinationPath: assetTargetPath.slice(1),
               moveAuthorId: context.req.user.id,
               moveAuthorName: context.req.user.name,
               moveAuthorEmail: context.req.user.email

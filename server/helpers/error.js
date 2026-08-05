@@ -22,7 +22,7 @@ module.exports = {
     code: 2005
   }),
   AssetRenameForbidden: CustomError('AssetRenameForbidden', {
-    message: '您没有权限重命名此资源。',
+    message: '您没有权限移动或重命名此资源。',
     code: 2006
   }),
   AssetRenameInvalid: CustomError('AssetRenameInvalid', {
@@ -34,7 +34,7 @@ module.exports = {
     code: 2008
   }),
   AssetRenameTargetForbidden: CustomError('AssetRenameTargetForbidden', {
-    message: '您没有权限将此资源重命名为指定名称。',
+    message: '您没有权限将此资源移动或重命名到指定位置。',
     code: 2009
   }),
   AuthAccountBanned: CustomError('AuthAccountBanned', {

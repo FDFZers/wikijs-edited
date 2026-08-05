@@ -222,7 +222,7 @@ export default {
         { text: 'Read / Use Assets', value: 'read:assets', icon: 'mdi-image-search-outline' },
         { text: 'Upload Assets', value: 'write:assets', icon: 'mdi-image-plus' },
         { text: 'Edit Assets', value: 'edit:assets', icon: 'mdi-image-size-select-large' },
-        { text: 'Delete Assets', value: 'delete:assets', icon: 'mdi-image-remove-outline' },
+        { text: 'Delete Assets', value: 'delete:assets', icon: 'mdi-image-remove' },
         { text: 'Edit Scripts', value: 'write:scripts', icon: 'mdi-language-javascript' },
         { text: 'Edit Styles', value: 'write:styles', icon: 'mdi-language-css3' },
         { text: 'Read Comments', value: 'read:comments', icon: 'mdi-comment-search-outline' },
