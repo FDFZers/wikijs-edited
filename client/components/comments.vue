@@ -426,7 +426,7 @@ export default {
 
           this.editCommentCancel()
         } else {
-          throw new Error(_.get(resp, 'data.comments.delete.responseResult.message', 'An unexpected error occurred.'))
+          throw new Error(_.get(resp, 'data.comments.update.responseResult.message', 'An unexpected error occurred.'))
         }
       } catch (err) {
         console.warn(err)
