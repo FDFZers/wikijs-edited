@@ -116,7 +116,7 @@ module.exports = {
     await fs.move(path.join(this.config.path, asset.path), path.join(this.config.path, asset.destinationPath), { overwrite: true })
   },
   async getLocalLocation (asset) {
-    return path.join(this.config.path, asset.path)
+    return path.resolve(WIKI.ROOTPATH, path.join(this.config.path, asset.path))
   },
   /**
    * HANDLERS

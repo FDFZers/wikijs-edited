@@ -74,14 +74,13 @@ module.exports = class Asset extends Model {
   }
 
   static async upload(opts) {
-    const dir = this.correctDir(opts.assetPath)
     const fileInfo = path.parse(opts.originalname)
-    const fileHash = assetHelper.generateHash(dir)
+    const fileHash = assetHelper.generateHash(this.correctDir(opts.assetPath))
 
     // Check for existing asset
     let asset = await WIKI.models.assets.query().where({
       hash: fileHash,
-      dir
+      dir: opts.dir
     }).first()
 
     // Build Object
@@ -92,7 +91,7 @@ module.exports = class Asset extends Model {
       kind: _.startsWith(opts.mimetype, 'image/') ? 'image' : 'binary',
       mime: opts.mimetype,
       fileSize: opts.size,
-      dir
+      dir: opts.dir
     }
 
     // Sanitize SVG contents
@@ -198,7 +197,7 @@ module.exports = class Asset extends Model {
     }
     const sendFile = Promise.promisify(res.sendFile, {context: res})
     res.type(path.extname(assetPath))
-    await sendFile(cachePath, { dotfiles: 'deny', root: path.resolve(WIKI.ROOTPATH) })
+    await sendFile(cachePath, { dotfiles: 'deny' })
     return true
   }
 
