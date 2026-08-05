@@ -385,7 +385,6 @@ export default {
       if (corrected.endsWith('/')) corrected = corrected.slice(0, -1)
       if (corrected.startsWith('/')) corrected = corrected.slice(1)
       if (corrected !== newValue) this.currentDir = corrected
-      console.log(this.currentDir)
     }
   },
   filters: {

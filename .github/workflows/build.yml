@@ -54,8 +54,6 @@ jobs:
         context: .
         file: Dockerfile
         push: true
-        cache-from: type=gha
-        cache-to: type=gha,mode=max
         tags: |
           ghcr.io/fdfzers/wikijs-edited:latest
           ghcr.io/fdfzers/wikijs-edited:${{ env.REL_VERSION_STRICT }}
