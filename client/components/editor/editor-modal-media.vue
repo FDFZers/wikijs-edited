@@ -294,7 +294,6 @@ export default {
       loading: false,
       newFolderDialog: false,
       newFolderName: '',
-      newlyCreatedDirs: [],
       previewDialog: false,
       moveDialog: false,
       moveAssetDir: '',
@@ -413,7 +412,7 @@ export default {
   },
   methods: {
     async refresh() {
-      await this.refetchFolders()
+      await this.$apollo.queries.folders.refetch()
       await this.$apollo.queries.assets.refetch()
       this.$store.commit('showNotification', {
         message: this.$t('editor:assets.refreshSuccess'),
@@ -468,30 +467,12 @@ export default {
         this.$refs.pond.removeFile(file.id)
       }, 5000)
 
-      this.newlyCreatedDirs = this.newlyCreatedDirs.filter(dir => dir !== file.dir)
-      await this.refetchFolders()
-      await this.$apollo.queries.assets.refetch()
-    },
-    async refetchFolders() {
       await this.$apollo.queries.folders.refetch()
-      this.newlyCreatedDirs.forEach(dir => {
-        dir = dir || ''
-        if (dir === '') return
-        if (dir.endsWith('/')) dir = dir.slice(0, -1)
-        if (dir.startsWith('/')) dir = dir.slice(1)
-        const segments = dir.split('/')
-        let parentPath = ''
-        for (const segment of segments) {
-          if (!this.folders[parentPath]) this.folders[parentPath] = []
-          if (!this.folders[parentPath].includes(segment)) this.folders[parentPath].push(segment)
-          parentPath = parentPath === "" ? segment : `${parentPath}/${segment}`
-        }
-      })
+      await this.$apollo.queries.assets.refetch()
     },
     gotoFolder(dir) {
       this.currentDir = dir
       this.currentFileId = null
-      if (this.newlyCreatedDirs.includes(this.currentDir)) this.assets = []
     },
     upFolder() {
       const parentFolder = this.folderTree.slice(0, -1).join('/')
@@ -499,7 +480,6 @@ export default {
     },
     async createFolder() {
       const newDir = this.pathJoin(this.currentDir, this.newFolderName)
-      this.newlyCreatedDirs.push(newDir)
       if (!this.folders[this.currentDir]) this.folders[this.currentDir] = []
       this.folders[this.currentDir].push(this.newFolderName)
       this.newFolderDialog = false
@@ -529,7 +509,7 @@ export default {
           }
         })
         if (_.get(resp, 'data.assets.moveAsset.responseResult.succeeded', false)) {
-          await this.refetchFolders()
+          await this.$apollo.queries.folders.refetch()
           await this.$apollo.queries.assets.refetch()
           this.$store.commit('showNotification', {
             message: '已成功移动。',
@@ -588,6 +568,7 @@ export default {
         })
         if (_.get(resp, 'data.assets.deleteAsset.responseResult.succeeded', false)) {
           this.currentFileId = null
+          await this.$apollo.queries.folders.refetch()
           await this.$apollo.queries.assets.refetch()
           this.$store.commit('showNotification', {
             message: this.$t('editor:assets.deleteSuccess'),
@@ -643,9 +624,6 @@ export default {
       },
       throttle: 1000,
       fetchPolicy: 'network-only',
-      skip() {
-        return this.newlyCreatedDirs.includes(this.currentDir)
-      },
       update: (data) => data.assets.list,
       watchLoading(isLoading) {
         this.loading = isLoading
