@@ -43,8 +43,8 @@
                       span(:key='i') {{folder}}
                       span.mx-1 /
                 .body-2(v-else) / #[em (根目录)]
-              template(v-if='folders[currentDir] && folders[currentDir].length > 0 || currentDir !== "/"')
-                v-btn.is-icon.mx-1(:color='$vuetify.theme.dark ? `grey lighten-1` : `grey darken-2`', outlined, :dark='currentDir !== "/"', @click='upFolder()', :disabled='currentDir === "/"')
+              template(v-if='folders[currentDir] && folders[currentDir].length > 0 || currentDir !== ""')
+                v-btn.is-icon.mx-1(:color='$vuetify.theme.dark ? `grey lighten-1` : `grey darken-2`', outlined, :dark='currentDir !== ""', @click='upFolder()', :disabled='currentDir === ""')
                   v-icon mdi-folder-upload
                 v-btn.btn-normalcase.mx-1(v-for='(folder, i) of folders[currentDir]', :key='i', depressed,  color='grey darken-2', dark, @click='gotoFolder(pathJoin(currentDir, folder))')
                   v-icon(left) mdi-folder
@@ -327,8 +327,8 @@ export default {
       return Math.ceil(this.assets.length / 15)
     },
     folderTree() {
-      if (this.currentDir === '/') return []
-      return this.currentDir.slice(1).split('/')
+      if (this.currentDir === '') return []
+      return this.currentDir.split('/')
     },
     headers() {
       return _.compact([
@@ -383,7 +383,7 @@ export default {
     currentDir(newValue, oldValue) {
       let corrected = newValue
       if (corrected.endsWith('/')) corrected = corrected.slice(0, -1)
-      if (!corrected.startsWith('/')) corrected = '/' + corrected
+      if (corrected.startsWith('/')) corrected = corrected.slice(1)
       if (corrected !== newValue) this.currentDir = corrected
     }
   },
@@ -474,16 +474,16 @@ export default {
     async refetchFolders() {
       await this.$apollo.queries.folders.refetch()
       this.newlyCreatedDirs.forEach(dir => {
-        dir = dir || '/'
-        if (dir === '/') return
+        dir = dir || ''
+        if (dir === '') return
         if (dir.endsWith('/')) dir = dir.slice(0, -1)
         if (dir.startsWith('/')) dir = dir.slice(1)
         const segments = dir.split('/')
-        let parentPath = '/'
+        let parentPath = ''
         for (const segment of segments) {
           if (!this.folders[parentPath]) this.folders[parentPath] = []
           if (!this.folders[parentPath].includes(segment)) this.folders[parentPath].push(segment)
-          parentPath = parentPath === '/' ? `/${segment}` : `${parentPath}/${segment}`
+          parentPath = `${parentPath}/${segment}`
         }
       })
     },
@@ -494,7 +494,7 @@ export default {
     },
     upFolder() {
       const parentFolder = this.folderTree.slice(0, -1).join('/')
-      this.gotoFolder(parentFolder ? parentFolder : '/')
+      this.gotoFolder(parentFolder ? parentFolder : '')
     },
     async createFolder() {
       const newDir = this.pathJoin(this.currentDir, this.newFolderName)
@@ -518,7 +518,7 @@ export default {
       this.moveAssetLoading = true
       let dir = this.moveAssetDir
       if (dir.endsWith('/')) dir = dir.slice(0, -1)
-      if (!dir.startsWith('/')) dir = '/' + dir
+      if (dir.startsWith('/')) dir = dir.slice(1)
       try {
         const resp = await this.$apollo.mutate({
           mutation: moveAssetMutation,
@@ -614,16 +614,16 @@ export default {
       update: (data) => {
         const list = data.assets.folders || []
         return list.reduce((acc, dir) => {
-          dir = dir || '/'
-          if (dir === '/') return acc
+          dir = dir || ''
+          if (dir === '') return acc
           if (dir.endsWith('/')) dir = dir.slice(0, -1)
           if (dir.startsWith('/')) dir = dir.slice(1)
           const segments = dir.split('/')
-          let parentPath = '/'
+          let parentPath = ''
           for (const segment of segments) {
             if (!acc[parentPath]) acc[parentPath] = []
             if (!acc[parentPath].includes(segment)) acc[parentPath].push(segment)
-            parentPath = parentPath === '/' ? `/${segment}` : `${parentPath}/${segment}`
+            parentPath = `${parentPath}/${segment}`
           }
           return acc
         }, {})

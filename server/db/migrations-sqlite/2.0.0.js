@@ -21,7 +21,7 @@ exports.up = knex => {
       table.json('metadata')
       table.string('createdAt').notNullable()
       table.string('updatedAt').notNullable()
-      table.string('dir').notNullable().defaultTo('/')
+      table.string('dir').notNullable().defaultTo('')
 
       table.integer('authorId').unsigned().references('id').inTable('users')
     })

@@ -67,9 +67,8 @@ module.exports = class Asset extends Model {
   }
 
   static correctDir(dir) {
-    if (dir === '') dir = '/'
     if (dir.endsWith('/')) dir = dir.slice(0, -1)
-    if (!dir.startsWith('/')) dir = '/' + dir
+    if (dir.startsWith('/')) dir = dir.slice(1)
     dir = dir.toLowerCase().replace(/[\s,;#]+/g, '_')
     return dir
   }

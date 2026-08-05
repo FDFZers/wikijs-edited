@@ -44,11 +44,11 @@ router.post('/u', (req, res, next) => {
   }
 
   // Get dir
-  let dir = '/'
+  let dir = ''
   try {
     const dirRaw = _.get(req, 'body.mediaUpload', false)
     if (dirRaw) {
-      dir = _.get(JSON.parse(dirRaw), 'dir', null)?.trim() ?? '/'
+      dir = _.get(JSON.parse(dirRaw), 'dir', null)?.trim() ?? ''
       dir = WIKI.models.assets.correctDir(dir)
     } else {
       throw new Error('Missing File Metadata')
@@ -65,7 +65,7 @@ router.post('/u', (req, res, next) => {
 
   // Check if user can upload at path
   const assetPath = path.join(dir, `${fileMeta.originalname}`)
-  if (!WIKI.auth.checkAccess(req.user, ['write:assets'], { path: assetPath.slice(1) })) {
+  if (!WIKI.auth.checkAccess(req.user, ['write:assets'], { path: assetPath })) {
     return res.status(403).json({
       succeeded: false,
       message: 'You are not authorized to upload files to this folder.'
