@@ -1,78 +1,55 @@
-variables:
-  - &base_dev_version "2.5.314"
-  - &compose_file "/opt/1panel/apps/wikijs/ffwiki/docker-compose.yml"
-
 when:
   branch: main
-  event:
-    - deployment
-    - manual
+  event: [push, manual]
 
 steps:
   set-version:
-    image: alpine:3.22
+    image: alpine
     commands:
       - |
-        export REL_VERSION="${BASE_DEV_VERSION}-edited.${CI_PIPELINE_NUMBER}"
-
+        REL_VERSION="2.5.314-edited.${CI_PIPELINE_NUMBER}"
+        echo "REL_VERSION=$REL_VERSION" >> .env
         apk add --no-cache jq
-        jq \
-          --arg version "$REL_VERSION" \
-          '.dev = false | .version = $version' \
-          package.json > package.json.tmp
-
-        mv package.json.tmp package.json
+        mv package.json pkg-temp.json
+        jq --arg vs "$REL_VERSION" -r '. + {dev:false, version:$vs}' pkg-temp.json > package.json
+        rm pkg-temp.json
         cat package.json
-    environment:
-      BASE_DEV_VERSION: *base_dev_version
 
   build:
-    image: docker:cli
+    image: docker
     privileged: true
-    depends_on:
-      - set-version
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-    environment:
-      BASE_DEV_VERSION: *base_dev_version
-      DOCKER_BUILDKIT: 1
     commands:
       - |
-        export REL_VERSION="${BASE_DEV_VERSION}-edited.${CI_PIPELINE_NUMBER}"
+        set -a
+        . .env
+        set +a
 
         docker build \
-          --pull \
-          --progress=plain \
           -t fdfzers/wikijs-edited:latest \
           -t fdfzers/wikijs-edited:${REL_VERSION} \
           -f Dockerfile .
-
-        docker image inspect fdfzers/wikijs-edited:${REL_VERSION}
+        docker images fdfzers/wikijs-edited
 
   deploy:
-    image: docker:cli
-    depends_on:
-      - build
+    image: docker
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-    environment:
-      BASE_DEV_VERSION: *base_dev_version
-      COMPOSE_FILE: *compose_file
     commands:
       - |
+        set -a
+        . .env
+        set +a
+
+        COMPOSE_FILE="/opt/1panel/apps/wikijs/ffwiki/docker-compose.yml"
         IMAGE_NAME="fdfzers/wikijs-edited:${REL_VERSION}"
 
-        sed -Ei "s|^[[:space:]]*image:.*|    image: ${IMAGE_NAME}|" "$COMPOSE_FILE"
+        sed -i "s|image:.*|image: ${IMAGE_NAME}|" $COMPOSE_FILE
 
-        cd "$(dirname "$COMPOSE_FILE")"
-
+        cd $(dirname $COMPOSE_FILE)
+        docker compose pull 2>/dev/null || true
         docker compose up -d --force-recreate
-
         docker compose ps
 
-        if ! docker compose ps | grep -q "Up"; then
-          docker compose logs --tail=200
-          exit 1
-        fi
-
-        docker compose logs --tail=50
+        docker compose logs --tail=20
