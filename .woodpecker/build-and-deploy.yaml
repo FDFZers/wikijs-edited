@@ -8,7 +8,7 @@ steps:
     commands:
       - |
         REL_VERSION="2.5.314-edited.${CI_PIPELINE_NUMBER}"
-        echo "REL_VERSION=$REL_VERSION" >> .env
+        echo "REL_VERSION=$REL_VERSION" > .env
         apk add --no-cache jq
         mv package.json pkg-temp.json
         jq --arg vs "$REL_VERSION" -r '. + {dev:false, version:$vs}' pkg-temp.json > package.json
@@ -22,13 +22,11 @@ steps:
       - /var/run/docker.sock:/var/run/docker.sock
     commands:
       - |
-        set -a
         . .env
-        set +a
 
         docker build \
           -t fdfzers/wikijs-edited:latest \
-          -t fdfzers/wikijs-edited:${REL_VERSION} \
+          -t fdfzers/wikijs-edited:$REL_VERSION \
           -f Dockerfile .
         docker images fdfzers/wikijs-edited
 
@@ -38,14 +36,12 @@ steps:
       - /var/run/docker.sock:/var/run/docker.sock
     commands:
       - |
-        set -a
         . .env
-        set +a
 
         COMPOSE_FILE="/opt/1panel/apps/wikijs/ffwiki/docker-compose.yml"
-        IMAGE_NAME="fdfzers/wikijs-edited:${REL_VERSION}"
+        IMAGE_NAME="fdfzers/wikijs-edited:$REL_VERSION"
 
-        sed -i "s|image:.*|image: ${IMAGE_NAME}|" $COMPOSE_FILE
+        sed -i "s|image:.*|image: $IMAGE_NAME|" $COMPOSE_FILE
 
         cd $(dirname $COMPOSE_FILE)
         docker compose pull 2>/dev/null || true
