@@ -1,0 +1,59 @@
+name: Build and Deploy
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    permissions:
+      packages: write
+
+    steps:
+    - uses: actions/checkout@v6
+
+    - name: Disable DEV Flag + Set Version
+      run: |
+        echo "REL_VERSION=2.5.314-edited.$GITHUB_RUN_NUMBER" >> $GITHUB_ENV
+        sudo apt-get install jq -y
+        mv package.json pkg-temp.json
+        jq --arg vs "$REL_VERSION" -r '. + {dev:false, version:$vs}' pkg-temp.json > package.json
+        rm pkg-temp.json
+        cat package.json
+
+    - name: Login to GitHub Container Registry
+      uses: docker/login-action@v4
+      with:
+        registry: ghcr.io
+        username: ${{ github.repository_owner }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Build and push Docker images
+      uses: docker/build-push-action@v7
+      env:
+        DOCKER_BUILD_SUMMARY: false
+      with:
+        context: .
+        file: Dockerfile
+        push: true
+        tags: |
+          ghcr.io/fdfzers/wikijs-edited:latest
+          ghcr.io/fdfzers/wikijs-edited:${{ env.REL_VERSION }}
+
+    - name: Trigger Woodpecker Deployment
+      run: |
+        curl -X POST \
+          "https://ci.fdfz.top/api/repos/1/pipelines" \
+          -H "Authorization: Bearer ${{ secrets.WOODPECKER_TOKEN }}" \
+          -H "Content-Type: application/json" \
+          -d '{
+            "branch": "main",
+            "variables": {
+              "IMAGE_NAME": "ghcr.io/fdfzers/wikijs-edited:${{ env.REL_VERSION }}"
+            }
+          }'

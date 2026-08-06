@@ -1,0 +1,23 @@
+when:
+  branch: main
+  event: [ manual ]
+
+steps:
+  deploy:
+    image: docker
+    environment:
+      COMPOSE_DIR: /opt/1panel/apps/wikijs/ffwiki
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ${COMPOSE_DIR}:${CI_WORKSPACE}/compose
+    commands:
+      - |
+        docker pull ${IMAGE_NAME}
+
+        cd compose
+        sed -i "s|image:.*|image: ${IMAGE_NAME}|" docker-compose.yml
+        docker compose pull 2>/dev/null || true
+        docker compose up -d --force-recreate
+        docker compose ps
+
+        docker compose logs --tail=20
