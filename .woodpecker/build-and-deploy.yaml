@@ -14,6 +14,7 @@ steps:
       - apk add --no-cache jq
       - |
         REL_VERSION="${BASE_DEV_VERSION}-edited.${CI_PIPELINE_NUMBER}"
+        echo "REL_VERSION=$REL_VERSION" >> .env
         mv package.json pkg-temp.json
         jq --arg vs "$REL_VERSION" -r '. + {dev:false, version:$vs}' pkg-temp.json > package.json
         rm pkg-temp.json
@@ -50,7 +51,7 @@ steps:
         set +a
 
         COMPOSE_FILE="/opt/1panel/apps/wikijs/ffwiki/docker-compose.yml"
-        IMAGE_NAME="fdfzers/wikijs-edited:${IMAGE_TAG}"
+        IMAGE_NAME="fdfzers/wikijs-edited:${REL_VERSION}"
 
         # 用 sed 替换 image 字段
         sed -i "s|image:.*|image: ${IMAGE_NAME}|" $COMPOSE_FILE
