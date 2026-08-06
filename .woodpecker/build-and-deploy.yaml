@@ -1,6 +1,6 @@
 # .woodpecker.yml
 variables:
-  - &base_dev_version "2.5.314-edited"
+  - &base_dev_version "2.5.314"
 
 when:
   branch: main
@@ -13,13 +13,9 @@ steps:
     commands:
       - apk add --no-cache jq
       - |
-        REL_VERSION="v${BASE_DEV_VERSION}-dev.${CI_PIPELINE_NUMBER}"
-        REL_VERSION_STRICT="${BASE_DEV_VERSION}-dev.${CI_PIPELINE_NUMBER}"
-        echo "Using version: $REL_VERSION"
-        echo "REL_VERSION=$REL_VERSION" >> .env
-        echo "REL_VERSION_STRICT=$REL_VERSION_STRICT" >> .env
+        REL_VERSION="${BASE_DEV_VERSION}-edited.${CI_PIPELINE_NUMBER}"
         mv package.json pkg-temp.json
-        jq --arg vs "$REL_VERSION_STRICT" -r '. + {dev:false, version:$vs}' pkg-temp.json > package.json
+        jq --arg vs "$REL_VERSION" -r '. + {dev:false, version:$vs}' pkg-temp.json > package.json
         rm pkg-temp.json
         cat package.json
     environment:
@@ -33,13 +29,14 @@ steps:
       - /var/run/docker.sock:/var/run/docker.sock
     commands:
       - |
-        . .env
-        echo "Building image: fdfzers/wikijs-edited:${REL_VERSION_STRICT}"
+        set -a
+        . ./.env
+        set +a
+
         docker build \
           -t fdfzers/wikijs-edited:latest \
-          -t fdfzers/wikijs-edited:${REL_VERSION_STRICT} \
+          -t fdfzers/wikijs-edited:${REL_VERSION} \
           -f Dockerfile .
-        echo "IMAGE_TAG=${REL_VERSION_STRICT}" >> .env
         docker images fdfzers/wikijs-edited
 
   deploy:
@@ -48,7 +45,10 @@ steps:
       - /var/run/docker.sock:/var/run/docker.sock
     commands:
       - |
-        . .env
+        set -a
+        . ./.env
+        set +a
+
         COMPOSE_FILE="/opt/1panel/apps/wikijs/ffwiki/docker-compose.yml"
         IMAGE_NAME="fdfzers/wikijs-edited:${IMAGE_TAG}"
 
@@ -61,5 +61,4 @@ steps:
         docker compose up -d --force-recreate
         docker compose ps
 
-        echo "=== 部署完成 ==="
         docker compose logs --tail=20
