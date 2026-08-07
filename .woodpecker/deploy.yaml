@@ -7,11 +7,14 @@ steps:
     image: docker
     environment:
       COMPOSE_DIR: /opt/1panel/apps/wikijs/ffwiki
+      GHCR_TOKEN:
+        from_secret: GHCR_TOKEN
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - ${COMPOSE_DIR}:${CI_WORKSPACE}/compose
     commands:
       - |
+        echo "${GHCR_TOKEN}" | docker login ghcr.io -u Tigercrl --password-stdin
         docker pull ${IMAGE_NAME}
 
         cd compose
