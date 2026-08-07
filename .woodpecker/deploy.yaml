@@ -14,7 +14,7 @@ steps:
       - ${COMPOSE_DIR}:${CI_WORKSPACE}/compose
     commands:
       - |
-        echo "${GHCR_TOKEN}" | docker login ghcr.io -u Tigercrl --password-stdin
+        echo "$GHCR_TOKEN" | docker login ghcr.io -u Tigercrl --password-stdin
         docker pull ${IMAGE_NAME}
 
         cd compose
