@@ -11,16 +11,16 @@ steps:
         from_secret: GHCR_TOKEN
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - ${COMPOSE_DIR}:${CI_WORKSPACE}/compose
+      - ${COMPOSE_DIR}:${COMPOSE_DIR}
     commands:
       - |
         echo "$GHCR_TOKEN" | docker login ghcr.io -u Tigercrl --password-stdin
         docker pull ${IMAGE_NAME}
 
-        cd compose
+        cd ${COMPOSE_DIR}
         sed -i "s|image:.*|image: ${IMAGE_NAME}|" docker-compose.yml
-        docker compose pull 2>/dev/null || true
-        docker compose up -d --force-recreate
+        docker compose pull
+        docker compose up -d --force-recreate --remove-orphans
         docker compose ps
 
         docker compose logs --tail=20

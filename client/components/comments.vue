@@ -77,7 +77,7 @@
         :id='`comment-post-id-` + cm.id'
       )
         template(v-slot:icon)
-          v-avatar(color='blue-grey')
+          v-avatar(:color='cm.authorId === currentUserId ? "blue" : "blue-grey"')
             //- v-img(src='http://i.pravatar.cc/64')
             span.white--text.title {{cm.initials}}
         v-card.elevation-1
